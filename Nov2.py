@@ -1,5 +1,5 @@
 #Demonstration of break keyword
-''''no_of_chocolates=20
+no_of_chocolates=20
 chocolates_req=int(input("How many chocolates you want beta !!!"))
 i=1
 while(i<=chocolates_req):
@@ -7,7 +7,7 @@ while(i<=chocolates_req):
         print("Sorry beta out of stock\nBye")
         break
     print("Chocolate:",i)
-    i+=1'''
+    i+=1
 
 #Demonstration of continue keyword
 #step parameter
