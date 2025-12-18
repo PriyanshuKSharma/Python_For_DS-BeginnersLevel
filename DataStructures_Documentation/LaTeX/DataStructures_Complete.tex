@@ -1,0 +1,292 @@
+\documentclass[12pt,a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{titlesec}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Python Data Structures - Complete Guide}
+\lfoot{Python for Data Science}
+\rfoot{\thepage}
+
+% Python code styling
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10}
+}
+
+% Chapter styling
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+\title{\textbf{Python Data Structures\\Complete Guide}}
+\author{Python for Data Science - Beginner's Level\\Taught by Mohit Sir}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+This comprehensive guide covers all major Python data structures essential for data science and programming. Each chapter provides detailed explanations, practical examples, and best practices.
+
+\textbf{What You'll Learn:}
+\begin{itemize}
+    \item Core Python data structures: Lists, Tuples, Dictionaries, Sets, Strings
+    \item Scientific computing with NumPy arrays
+    \item Data analysis and manipulation with Pandas
+    \item Performance considerations and optimization techniques
+    \item Real-world applications and use cases
+\end{itemize}
+
+\textbf{Prerequisites:}
+\begin{itemize}
+    \item Basic Python syntax knowledge
+    \item Understanding of programming concepts
+    \item Python 3.x installed on your system
+\end{itemize}
+
+\chapter{Introduction to Python Data Structures}
+
+Python provides several built-in data structures that are essential for effective programming and data science. Understanding when and how to use each structure is crucial for writing efficient code.
+
+\section{Overview of Data Structures}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|l|}
+\hline
+\textbf{Structure} & \textbf{Ordered} & \textbf{Mutable} & \textbf{Duplicates} & \textbf{Use Case} \\
+\hline
+List & \checkmark & \checkmark & \checkmark & Dynamic collections \\
+Tuple & \checkmark & $\times$ & \checkmark & Immutable sequences \\
+Dictionary & \checkmark* & \checkmark & Keys: $\times$ & Key-value mapping \\
+Set & $\times$ & \checkmark & $\times$ & Unique collections \\
+String & \checkmark & $\times$ & \checkmark & Text processing \\
+NumPy Array & \checkmark & \checkmark & \checkmark & Numerical computing \\
+Pandas DataFrame & \checkmark & \checkmark & \checkmark & Data analysis \\
+\hline
+\end{tabular}
+\caption{Python Data Structures Comparison}
+\end{table}
+
+*Ordered since Python 3.7+
+
+\section{Performance Considerations}
+
+Different data structures have different performance characteristics:
+
+\begin{itemize}
+    \item \textbf{Lists}: O(1) append, O(n) search, O(n) insert at beginning
+    \item \textbf{Tuples}: O(1) access, O(n) search, immutable (no modifications)
+    \item \textbf{Dictionaries}: O(1) average access/insert/delete, O(n) worst case
+    \item \textbf{Sets}: O(1) average membership testing, O(n) worst case
+    \item \textbf{NumPy Arrays}: Vectorized operations, memory efficient
+    \item \textbf{Pandas}: Optimized for data analysis workflows
+\end{itemize}
+
+\chapter{Lists}
+\input{Lists}
+
+\chapter{Tuples}
+\input{Tuples}
+
+\chapter{Dictionaries}
+\input{Dictionaries}
+
+\chapter{Sets}
+\input{Sets}
+
+\chapter{NumPy Arrays}
+\input{NumPy}
+
+\chapter{Pandas DataFrames}
+\input{Pandas}
+
+\chapter{Best Practices and Guidelines}
+
+\section{Choosing the Right Data Structure}
+
+\subsection{When to Use Lists}
+\begin{itemize}
+    \item Need ordered, mutable collections
+    \item Frequent appending of elements
+    \item Need to maintain insertion order
+    \item Working with sequences of related items
+\end{itemize}
+
+\subsection{When to Use Tuples}
+\begin{itemize}
+    \item Need immutable sequences
+    \item Returning multiple values from functions
+    \item Using as dictionary keys
+    \item Representing fixed collections (coordinates, RGB values)
+\end{itemize}
+
+\subsection{When to Use Dictionaries}
+\begin{itemize}
+    \item Need key-value associations
+    \item Fast lookups by key
+    \item Representing structured data
+    \item Caching and memoization
+\end{itemize}
+
+\subsection{When to Use Sets}
+\begin{itemize}
+    \item Need unique collections
+    \item Fast membership testing
+    \item Mathematical set operations
+    \item Removing duplicates
+\end{itemize}
+
+\subsection{When to Use NumPy}
+\begin{itemize}
+    \item Numerical computations
+    \item Large arrays of homogeneous data
+    \item Mathematical operations on arrays
+    \item Scientific computing
+\end{itemize}
+
+\subsection{When to Use Pandas}
+\begin{itemize}
+    \item Data analysis and manipulation
+    \item Working with structured/tabular data
+    \item Data cleaning and preprocessing
+    \item Time series analysis
+\end{itemize}
+
+\section{Performance Optimization Tips}
+
+\begin{enumerate}
+    \item \textbf{Use appropriate data types}: Choose the most suitable data structure for your use case
+    \item \textbf{Leverage built-in functions}: Use built-in methods and functions when possible
+    \item \textbf{Avoid premature optimization}: Profile your code before optimizing
+    \item \textbf{Use list comprehensions}: More efficient than traditional loops for simple operations
+    \item \textbf{Consider memory usage}: Be mindful of memory consumption with large datasets
+    \item \textbf{Use vectorized operations}: Prefer NumPy/Pandas vectorized operations over loops
+\end{enumerate}
+
+\section{Common Pitfalls to Avoid}
+
+\begin{enumerate}
+    \item \textbf{Mutable default arguments}: Don't use mutable objects as default function arguments
+    \item \textbf{Modifying collections during iteration}: Create copies or iterate backwards when modifying
+    \item \textbf{Inefficient string concatenation}: Use join() for multiple string concatenations
+    \item \textbf{Not handling missing data}: Always check for and handle missing/null values
+    \item \textbf{Ignoring data types}: Be explicit about data types, especially in NumPy/Pandas
+\end{enumerate}
+
+\chapter{Conclusion}
+
+Mastering Python data structures is essential for effective programming and data science. Each structure has its strengths and optimal use cases:
+
+\begin{itemize}
+    \item \textbf{Lists} provide flexibility and mutability for dynamic collections
+    \item \textbf{Tuples} offer immutability and memory efficiency for fixed data
+    \item \textbf{Dictionaries} enable fast key-based lookups and data organization
+    \item \textbf{Sets} handle unique collections and mathematical operations efficiently
+    \item \textbf{NumPy} powers scientific computing with efficient array operations
+    \item \textbf{Pandas} streamlines data analysis and manipulation workflows
+\end{itemize}
+
+Continue practicing with these data structures, experiment with different approaches, and always consider the specific requirements of your problem when choosing the appropriate structure.
+
+\textbf{Next Steps:}
+\begin{itemize}
+    \item Practice with real datasets
+    \item Explore advanced features of each library
+    \item Learn about specialized data structures in the collections module
+    \item Study algorithm complexity and optimization techniques
+    \item Apply these concepts to data science projects
+\end{itemize}
+
+\appendix
+
+\chapter{Quick Reference}
+
+\section{List Methods}
+\begin{lstlisting}
+# Common list methods
+list.append(item)       # Add item to end
+list.insert(i, item)    # Insert item at position i
+list.remove(item)       # Remove first occurrence
+list.pop(i)            # Remove and return item at position i
+list.index(item)       # Find index of item
+list.count(item)       # Count occurrences
+list.sort()            # Sort in place
+list.reverse()         # Reverse in place
+\end{lstlisting}
+
+\section{Dictionary Methods}
+\begin{lstlisting}
+# Common dictionary methods
+dict.get(key, default)     # Safe key access
+dict.keys()               # Get all keys
+dict.values()             # Get all values
+dict.items()              # Get key-value pairs
+dict.pop(key, default)    # Remove and return value
+dict.update(other)        # Update with another dict
+dict.setdefault(key, val) # Set default if key missing
+\end{lstlisting}
+
+\section{Set Operations}
+\begin{lstlisting}
+# Set operations
+set1.union(set2)              # set1 | set2
+set1.intersection(set2)       # set1 & set2
+set1.difference(set2)         # set1 - set2
+set1.symmetric_difference(set2) # set1 ^ set2
+set1.issubset(set2)          # set1 <= set2
+set1.issuperset(set2)        # set1 >= set2
+\end{lstlisting}
+
+\section{NumPy Functions}
+\begin{lstlisting}
+# Essential NumPy functions
+np.array(data)           # Create array
+np.zeros(shape)          # Array of zeros
+np.ones(shape)           # Array of ones
+np.arange(start, stop)   # Range array
+np.linspace(start, stop, num) # Linear spacing
+np.reshape(arr, shape)   # Reshape array
+np.sum(arr, axis)        # Sum along axis
+np.mean(arr, axis)       # Mean along axis
+\end{lstlisting}
+
+\section{Pandas Operations}
+\begin{lstlisting}
+# Essential Pandas operations
+pd.DataFrame(data)       # Create DataFrame
+df.head(n)              # First n rows
+df.tail(n)              # Last n rows
+df.info()               # DataFrame info
+df.describe()           # Summary statistics
+df.groupby(column)      # Group by column
+df.merge(other)         # Merge DataFrames
+df.to_csv(filename)     # Export to CSV
+\end{lstlisting}
+
+\end{document}
