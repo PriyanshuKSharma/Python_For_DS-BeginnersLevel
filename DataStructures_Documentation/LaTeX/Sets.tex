@@ -1,0 +1,373 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Python Sets - Complete Guide}
+\lfoot{Python for Data Science}
+\rfoot{\thepage}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10}
+}
+
+\title{\textbf{Python Sets - Complete Guide}}
+\author{Python for Data Science - Beginner's Level}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Overview}
+
+Sets are \textbf{unordered}, \textbf{mutable} collections of \textbf{unique} elements. They are ideal for membership testing, removing duplicates, and mathematical set operations like union, intersection, and difference.
+
+\section{Set Creation}
+
+\subsection{Basic Creation}
+
+\begin{lstlisting}
+# Empty set (note: {} creates an empty dict, not set)
+empty_set = set()
+
+# Set with initial values
+numbers = {1, 2, 3, 4, 5}
+mixed_set = {1, "hello", 3.14, True}
+
+# Note: duplicates are automatically removed
+duplicate_values = {1, 2, 2, 3, 3, 4}
+print(duplicate_values)  # {1, 2, 3, 4}
+
+# Set from string (each character becomes an element)
+char_set = set("hello")
+print(char_set)  # {'h', 'e', 'l', 'o'}
+\end{lstlisting}
+
+\subsection{Using set() Constructor}
+
+\begin{lstlisting}
+# From list
+from_list = set([1, 2, 3, 2, 1])  # {1, 2, 3}
+
+# From tuple
+from_tuple = set((1, 2, 3, 2, 1))  # {1, 2, 3}
+
+# From string
+from_string = set("programming")  # {'p', 'r', 'o', 'g', 'a', 'm', 'i', 'n'}
+
+# From range
+from_range = set(range(5))  # {0, 1, 2, 3, 4}
+\end{lstlisting}
+
+\subsection{Set Comprehension}
+
+\begin{lstlisting}
+# Basic comprehension
+squares = {x**2 for x in range(6)}  # {0, 1, 4, 9, 16, 25}
+
+# With condition
+even_squares = {x**2 for x in range(10) if x % 2 == 0}
+
+# From existing iterable
+words = ["apple", "banana", "apple", "cherry"]
+unique_lengths = {len(word) for word in words}  # {5, 6}
+\end{lstlisting}
+
+\section{Adding and Removing Elements}
+
+\subsection{Adding Elements}
+
+\begin{lstlisting}
+fruits = {"apple", "banana"}
+
+# add() - Add single element
+fruits.add("cherry")
+
+# Adding existing element (no effect)
+fruits.add("apple")  # No change
+
+# update() - Add multiple elements
+fruits.update(["orange", "grape"])
+
+# Using |= operator (union update)
+more_fruits = {"pineapple", "strawberry"}
+fruits |= more_fruits
+\end{lstlisting}
+
+\subsection{Removing Elements}
+
+\begin{lstlisting}
+fruits = {"apple", "banana", "cherry", "orange", "grape"}
+
+# remove() - Remove element (raises KeyError if not found)
+fruits.remove("banana")
+
+# discard() - Remove element (no error if not found)
+fruits.discard("cherry")
+fruits.discard("mango")  # No error
+
+# pop() - Remove and return arbitrary element
+removed = fruits.pop()
+
+# clear() - Remove all elements
+fruits.clear()
+\end{lstlisting}
+
+\section{Set Operations and Methods}
+
+\subsection{Membership Testing}
+
+\begin{lstlisting}
+numbers = {1, 2, 3, 4, 5}
+
+# in operator (very fast - O(1) average case)
+print(3 in numbers)      # True
+print(6 in numbers)      # False
+print(3 not in numbers)  # False
+\end{lstlisting}
+
+\subsection{Mathematical Set Operations}
+
+\subsubsection{Union Operations}
+
+\begin{lstlisting}
+set1 = {1, 2, 3, 4}
+set2 = {3, 4, 5, 6}
+
+# union() method
+union_result = set1.union(set2)  # {1, 2, 3, 4, 5, 6}
+
+# | operator
+union_operator = set1 | set2  # {1, 2, 3, 4, 5, 6}
+
+# In-place union
+set1_copy = set1.copy()
+set1_copy.update(set2)  # or set1_copy |= set2
+\end{lstlisting}
+
+\subsubsection{Intersection Operations}
+
+\begin{lstlisting}
+set1 = {1, 2, 3, 4, 5}
+set2 = {3, 4, 5, 6, 7}
+
+# intersection() method
+intersection_result = set1.intersection(set2)  # {3, 4, 5}
+
+# & operator
+intersection_operator = set1 & set2  # {3, 4, 5}
+
+# In-place intersection
+set1_copy = set1.copy()
+set1_copy.intersection_update(set2)  # or set1_copy &= set2
+\end{lstlisting}
+
+\subsubsection{Difference Operations}
+
+\begin{lstlisting}
+set1 = {1, 2, 3, 4, 5}
+set2 = {3, 4, 5, 6, 7}
+
+# difference() method (elements in set1 but not in set2)
+difference_result = set1.difference(set2)  # {1, 2}
+
+# - operator
+difference_operator = set1 - set2  # {1, 2}
+
+# Reverse difference
+reverse_diff = set2 - set1  # {6, 7}
+\end{lstlisting}
+
+\subsubsection{Symmetric Difference Operations}
+
+\begin{lstlisting}
+set1 = {1, 2, 3, 4}
+set2 = {3, 4, 5, 6}
+
+# symmetric_difference() method (elements in either set, but not both)
+sym_diff_result = set1.symmetric_difference(set2)  # {1, 2, 5, 6}
+
+# ^ operator
+sym_diff_operator = set1 ^ set2  # {1, 2, 5, 6}
+\end{lstlisting}
+
+\section{Set Relationship Testing}
+
+\begin{lstlisting}
+set1 = {1, 2, 3}
+set2 = {1, 2, 3, 4, 5}
+set3 = {4, 5, 6}
+
+# issubset() - Check if set is subset of another
+print(set1.issubset(set2))  # True
+print(set1 <= set2)         # True (alternative syntax)
+
+# issuperset() - Check if set is superset of another
+print(set2.issuperset(set1))  # True
+print(set2 >= set1)           # True (alternative syntax)
+
+# isdisjoint() - Check if sets have no common elements
+print(set1.isdisjoint(set3))  # True
+\end{lstlisting}
+
+\section{Advanced Set Operations}
+
+\subsection{Frozen Sets}
+
+\begin{lstlisting}
+# Immutable sets - can be used as dictionary keys
+regular_set = {1, 2, 3}
+frozen_set = frozenset([1, 2, 3])
+
+# Frozen sets can be dictionary keys
+dict_with_frozenset_keys = {
+    frozenset([1, 2]): "first",
+    frozenset([3, 4]): "second"
+}
+
+# Frozen sets support all non-mutating operations
+fs1 = frozenset([1, 2, 3])
+fs2 = frozenset([2, 3, 4])
+
+print(fs1 | fs2)  # frozenset({1, 2, 3, 4})
+print(fs1 & fs2)  # frozenset({2, 3})
+\end{lstlisting}
+
+\section{Performance Considerations}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|l|}
+\hline
+\textbf{Operation} & \textbf{Average} & \textbf{Worst} & \textbf{Notes} \\
+\hline
+Add & O(1) & O(n) & Hash collision \\
+Remove & O(1) & O(n) & Hash collision \\
+Search (in) & O(1) & O(n) & Hash collision \\
+Union & O(len(s1) + len(s2)) & O(len(s1) * len(s2)) & \\
+Intersection & O(min(len(s1), len(s2))) & O(len(s1) * len(s2)) & \\
+\hline
+\end{tabular}
+\caption{Set Operations Time Complexity}
+\end{table}
+
+\section{Set Applications and Use Cases}
+
+\subsection{Removing Duplicates}
+
+\begin{lstlisting}
+# Remove duplicates from list
+numbers = [1, 2, 2, 3, 1, 4, 3, 5]
+unique_numbers = list(set(numbers))
+
+# Preserve order while removing duplicates
+def remove_duplicates_ordered(lst):
+    seen = set()
+    result = []
+    for item in lst:
+        if item not in seen:
+            seen.add(item)
+            result.append(item)
+    return result
+\end{lstlisting}
+
+\subsection{Finding Common Elements}
+
+\begin{lstlisting}
+# Find common elements across multiple lists
+def find_common_elements(*lists):
+    if not lists:
+        return set()
+    
+    common = set(lists[0])
+    for lst in lists[1:]:
+        common &= set(lst)
+    return common
+
+# Test
+list1 = [1, 2, 3, 4, 5]
+list2 = [3, 4, 5, 6, 7]
+list3 = [4, 5, 6, 7, 8]
+
+common = find_common_elements(list1, list2, list3)  # {4, 5}
+\end{lstlisting}
+
+\subsection{Data Validation}
+
+\begin{lstlisting}
+# Validate data against allowed values
+ALLOWED_COLORS = {"red", "green", "blue", "yellow", "orange"}
+ALLOWED_SIZES = {"small", "medium", "large", "xl", "xxl"}
+
+def validate_product(color, size):
+    errors = []
+    
+    if color.lower() not in ALLOWED_COLORS:
+        errors.append(f"Invalid color: {color}")
+    
+    if size.lower() not in ALLOWED_SIZES:
+        errors.append(f"Invalid size: {size}")
+    
+    return errors
+\end{lstlisting}
+
+\section{Common Pitfalls}
+
+\subsection{Mutable Elements in Sets}
+
+\begin{lstlisting}
+# This won't work - lists are mutable and unhashable
+# invalid_set = {[1, 2], [3, 4]}  # TypeError
+
+# Use tuples or frozensets instead
+valid_set = {(1, 2), (3, 4)}
+frozenset_set = {frozenset([1, 2]), frozenset([3, 4])}
+\end{lstlisting}
+
+\subsection{Empty Set Creation}
+
+\begin{lstlisting}
+# Wrong way to create empty set
+empty_dict = {}  # This creates a dictionary, not a set!
+
+# Right way to create empty set
+empty_set = set()
+\end{lstlisting}
+
+\section{Summary}
+
+Sets are powerful Python data structures that provide:
+\begin{itemize}
+    \item \textbf{Uniqueness}: Automatically handle duplicate elimination
+    \item \textbf{Fast membership testing}: O(1) average case lookup
+    \item \textbf{Mathematical operations}: Union, intersection, difference, etc.
+    \item \textbf{Unordered collections}: Focus on membership, not position
+    \item \textbf{Hashable elements only}: Immutable objects as elements
+    \item \textbf{Memory efficiency}: Optimized for unique element storage
+\end{itemize}
+
+Master sets to efficiently handle unique collections and perform mathematical set operations!
+
+\end{document}
