@@ -7,6 +7,7 @@ Welcome to the "Python for Data Science - Beginner's Level" repository! This col
 - **Basic Python Operations**: Introduction to Python syntax, arithmetic operations, and data types.
 - **Sequential Data Types**: Working with lists, tuples, and dictionaries.
 - **Functions and Lambda Expressions**: Understanding how to define and use functions, including lambda expressions.
+- **📚 [Data Structures Documentation](DataStructures_Documentation/)**: Comprehensive guides for all Python data structures with examples and best practices.
 
 ## Getting Started
 
