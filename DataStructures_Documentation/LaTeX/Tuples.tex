@@ -1,0 +1,328 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Python Tuples - Complete Guide}
+\lfoot{Python for Data Science}
+\rfoot{\thepage}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10}
+}
+
+\title{\textbf{Python Tuples - Complete Guide}}
+\author{Python for Data Science - Beginner's Level}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Overview}
+
+Tuples are \textbf{ordered}, \textbf{immutable} (unchangeable), and allow \textbf{duplicate elements}. They are similar to lists but cannot be modified after creation, making them ideal for storing data that shouldn't change.
+
+\section{Tuple Creation}
+
+\subsection{Basic Creation}
+
+\begin{lstlisting}
+# Empty tuple
+empty_tuple = ()
+empty_tuple = tuple()
+
+# Tuple with elements
+numbers = (1, 2, 3, 4, 5)
+mixed_tuple = (1, "hello", 3.14, True)
+
+# Single element tuple (comma is required!)
+single_element = (42,)  # Without comma, it's just parentheses
+single_element = 42,    # Alternative syntax
+
+# Without parentheses (tuple packing)
+coordinates = 10, 20, 30
+
+# Nested tuples
+nested_tuple = ((1, 2), (3, 4), (5, 6))
+\end{lstlisting}
+
+\subsection{Using tuple() Constructor}
+
+\begin{lstlisting}
+# From list
+from_list = tuple([1, 2, 3, 4])  # (1, 2, 3, 4)
+
+# From string
+from_string = tuple("hello")  # ('h', 'e', 'l', 'l', 'o')
+
+# From range
+from_range = tuple(range(5))  # (0, 1, 2, 3, 4)
+\end{lstlisting}
+
+\section{Accessing Elements}
+
+\subsection{Indexing and Slicing}
+
+\begin{lstlisting}
+fruits = ("apple", "banana", "cherry", "date")
+
+# Positive indexing
+print(fruits[0])    # "apple"
+print(fruits[2])    # "cherry"
+
+# Negative indexing
+print(fruits[-1])   # "date"
+print(fruits[-2])   # "cherry"
+
+# Slicing
+numbers = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+print(numbers[2:7])     # (2, 3, 4, 5, 6)
+print(numbers[::-1])    # (9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+\end{lstlisting}
+
+\section{Tuple Methods}
+
+\subsection{Built-in Methods}
+
+\begin{lstlisting}
+fruits = ("apple", "banana", "cherry", "banana", "date")
+
+# count() - Count occurrences of an element
+banana_count = fruits.count("banana")  # 2
+
+# index() - Find first occurrence of an element
+banana_index = fruits.index("banana")  # 1
+
+# index() with start parameter
+banana_index_after = fruits.index("banana", 2)  # 3
+\end{lstlisting}
+
+\subsection{Membership Testing}
+
+\begin{lstlisting}
+fruits = ("apple", "banana", "cherry")
+
+# in operator
+print("apple" in fruits)     # True
+print("grape" in fruits)     # False
+
+# not in operator
+print("grape" not in fruits) # True
+\end{lstlisting}
+
+\section{Tuple Operations}
+
+\subsection{Mathematical Operations}
+
+\begin{lstlisting}
+# Concatenation
+tuple1 = (1, 2, 3)
+tuple2 = (4, 5, 6)
+combined = tuple1 + tuple2  # (1, 2, 3, 4, 5, 6)
+
+# Repetition
+repeated = (1, 2) * 3  # (1, 2, 1, 2, 1, 2)
+
+# Length
+print(len((1, 2, 3, 4, 5)))  # 5
+
+# Min, Max, Sum (for numeric tuples)
+numbers = (3, 1, 4, 1, 5, 9, 2, 6)
+print(min(numbers))  # 1
+print(max(numbers))  # 9
+print(sum(numbers))  # 31
+\end{lstlisting}
+
+\section{Tuple Unpacking}
+
+\subsection{Basic Unpacking}
+
+\begin{lstlisting}
+# Assign tuple elements to variables
+point = (10, 20)
+x, y = point
+print(f"x: {x}, y: {y}")  # x: 10, y: 20
+
+# Multiple assignment
+person = ("Alice", 25, "Engineer")
+name, age, job = person
+\end{lstlisting}
+
+\subsection{Advanced Unpacking}
+
+\begin{lstlisting}
+# Using * for collecting multiple elements
+numbers = (1, 2, 3, 4, 5)
+first, *middle, last = numbers
+print(f"First: {first}")    # First: 1
+print(f"Middle: {middle}")  # Middle: [2, 3, 4]
+print(f"Last: {last}")      # Last: 5
+
+# Swapping variables
+a, b = 10, 20
+a, b = b, a  # Swap values
+\end{lstlisting}
+
+\section{Named Tuples}
+
+\begin{lstlisting}
+from collections import namedtuple
+
+# Define a named tuple class
+Point = namedtuple('Point', ['x', 'y'])
+Person = namedtuple('Person', ['name', 'age', 'city'])
+
+# Create instances
+p1 = Point(10, 20)
+person1 = Person("Alice", 25, "New York")
+
+# Access by name or index
+print(p1.x, p1.y)        # 10 20
+print(person1.name)      # Alice
+
+# Named tuple methods
+point_dict = p1._asdict()  # Convert to dictionary
+p2 = p1._replace(x=30)     # Create new with changed field
+\end{lstlisting}
+
+\section{Performance Considerations}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{Operation} & \textbf{Time Complexity} & \textbf{Notes} \\
+\hline
+Access by index & O(1) & Direct access \\
+Search & O(n) & Linear search \\
+Count & O(n) & Must check all elements \\
+Concatenation & O(n+m) & Creates new tuple \\
+Slicing & O(k) & k is slice length \\
+\hline
+\end{tabular}
+\caption{Tuple Operations Time Complexity}
+\end{table}
+
+\subsection{Memory Efficiency}
+
+Tuples are more memory efficient than lists:
+\begin{itemize}
+    \item Smaller memory footprint
+    \item Faster creation and iteration
+    \item Can be used as dictionary keys (hashable)
+\end{itemize}
+
+\section{Common Use Cases}
+
+\subsection{Coordinates and Points}
+
+\begin{lstlisting}
+# 2D coordinates
+point_2d = (10, 20)
+x, y = point_2d
+
+# 3D coordinates
+point_3d = (10, 20, 30)
+x, y, z = point_3d
+
+# RGB colors
+red = (255, 0, 0)
+green = (0, 255, 0)
+blue = (0, 0, 255)
+\end{lstlisting}
+
+\subsection{Function Return Values}
+
+\begin{lstlisting}
+def get_name_age():
+    """Return multiple values as a tuple"""
+    return "Alice", 25
+
+def calculate_stats(numbers):
+    """Return statistics as a tuple"""
+    return min(numbers), max(numbers), sum(numbers) / len(numbers)
+
+# Usage
+name, age = get_name_age()
+minimum, maximum, average = calculate_stats([1, 2, 3, 4, 5])
+\end{lstlisting}
+
+\subsection{Dictionary Keys}
+
+\begin{lstlisting}
+# Tuples can be dictionary keys (immutable)
+coordinates_data = {
+    (0, 0): "Origin",
+    (1, 0): "Right",
+    (0, 1): "Up",
+    (1, 1): "Diagonal"
+}
+
+print(coordinates_data[(1, 1)])  # "Diagonal"
+\end{lstlisting}
+
+\section{Common Pitfalls}
+
+\subsection{Single Element Tuple}
+
+\begin{lstlisting}
+# Wrong way (creates int, not tuple)
+not_a_tuple = (42)
+print(type(not_a_tuple))  # <class 'int'>
+
+# Right way (comma is required)
+single_tuple = (42,)
+print(type(single_tuple))  # <class 'tuple'>
+\end{lstlisting}
+
+\subsection{Modifying Nested Mutable Objects}
+
+\begin{lstlisting}
+# Tuple is immutable, but contained objects might not be
+tuple_with_list = ([1, 2, 3], "hello")
+
+# This works (modifying the list inside the tuple)
+tuple_with_list[0].append(4)
+print(tuple_with_list)  # ([1, 2, 3, 4], 'hello')
+
+# This doesn't work (trying to replace tuple element)
+# tuple_with_list[0] = [5, 6, 7]  # TypeError
+\end{lstlisting}
+
+\section{Summary}
+
+Tuples are essential Python data structures that provide:
+\begin{itemize}
+    \item \textbf{Immutability}: Cannot be changed after creation
+    \item \textbf{Order}: Maintain insertion order
+    \item \textbf{Hashability}: Can be used as dictionary keys
+    \item \textbf{Memory efficiency}: More compact than lists
+    \item \textbf{Multiple assignment}: Enable elegant unpacking
+    \item \textbf{Data integrity}: Protect data from accidental modification
+\end{itemize}
+
+Use tuples when you need ordered, unchangeable collections of data!
+
+\end{document}
