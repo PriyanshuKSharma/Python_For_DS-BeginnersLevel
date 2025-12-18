@@ -1,0 +1,394 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Python Dictionaries - Complete Guide}
+\lfoot{Python for Data Science}
+\rfoot{\thepage}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10}
+}
+
+\title{\textbf{Python Dictionaries - Complete Guide}}
+\author{Python for Data Science - Beginner's Level}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Overview}
+
+Dictionaries are \textbf{unordered} (Python 3.7+ maintains insertion order), \textbf{mutable}, and store data in \textbf{key-value pairs}. Keys must be \textbf{unique} and \textbf{immutable}, while values can be any data type.
+
+\section{Dictionary Creation}
+
+\subsection{Basic Creation}
+
+\begin{lstlisting}
+# Empty dictionary
+empty_dict = {}
+empty_dict = dict()
+
+# Dictionary with initial values
+student = {
+    "name": "Alice",
+    "age": 20,
+    "grade": "A",
+    "subjects": ["Math", "Physics", "Chemistry"]
+}
+
+# Mixed data types
+mixed_dict = {
+    1: "one",
+    "two": 2,
+    3.0: "three point zero",
+    (4, 5): "tuple key"
+}
+\end{lstlisting}
+
+\subsection{Using dict() Constructor}
+
+\begin{lstlisting}
+# From keyword arguments
+person = dict(name="John", age=30, city="New York")
+
+# From list of tuples
+pairs = [("a", 1), ("b", 2), ("c", 3)]
+from_pairs = dict(pairs)
+
+# From zip
+keys = ["name", "age", "city"]
+values = ["Alice", 25, "Boston"]
+from_zip = dict(zip(keys, values))
+\end{lstlisting}
+
+\subsection{Dictionary Comprehension}
+
+\begin{lstlisting}
+# Basic comprehension
+squares = {x: x**2 for x in range(6)}
+
+# With condition
+even_squares = {x: x**2 for x in range(10) if x % 2 == 0}
+
+# From existing dictionary
+original = {"a": 1, "b": 2, "c": 3}
+doubled = {k: v*2 for k, v in original.items()}
+\end{lstlisting}
+
+\section{Accessing Elements}
+
+\subsection{Basic Access}
+
+\begin{lstlisting}
+student = {"name": "Alice", "age": 20, "grade": "A"}
+
+# Direct access (raises KeyError if key doesn't exist)
+print(student["name"])  # "Alice"
+print(student["age"])   # 20
+
+# Safe access with get()
+print(student.get("name"))     # "Alice"
+print(student.get("height"))   # None
+print(student.get("height", "Unknown"))  # "Unknown"
+\end{lstlisting}
+
+\subsection{Advanced Access Methods}
+
+\begin{lstlisting}
+student = {"name": "Alice", "age": 20, "grade": "A"}
+
+# Check if key exists
+print("name" in student)        # True
+print("height" in student)      # False
+
+# Get all keys, values, items
+print(student.keys())    # dict_keys(['name', 'age', 'grade'])
+print(student.values())  # dict_values(['Alice', 20, 'A'])
+print(student.items())   # dict_items([('name', 'Alice'), ...])
+\end{lstlisting}
+
+\section{Modifying Dictionaries}
+
+\subsection{Adding and Updating Elements}
+
+\begin{lstlisting}
+student = {"name": "Alice", "age": 20}
+
+# Add new key-value pair
+student["grade"] = "A"
+student["subjects"] = ["Math", "Physics"]
+
+# Update existing value
+student["age"] = 21
+
+# Update multiple values
+student.update({"grade": "A+", "city": "Boston"})
+
+# Update from another dictionary
+additional_info = {"phone": "123-456-7890", "email": "alice@email.com"}
+student.update(additional_info)
+\end{lstlisting}
+
+\subsection{Removing Elements}
+
+\begin{lstlisting}
+student = {
+    "name": "Alice", 
+    "age": 21, 
+    "grade": "A+", 
+    "city": "Boston",
+    "phone": "123-456-7890"
+}
+
+# pop() - Remove and return value
+age = student.pop("age")
+
+# pop() with default value
+height = student.pop("height", "Not specified")
+
+# popitem() - Remove and return last inserted item
+last_item = student.popitem()
+
+# del statement
+del student["city"]
+
+# clear() - Remove all elements
+student.clear()
+\end{lstlisting}
+
+\section{Dictionary Methods}
+
+\subsection{Comprehensive Method Overview}
+
+\begin{lstlisting}
+data = {"a": 1, "b": 2, "c": 3}
+
+# copy() - Shallow copy
+data_copy = data.copy()
+
+# fromkeys() - Create dictionary with same value for all keys
+keys = ["x", "y", "z"]
+default_dict = dict.fromkeys(keys, 0)
+
+# setdefault() - Get value or set default if key doesn't exist
+data.setdefault("d", 4)  # Adds "d": 4
+existing = data.setdefault("a", 100)  # Returns existing value
+\end{lstlisting}
+
+\section{Iterating Through Dictionaries}
+
+\subsection{Basic Iteration}
+
+\begin{lstlisting}
+student = {"name": "Alice", "age": 21, "grade": "A+"}
+
+# Iterate over keys (default behavior)
+for key in student:
+    print(f"{key}: {student[key]}")
+
+# Explicitly iterate over keys
+for key in student.keys():
+    print(f"Key: {key}")
+
+# Iterate over values
+for value in student.values():
+    print(f"Value: {value}")
+
+# Iterate over key-value pairs
+for key, value in student.items():
+    print(f"{key}: {value}")
+\end{lstlisting}
+
+\section{Advanced Dictionary Operations}
+
+\subsection{Nested Dictionaries}
+
+\begin{lstlisting}
+students = {
+    "alice": {
+        "age": 20,
+        "grades": {"math": 95, "physics": 87, "chemistry": 92},
+        "contact": {"email": "alice@email.com", "phone": "123-456-7890"}
+    },
+    "bob": {
+        "age": 22,
+        "grades": {"math": 78, "physics": 85, "chemistry": 80},
+        "contact": {"email": "bob@email.com", "phone": "098-765-4321"}
+    }
+}
+
+# Accessing nested values
+print(students["alice"]["age"])  # 20
+print(students["alice"]["grades"]["math"])  # 95
+\end{lstlisting}
+
+\subsection{Dictionary as Counter}
+
+\begin{lstlisting}
+# Manual counting
+text = "hello world"
+char_count = {}
+for char in text:
+    char_count[char] = char_count.get(char, 0) + 1
+
+# Using collections.Counter (recommended)
+from collections import Counter
+char_counter = Counter(text)
+\end{lstlisting}
+
+\section{Dictionary Sorting and Filtering}
+
+\subsection{Sorting Dictionaries}
+
+\begin{lstlisting}
+data = {"banana": 3, "apple": 5, "cherry": 1, "date": 4}
+
+# Sort by keys
+sorted_by_keys = dict(sorted(data.items()))
+
+# Sort by values
+sorted_by_values = dict(sorted(data.items(), key=lambda x: x[1]))
+
+# Sort by values (descending)
+sorted_desc = dict(sorted(data.items(), key=lambda x: x[1], reverse=True))
+\end{lstlisting}
+
+\subsection{Filtering Dictionaries}
+
+\begin{lstlisting}
+data = {"apple": 5, "banana": 3, "cherry": 8, "date": 2}
+
+# Filter by value
+high_values = {k: v for k, v in data.items() if v > 4}
+
+# Filter by key
+long_names = {k: v for k, v in data.items() if len(k) > 5}
+
+# Filter using filter() function
+even_values = dict(filter(lambda x: x[1] % 2 == 0, data.items()))
+\end{lstlisting}
+
+\section{Performance Considerations}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|l|}
+\hline
+\textbf{Operation} & \textbf{Average} & \textbf{Worst} & \textbf{Notes} \\
+\hline
+Access/Search & O(1) & O(n) & Hash collision \\
+Insert & O(1) & O(n) & Hash collision \\
+Delete & O(1) & O(n) & Hash collision \\
+Iteration & O(n) & O(n) & All elements \\
+\hline
+\end{tabular}
+\caption{Dictionary Operations Time Complexity}
+\end{table}
+
+\section{Common Use Cases}
+
+\subsection{Configuration Management}
+
+\begin{lstlisting}
+config = {
+    "database": {
+        "host": "localhost",
+        "port": 5432,
+        "name": "myapp"
+    },
+    "api": {
+        "base_url": "https://api.example.com",
+        "timeout": 30
+    }
+}
+\end{lstlisting}
+
+\subsection{Data Transformation}
+
+\begin{lstlisting}
+# Transform list of records to dictionary
+students_list = [
+    {"id": 1, "name": "Alice", "grade": "A"},
+    {"id": 2, "name": "Bob", "grade": "B"}
+]
+
+# Index by ID
+students_by_id = {student["id"]: student for student in students_list}
+\end{lstlisting}
+
+\section{Common Pitfalls}
+
+\subsection{Mutable Default Arguments}
+
+\begin{lstlisting}
+# Wrong way
+def add_item(item, target_dict={}):  # Dangerous!
+    target_dict[len(target_dict)] = item
+    return target_dict
+
+# Right way
+def add_item(item, target_dict=None):
+    if target_dict is None:
+        target_dict = {}
+    target_dict[len(target_dict)] = item
+    return target_dict
+\end{lstlisting}
+
+\subsection{Key Type Restrictions}
+
+\begin{lstlisting}
+# Valid keys (immutable types)
+valid_dict = {
+    "string": 1,
+    42: 2,
+    (1, 2): 3,
+    frozenset([1, 2, 3]): 4
+}
+
+# Invalid keys (mutable types)
+# invalid_dict = {
+#     [1, 2, 3]: "list",      # TypeError
+#     {"a": 1}: "dict",       # TypeError
+# }
+\end{lstlisting}
+
+\section{Summary}
+
+Dictionaries are powerful Python data structures that provide:
+\begin{itemize}
+    \item \textbf{Key-value mapping}: Efficient data organization
+    \item \textbf{Fast lookup}: O(1) average case access time
+    \item \textbf{Flexibility}: Support for various data types
+    \item \textbf{Mutability}: Can be modified after creation
+    \item \textbf{Rich methods}: Comprehensive built-in functionality
+    \item \textbf{Memory efficiency}: Optimized hash table implementation
+\end{itemize}
+
+Master dictionaries to handle complex data relationships and build efficient applications!
+
+\end{document}
