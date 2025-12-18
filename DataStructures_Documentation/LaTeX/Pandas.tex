@@ -1,0 +1,375 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Pandas - Complete Guide}
+\lfoot{Python for Data Science}
+\rfoot{\thepage}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10}
+}
+
+\title{\textbf{Pandas - Complete Guide}}
+\author{Python for Data Science - Beginner's Level}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Overview}
+
+Pandas is a powerful data manipulation and analysis library built on NumPy. It provides DataFrame and Series objects for handling structured data.
+
+\section{Installation and Import}
+
+\begin{lstlisting}
+# Installation
+# pip install pandas
+
+# Import
+import pandas as pd
+import numpy as np
+\end{lstlisting}
+
+\section{Core Data Structures}
+
+\subsection{Series}
+
+\begin{lstlisting}
+# Create Series
+s1 = pd.Series([1, 2, 3, 4, 5])
+s2 = pd.Series([1, 2, 3], index=['a', 'b', 'c'])
+s3 = pd.Series({'A': 1, 'B': 2, 'C': 3})
+
+# Series properties
+print(s2.values)      # [1 2 3]
+print(s2.index)       # Index(['a', 'b', 'c'])
+print(s2.dtype)       # int64
+print(s2.shape)       # (3,)
+\end{lstlisting}
+
+\subsection{DataFrame}
+
+\begin{lstlisting}
+# Create DataFrame
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['NYC', 'LA', 'Chicago', 'Boston'],
+    'Salary': [50000, 60000, 70000, 55000]
+}
+df = pd.DataFrame(data)
+
+# DataFrame properties
+print(df.shape)       # (4, 4)
+print(df.columns)     # Index(['Name', 'Age', 'City', 'Salary'])
+print(df.index)       # RangeIndex(start=0, stop=4, step=1)
+print(df.dtypes)      # Data types of each column
+\end{lstlisting}
+
+\section{Data Selection and Indexing}
+
+\subsection{Basic Selection}
+
+\begin{lstlisting}
+# Column selection
+names = df['Name']              # Series
+subset = df[['Name', 'Age']]    # DataFrame
+
+# Row selection
+first_row = df.iloc[0]          # First row by position
+named_row = df.loc[0]           # First row by label
+
+# Slicing
+first_three = df.iloc[0:3]      # First 3 rows
+columns_slice = df.iloc[:, 1:3] # All rows, columns 1-2
+\end{lstlisting}
+
+\subsection{Advanced Selection}
+
+\begin{lstlisting}
+# Boolean indexing
+high_salary = df[df['Salary'] > 55000]
+young_high_earners = df[(df['Age'] < 30) & (df['Salary'] > 50000)]
+
+# Query method
+filtered = df.query('Age > 25 and Salary < 65000')
+
+# isin method
+cities_filter = df[df['City'].isin(['NYC', 'LA'])]
+
+# String methods
+name_filter = df[df['Name'].str.startswith('A')]
+\end{lstlisting}
+
+\section{Data Manipulation}
+
+\subsection{Adding and Modifying Data}
+
+\begin{lstlisting}
+# Add new column
+df['Bonus'] = df['Salary'] * 0.1
+df['Full_Info'] = df['Name'] + ' - ' + df['City']
+
+# Modify existing data
+df.loc[df['Age'] > 30, 'Category'] = 'Senior'
+df.loc[df['Age'] <= 30, 'Category'] = 'Junior'
+
+# Apply functions
+df['Age_Group'] = df['Age'].apply(lambda x: 'Young' if x < 30 else 'Mature')
+\end{lstlisting}
+
+\subsection{Removing Data}
+
+\begin{lstlisting}
+# Drop columns
+df_no_bonus = df.drop('Bonus', axis=1)
+df_subset = df.drop(['Bonus', 'Full_Info'], axis=1)
+
+# Drop rows
+df_no_first = df.drop(0, axis=0)
+df_filtered = df.drop(df[df['Age'] < 25].index)
+
+# Remove duplicates
+df_unique = df.drop_duplicates()
+df_unique_names = df.drop_duplicates(subset=['Name'])
+\end{lstlisting}
+
+\section{Data Cleaning}
+
+\subsection{Handling Missing Data}
+
+\begin{lstlisting}
+# Create data with missing values
+df_missing = df.copy()
+df_missing.loc[1, 'Salary'] = np.nan
+df_missing.loc[2, 'Age'] = np.nan
+
+# Check for missing data
+print(df_missing.isnull().sum())
+print(df_missing.info())
+
+# Handle missing data
+df_dropped = df_missing.dropna()                    # Drop rows with any NaN
+df_filled = df_missing.fillna(0)                    # Fill with 0
+df_mean = df_missing.fillna(df_missing.mean())      # Fill with mean
+\end{lstlisting}
+
+\subsection{Data Type Conversion}
+
+\begin{lstlisting}
+# Convert data types
+df['Age'] = df['Age'].astype('int32')
+df['Salary'] = df['Salary'].astype('float64')
+
+# Convert to datetime
+dates = pd.Series(['2023-01-01', '2023-02-01', '2023-03-01'])
+df['Date'] = pd.to_datetime(dates)
+
+# Convert to categorical
+df['City'] = df['City'].astype('category')
+\end{lstlisting}
+
+\section{Data Analysis}
+
+\subsection{Descriptive Statistics}
+
+\begin{lstlisting}
+# Basic statistics
+print(df.describe())                    # Summary statistics
+print(df['Salary'].mean())              # Mean salary
+print(df['Age'].median())               # Median age
+print(df['City'].value_counts())        # Count by city
+
+# Correlation
+numeric_df = df.select_dtypes(include=[np.number])
+correlation_matrix = numeric_df.corr()
+\end{lstlisting}
+
+\subsection{Grouping and Aggregation}
+
+\begin{lstlisting}
+# Group by single column
+city_groups = df.groupby('City')
+print(city_groups['Salary'].mean())     # Average salary by city
+print(city_groups.size())               # Count by city
+
+# Group by multiple columns
+df['Age_Group'] = pd.cut(df['Age'], bins=[0, 30, 40, 100], 
+                        labels=['Young', 'Middle', 'Senior'])
+multi_group = df.groupby(['City', 'Age_Group'])
+print(multi_group['Salary'].agg(['mean', 'count']))
+
+# Custom aggregations
+agg_result = df.groupby('City').agg({
+    'Salary': ['mean', 'max', 'min'],
+    'Age': 'mean'
+})
+\end{lstlisting}
+
+\subsection{Pivot Tables}
+
+\begin{lstlisting}
+# Create pivot table
+pivot = df.pivot_table(
+    values='Salary',
+    index='City',
+    columns='Age_Group',
+    aggfunc='mean',
+    fill_value=0
+)
+
+# Cross-tabulation
+crosstab = pd.crosstab(df['City'], df['Age_Group'])
+\end{lstlisting}
+
+\section{Data Merging and Joining}
+
+\subsection{Concatenation}
+
+\begin{lstlisting}
+# Create additional data
+df2 = pd.DataFrame({
+    'Name': ['Eve', 'Frank'],
+    'Age': [32, 29],
+    'City': ['Seattle', 'Miami'],
+    'Salary': [65000, 58000]
+})
+
+# Concatenate vertically
+combined = pd.concat([df, df2], ignore_index=True)
+
+# Concatenate horizontally
+df_extra = pd.DataFrame({'Department': ['IT', 'HR', 'Finance', 'Marketing']})
+horizontal = pd.concat([df, df_extra], axis=1)
+\end{lstlisting}
+
+\subsection{Merging}
+
+\begin{lstlisting}
+# Create related data
+departments = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Department': ['IT', 'HR', 'Finance', 'Marketing']
+})
+
+# Inner join
+merged_inner = pd.merge(df, departments, on='Name', how='inner')
+
+# Left join
+merged_left = pd.merge(df, departments, on='Name', how='left')
+\end{lstlisting}
+
+\section{File I/O Operations}
+
+\subsection{Reading Data}
+
+\begin{lstlisting}
+# CSV files
+df_csv = pd.read_csv('data.csv')
+df_csv_custom = pd.read_csv('data.csv', sep=';', header=0, index_col=0)
+
+# Excel files
+df_excel = pd.read_excel('data.xlsx', sheet_name='Sheet1')
+
+# JSON files
+df_json = pd.read_json('data.json')
+\end{lstlisting}
+
+\subsection{Writing Data}
+
+\begin{lstlisting}
+# CSV files
+df.to_csv('output.csv', index=False)
+df.to_csv('output_custom.csv', sep=';', header=True)
+
+# Excel files
+df.to_excel('output.xlsx', sheet_name='Data', index=False)
+
+# JSON files
+df.to_json('output.json', orient='records')
+\end{lstlisting}
+
+\section{Time Series Analysis}
+
+\begin{lstlisting}
+# Create time series data
+dates = pd.date_range('2023-01-01', periods=100, freq='D')
+ts_data = pd.DataFrame({
+    'Date': dates,
+    'Value': np.random.randn(100).cumsum()
+})
+ts_data.set_index('Date', inplace=True)
+
+# Time-based selection
+jan_data = ts_data['2023-01']
+week_data = ts_data['2023-01-01':'2023-01-07']
+
+# Resampling
+monthly = ts_data.resample('M').mean()      # Monthly average
+weekly = ts_data.resample('W').sum()        # Weekly sum
+
+# Rolling operations
+ts_data['Rolling_Mean'] = ts_data['Value'].rolling(window=7).mean()
+\end{lstlisting}
+
+\section{Performance Tips}
+
+\begin{lstlisting}
+# Use vectorized operations
+df['Total'] = df['Quantity'] * df['Price']  # Fast
+
+# Use appropriate data types
+df['Category'] = df['Category'].astype('category')  # Memory efficient
+
+# Use query for complex filtering
+result = df.query('Price > 100 and Category == "Electronics"')  # Fast
+
+# Use chaining for multiple operations
+result = (df
+          .query('Age > 25')
+          .groupby('City')['Salary']
+          .mean()
+          .sort_values(ascending=False))
+\end{lstlisting}
+
+\section{Summary}
+
+Pandas provides:
+\begin{itemize}
+    \item \textbf{DataFrame/Series}: Powerful data structures
+    \item \textbf{Data cleaning}: Handle missing values and duplicates
+    \item \textbf{Data analysis}: Grouping, aggregation, and statistics
+    \item \textbf{File I/O}: Read/write various formats
+    \item \textbf{Time series}: Date/time operations and resampling
+    \item \textbf{Merging}: Join and combine datasets
+    \item \textbf{Performance}: Optimized operations for large datasets
+\end{itemize}
+
+Essential for data analysis and manipulation in Python!
+
+\end{document}
