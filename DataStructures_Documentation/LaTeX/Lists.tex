@@ -1,0 +1,255 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Python Lists - Complete Guide}
+\lfoot{Python for Data Science}
+\rfoot{\thepage}
+
+% Python code styling
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10}
+}
+
+\title{\textbf{Python Lists - Complete Guide}}
+\author{Python for Data Science - Beginner's Level}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Overview}
+
+Lists are one of the most versatile and commonly used data structures in Python. They are \textbf{ordered}, \textbf{mutable} (changeable), and allow \textbf{duplicate elements}. Lists can store elements of different data types.
+
+\section{List Creation}
+
+\subsection{Basic Creation}
+
+\begin{lstlisting}
+# Empty list
+empty_list = []
+empty_list = list()
+
+# List with elements
+numbers = [1, 2, 3, 4, 5]
+mixed_list = [1, "hello", 3.14, True]
+nested_list = [[1, 2], [3, 4], [5, 6]]
+
+# Using list() constructor
+from_string = list("hello")  # ['h', 'e', 'l', 'l', 'o']
+from_range = list(range(5))  # [0, 1, 2, 3, 4]
+\end{lstlisting}
+
+\subsection{List Comprehension}
+
+\begin{lstlisting}
+# Basic comprehension
+squares = [x**2 for x in range(10)]
+
+# With condition
+even_squares = [x**2 for x in range(10) if x % 2 == 0]
+
+# Nested comprehension
+matrix = [[i*j for j in range(3)] for i in range(3)]
+\end{lstlisting}
+
+\section{Accessing Elements}
+
+\subsection{Indexing}
+
+\begin{lstlisting}
+fruits = ["apple", "banana", "cherry", "date"]
+
+# Positive indexing (0-based)
+print(fruits[0])    # "apple"
+print(fruits[2])    # "cherry"
+
+# Negative indexing (-1 is last element)
+print(fruits[-1])   # "date"
+print(fruits[-2])   # "cherry"
+\end{lstlisting}
+
+\subsection{Slicing}
+
+\begin{lstlisting}
+numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# Basic slicing [start:end:step]
+print(numbers[2:7])     # [2, 3, 4, 5, 6]
+print(numbers[:5])      # [0, 1, 2, 3, 4]
+print(numbers[5:])      # [5, 6, 7, 8, 9]
+print(numbers[::2])     # [0, 2, 4, 6, 8]
+print(numbers[::-1])    # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+\end{lstlisting}
+
+\section{Modifying Lists}
+
+\subsection{Adding Elements}
+
+\begin{lstlisting}
+fruits = ["apple", "banana"]
+
+# append() - Add single element at end
+fruits.append("cherry")
+
+# insert() - Add element at specific position
+fruits.insert(1, "orange")
+
+# extend() - Add multiple elements
+fruits.extend(["grape", "mango"])
+
+# Using + operator
+more_fruits = fruits + ["kiwi", "peach"]
+\end{lstlisting}
+
+\subsection{Removing Elements}
+
+\begin{lstlisting}
+fruits = ["apple", "banana", "cherry", "banana", "date"]
+
+# remove() - Remove first occurrence
+fruits.remove("banana")
+
+# pop() - Remove and return element by index
+removed = fruits.pop(1)
+
+# del statement
+del fruits[0]
+
+# clear() - Remove all elements
+fruits.clear()
+\end{lstlisting}
+
+\section{List Methods}
+
+\subsection{Search Methods}
+
+\begin{lstlisting}
+fruits = ["apple", "banana", "cherry", "banana", "date"]
+
+# index() - Find first occurrence
+idx = fruits.index("banana")
+
+# count() - Count occurrences
+count = fruits.count("banana")
+
+# in operator - Check if element exists
+print("apple" in fruits)     # True
+\end{lstlisting}
+
+\subsection{Sorting Methods}
+
+\begin{lstlisting}
+numbers = [3, 1, 4, 1, 5, 9, 2, 6]
+
+# sort() - Sort in place
+numbers.sort()
+
+# sorted() - Return new sorted list
+sorted_list = sorted(numbers)
+
+# Custom sorting with key function
+words = ["banana", "pie", "Washington", "book"]
+words.sort(key=len)  # Sort by length
+\end{lstlisting}
+
+\section{Performance Considerations}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{Operation} & \textbf{Time Complexity} & \textbf{Notes} \\
+\hline
+Access by index & O(1) & Direct access \\
+Search & O(n) & Linear search \\
+Append & O(1) amortized & May need to resize \\
+Insert at beginning & O(n) & Shifts all elements \\
+Delete by index & O(n) & May shift elements \\
+Sort & O(n log n) & Timsort algorithm \\
+\hline
+\end{tabular}
+\caption{List Operations Time Complexity}
+\end{table}
+
+\section{Common Use Cases}
+
+\subsection{Stack Implementation}
+
+\begin{lstlisting}
+stack = []
+
+# Push
+stack.append(1)
+stack.append(2)
+stack.append(3)
+
+# Pop
+top = stack.pop()  # Returns 3
+\end{lstlisting}
+
+\subsection{Matrix Operations}
+
+\begin{lstlisting}
+# 2D matrix using nested lists
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+# Access element
+print(matrix[1][2])  # 6
+
+# Transpose matrix
+transposed = [[row[i] for row in matrix] for i in range(len(matrix[0]))]
+\end{lstlisting}
+
+\section{Best Practices}
+
+\begin{itemize}
+    \item Use list comprehensions for simple transformations
+    \item Avoid modifying lists while iterating over them
+    \item Use appropriate data types for better performance
+    \item Consider using \texttt{collections.deque} for frequent insertions/deletions at both ends
+    \item Use \texttt{enumerate()} when you need both index and value
+\end{itemize}
+
+\section{Summary}
+
+Lists are fundamental Python data structures that provide:
+\begin{itemize}
+    \item \textbf{Flexibility}: Store any type of data
+    \item \textbf{Mutability}: Can be modified after creation
+    \item \textbf{Order}: Maintain insertion order
+    \item \textbf{Indexing}: Fast access by position
+    \item \textbf{Rich methods}: Extensive built-in functionality
+\end{itemize}
+
+Master lists to build a strong foundation for Python programming and data science!
+
+\end{document}
