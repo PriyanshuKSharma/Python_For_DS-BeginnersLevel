@@ -35,3 +35,12 @@ print(words)  # ['apple', 'banana', 'cherry']
 joined = '-'.join(words)
 print(joined) # 'apple-banana-cherry' 
 
+
+str = "apna college"
+# print(len(str))
+# print(str[5:8]) #col
+# print(str[5:])  #college
+# print(str[5:len(str)])
+print(str[-5:-1])
+print(str[-5:])
+
