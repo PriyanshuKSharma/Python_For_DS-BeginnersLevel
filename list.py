@@ -50,6 +50,10 @@ print(fruits)   # []
 ### Modifying Elements
 
 numbers = [1, 2, 3, 4, 5]
+num = numbers
+
+print(numbers, id(numbers))
+print(num, id(num))
 
 # Modify single element
 numbers[0] = 10
@@ -62,3 +66,6 @@ print(numbers)  # [10, 20, 30, 4, 5]
 # Replace with different number of elements
 numbers[1:3] = [100, 200, 300]
 print(numbers)  # [10, 100, 200, 300, 4, 5]
+
+print(numbers, id(numbers))
+print(num, id(num))
