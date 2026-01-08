@@ -11,9 +11,7 @@ Input Format
 
 A single line of input containing the string .
 
-Constraints
-
- has at least  distinct characters
+Constraints has at least  distinct characters
 Output Format
 
 Print the three most common characters along with their occurrence count each on a separate line.
