@@ -15,6 +15,10 @@ Sorting and searching are fundamental operations in computer science. This guide
 | **Quick Sort**     | Divide and Conquer using pivots. Very fast.                  | [Read Concept (Hinglish)](README_QuickSort.md)     |
 | **Counting Sort**  | Integer sorting based on keys range.                         | [Read Concept (Hinglish)](README_CountingSort.md)  |
 
+## ⚖️ Stability Guide
+
+👉 **[Understand Stable vs Unstable Sorting (Hinglish Guide)](README_Stable_vs_Unstable.md)**
+
 ## 🔍 Searching Algorithms (सर्चिंग एल्गोरिदम)
 
 | Algorithm         | Description                                            | Link                                              |
