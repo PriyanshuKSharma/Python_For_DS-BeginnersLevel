@@ -80,8 +80,10 @@ This directory contains comprehensive documentation for all major Python data st
 
 ## 🎯 Quick Reference
 
-| Data Structure   | Ordered | Mutable | Duplicates           | Syntax                |
-| ---------------- | ------- | ------- | -------------------- | --------------------- |
+👉 **[Universal Time Complexity Guide (Lists, Sets, Dicts, etc.)](README_TimeComplexity_All.md)**
+
+| Data Structure   | Ordered | Mutable | Duplicates           | Syntax                  |
+| ---------------- | ------- | ------- | -------------------- | ----------------------- |
 | List             | ✅      | ✅      | ✅                   | `[1, 2, 3]`           |
 | Tuple            | ✅      | ❌      | ✅                   | `(1, 2, 3)`           |
 | Dictionary       | ✅\*    | ✅      | Keys: ❌, Values: ✅ | `{'a': 1, 'b': 2}`    |
