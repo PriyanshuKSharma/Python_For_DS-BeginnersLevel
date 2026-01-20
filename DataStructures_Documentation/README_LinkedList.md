@@ -27,10 +27,46 @@ Imagine karo ek "treasure hunt" jahan har parchii (chit) pe agla clue kahan mile
   2.  **Next**: Agle node ka address.
 - **Head**: Pehle node ko 'Head' kehte hain. Agar Head kho gaya, toh puri list kho jayegi!
 
-### Linked List kyun use karein?
+### 🎨 Visual Representation (Diagram)
 
-- **Size change ho sakta hai**: Arrays ki tarah humein pehle se size batane ki zarurat nahi hoti.
-- **Insert/Delete aasaan hai**: Beech mein se kuch delete karne ke liye bas pointers badalne padte hain, baaki elements ko shift nahi karna padta (jo arrays mein karna padta hai).
+**1. Basic Structure**
+
+```mermaid
+graph LR
+    Head[HEAD] --> Node1((Data: 10))
+    Node1 --> Node2((Data: 20))
+    Node2 --> Node3((Data: 30))
+    Node3 --> Null[None]
+
+    style Head fill:#f9f,stroke:#333,stroke-width:2px
+    style Null fill:#ccc,stroke:#333,stroke-width:2px
+```
+
+**2. Insertion (Inserting 15 between 10 and 20)**
+
+```mermaid
+graph LR
+    Node1((10)) -.-> Node2((20))
+    Node1 --> NewNode((15))
+    NewNode --> Node2
+
+    style NewNode fill:#bbf,stroke:#333,stroke-width:2px
+    linkStyle 0 stroke:red,stroke-width:2px,stroke-dasharray: 5 5
+```
+
+**3. Deletion (Deleting 20)**
+
+```mermaid
+graph LR
+    Node1((10)) --> Node2((20))
+    Node2 --> Node3((30))
+    Node1 -.-> Node3
+
+    style Node2 fill:#f99,stroke:#333,stroke-width:2px
+    linkStyle 0 stroke:red,stroke-width:2px,stroke-dasharray: 5 5
+    linkStyle 1 stroke:red,stroke-width:2px,stroke-dasharray: 5 5
+    linkStyle 2 stroke:green,stroke-width:4px
+```
 
 ---
 
@@ -90,48 +126,15 @@ class LinkedList:
 
 ---
 
-## ⏳ Time Complexity Analysis (Detailed)
+## ⏳ Time Complexity Analysis
 
-### 1. Accessing an Element (Access)
+👉 **[Read Detailed Universal Time Complexity Guide (Hinglish)](README_TimeComplexity_All.md)**
 
-- **Time Complexity**: **O(n)**
-- **Explanation**: To get the 5th element, you cannot jump directly (like arrays `arr[4]`). You must start from Head -> Node 1 -> Node 2 -> ... -> Node 5.
-- **Hinglish**: Agar aapko 5th element chahiye, toh aap direct wahan nahi ja sakte. Aapko pehle node se shuru karke ek-ek karke aage badhna padega.
-
-### 2. Searching for an Element (Search)
-
-- **Time Complexity**: **O(n)**
-- **Explanation**: In the worst case (element is at the end or not present), you have to traverse the entire list.
-- **Hinglish**: Agar element last mein hua ya list mein hua hi nahi, toh poori list check karni padegi.
-
-### 3. Insertion (Jodna)
-
-- **At Beginning (Start)**: **O(1)**
-  - **Why?**: Just update the new node's next pointer to Head, and make new node the Head. No traversal needed.
-  - _Bas Head pointer change karna hota hai._
-- **At (End)**: **O(n)** (if no Tail pointer)
-  - **Why?**: You have to traverse the whole list to reach the last node.
-  - _Agar Tail pointer nahi hai, toh poori list traverse karni padegi last tak_.
-- **At Position P**: **O(P)** -> effectively **O(n)**
-  - **Why?**: You must traverse P nodes to reach the correct position.
-
-### 4. Deletion (Hatana)
-
-- **Delete from Beginning**: **O(1)**
-  - **Why?**: Just move Head to Head.next.
-- **Delete from End**: **O(n)**
-  - **Why?**: You need to traverse to the second-last node to update its pointer to None.
-- **Delete by Value**: **O(n)**
-  - **Why?**: You have to search for the value first.
-
-| Operation          | Best Case            | Average Case | Worst Case |
-| :----------------- | :------------------- | :----------- | :--------- |
-| **Access**         | O(1) (Head)          | O(n)         | O(n)       |
-| **Search**         | O(1) (Head)          | O(n)         | O(n)       |
-| **Insert (Start)** | O(1)                 | O(1)         | O(1)       |
-| **Insert (End)**   | O(1) (if Tail known) | O(n)         | O(n)       |
-| **Delete (Start)** | O(1)                 | O(1)         | O(1)       |
-| **Delete (End)**   | O(n)                 | O(n)         | O(n)       |
+| Operation          | Best Case | Worst Case |
+| :----------------- | :-------- | :--------- |
+| **Insert (Start)** | O(1)      | O(1)       |
+| **Insert (End)**   | O(n)      | O(n)       |
+| **Access/Search**  | O(1)      | O(n)       |
 
 ---
 
