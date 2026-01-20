@@ -15,9 +15,10 @@ Sorting and searching are fundamental operations in computer science. This guide
 | **Quick Sort**     | Divide and Conquer using pivots. Very fast.                  | [Read Concept (Hinglish)](README_QuickSort.md)     |
 | **Counting Sort**  | Integer sorting based on keys range.                         | [Read Concept (Hinglish)](README_CountingSort.md)  |
 
-## ⚖️ Stability Guide
+## 🧠 Theoretical Concepts
 
-👉 **[Understand Stable vs Unstable Sorting (Hinglish Guide)](README_Stable_vs_Unstable.md)**
+- 👉 **[Understand Stable vs Unstable Sorting (Hinglish Guide)](README_Stable_vs_Unstable.md)**
+- 👉 **[Understand Adaptive vs Non-Adaptive Sorting (Hinglish Guide)](README_Adaptive_vs_NonAdaptive.md)**
 
 ## 🔍 Searching Algorithms (सर्चिंग एल्गोरिदम)
 
@@ -28,12 +29,12 @@ Sorting and searching are fundamental operations in computer science. This guide
 
 ## ⚖️ Complexity Comparison
 
-| Algorithm          | Best Time  | Average Time | Worst Time | Space    | Stable? |
-| :----------------- | :--------- | :----------- | :--------- | :------- | :------ |
-| **Bubble Sort**    | O(n)       | O(n²)        | O(n²)      | O(1)     | Yes     |
-| **Selection Sort** | O(n²)      | O(n²)        | O(n²)      | O(1)     | No      |
-| **Insertion Sort** | O(n)       | O(n²)        | O(n²)      | O(1)     | Yes     |
-| **Merge Sort**     | O(n log n) | O(n log n)   | O(n log n) | O(n)     | Yes     |
-| **Quick Sort**     | O(n log n) | O(n log n)   | O(n²)      | O(log n) | No      |
-| **Linear Search**  | O(1)       | O(n)         | O(n)       | O(1)     | N/A     |
-| **Binary Search**  | O(1)       | O(log n)     | O(log n)   | O(1)     | N/A     |
+| Algorithm          | Best Time  | Average Time | Worst Time | Space    | Stable? | Adaptive? |
+| :----------------- | :--------- | :----------- | :--------- | :------- | :------ | :-------- |
+| **Bubble Sort**    | O(n)       | O(n²)        | O(n²)      | O(1)     | Yes     | Yes       |
+| **Selection Sort** | O(n²)      | O(n²)        | O(n²)      | O(1)     | No      | No        |
+| **Insertion Sort** | O(n)       | O(n²)        | O(n²)      | O(1)     | Yes     | Yes       |
+| **Merge Sort**     | O(n log n) | O(n log n)   | O(n log n) | O(n)     | Yes     | No        |
+| **Quick Sort**     | O(n log n) | O(n log n)   | O(n²)      | O(log n) | No      | No        |
+| **Linear Search**  | O(1)       | O(n)         | O(n)       | O(1)     | N/A     | N/A       |
+| **Binary Search**  | O(1)       | O(log n)     | O(log n)   | O(1)     | N/A     | N/A       |
