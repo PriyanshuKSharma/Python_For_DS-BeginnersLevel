@@ -34,9 +34,29 @@ Imagine karo ek "treasure hunt" jahan har parchii (chit) pe agla clue kahan mile
 
 ---
 
+## 🛠 Common Operations (Concept)
+
+### 1. Traversal (Ghumna)
+
+- **English**: Visiting every node in the list one by one to check values or print them. We start from Head and move next until we reach `None`.
+- **Hinglish**: List ke har ek node par ja kar uska data check karna ya print karna. Hum Head se shuru karte hain aur jab tak Next `None` nahi milta, aage badhte rehte hain.
+
+### 2. Insertion at Position (Beech mein dalna)
+
+- **English**: To insert at index `P`, traversing to index `P-1`. Point the new node to the node currently at `P`, and update `P-1`'s next to point to the new node.
+- **Hinglish**: Agar kisi specific jagah (position) par data dalna hai, toh usse **ek pehle** wale node par ruk jao.
+  - Example: Position 2 par dalna hai, toh Position 1 wale node ka 'Next' naye node par point kara do.
+
+### 3. Deletion (Hatana)
+
+- **English**: To delete a node at index `P`, traverse to `P-1`. Change `P-1`'s next pointer to skip the `P`th node and point directly to `P+1`.
+- **Hinglish**: Kisi node ko hatane ke liye, usse **pichle** node ka connection direct **agle** node se kar do. Beech wala node apne aap list se alag ho jayega (bypass ho jayega).
+
+---
+
 ## 💻 Implementation (Singly Linked List)
 
-Check `linked_list_implementation.py` for variables and runnable code.
+Check `Revision/linked_list_implementation.py` for the complete code with line-by-line comments.
 
 ```python
 class Node:
@@ -67,6 +87,51 @@ class LinkedList:
             current = current.next
         print("None")
 ```
+
+---
+
+## ⏳ Time Complexity Analysis (Detailed)
+
+### 1. Accessing an Element (Access)
+
+- **Time Complexity**: **O(n)**
+- **Explanation**: To get the 5th element, you cannot jump directly (like arrays `arr[4]`). You must start from Head -> Node 1 -> Node 2 -> ... -> Node 5.
+- **Hinglish**: Agar aapko 5th element chahiye, toh aap direct wahan nahi ja sakte. Aapko pehle node se shuru karke ek-ek karke aage badhna padega.
+
+### 2. Searching for an Element (Search)
+
+- **Time Complexity**: **O(n)**
+- **Explanation**: In the worst case (element is at the end or not present), you have to traverse the entire list.
+- **Hinglish**: Agar element last mein hua ya list mein hua hi nahi, toh poori list check karni padegi.
+
+### 3. Insertion (Jodna)
+
+- **At Beginning (Start)**: **O(1)**
+  - **Why?**: Just update the new node's next pointer to Head, and make new node the Head. No traversal needed.
+  - _Bas Head pointer change karna hota hai._
+- **At (End)**: **O(n)** (if no Tail pointer)
+  - **Why?**: You have to traverse the whole list to reach the last node.
+  - _Agar Tail pointer nahi hai, toh poori list traverse karni padegi last tak_.
+- **At Position P**: **O(P)** -> effectively **O(n)**
+  - **Why?**: You must traverse P nodes to reach the correct position.
+
+### 4. Deletion (Hatana)
+
+- **Delete from Beginning**: **O(1)**
+  - **Why?**: Just move Head to Head.next.
+- **Delete from End**: **O(n)**
+  - **Why?**: You need to traverse to the second-last node to update its pointer to None.
+- **Delete by Value**: **O(n)**
+  - **Why?**: You have to search for the value first.
+
+| Operation          | Best Case            | Average Case | Worst Case |
+| :----------------- | :------------------- | :----------- | :--------- |
+| **Access**         | O(1) (Head)          | O(n)         | O(n)       |
+| **Search**         | O(1) (Head)          | O(n)         | O(n)       |
+| **Insert (Start)** | O(1)                 | O(1)         | O(1)       |
+| **Insert (End)**   | O(1) (if Tail known) | O(n)         | O(n)       |
+| **Delete (Start)** | O(1)                 | O(1)         | O(1)       |
+| **Delete (End)**   | O(n)                 | O(n)         | O(n)       |
 
 ---
 
