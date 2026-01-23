@@ -19,3 +19,27 @@ The number of nodes in the list is sz.
 0 <= Node.val <= 100
 1 <= n <= sz
 """
+
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        # Step 1: Find the length of the linked list
+        length = 0
+        curr = head
+        while curr:
+            length += 1
+            curr = curr.next
+        
+        # Step 2: Create a dummy node to handle head deletion
+        dummy = ListNode(0, head)
+        curr = dummy
+        
+        # Step 3: Move to the node right before the one we want to delete
+        # The node to remove is at (length - n) from the start
+        steps_to_move = length - n
+        for _ in range(steps_to_move):
+            curr = curr.next
+            
+        # Step 4: Skip the target node
+        curr.next = curr.next.next
+        
+        return dummy.next
