@@ -1,6 +1,7 @@
 # Stack Data Structure in Python
 
 ## Table of Contents
+
 1. [Introduction](#introduction)
 2. [Stack Operations](#stack-operations)
 3. [Implementation Methods](#implementation-methods)
@@ -16,11 +17,24 @@ A **Stack** is a linear data structure that follows the **LIFO (Last In First Ou
 Think of it like a stack of plates - you add plates to the top and remove plates from the top.
 
 ### Key Characteristics:
+
 - Elements are added and removed from the same end (called the "top")
 - Only the top element is accessible at any time
 - Insertion and deletion operations are called **push** and **pop**
 
+### Diagram
+
+```mermaid
+graph TD
+    subgraph Stack
+    T[Top Element] --- M[Middle Element]
+    M --- B[Bottom Element]
+    end
+    style T fill:#f9f,stroke:#333,stroke-width:2px
+```
+
 ### Real-world Analogies:
+
 - Stack of books
 - Stack of plates
 - Browser back button
@@ -31,7 +45,27 @@ Think of it like a stack of plates - you add plates to the top and remove plates
 ### Basic Operations:
 
 1. **push(item)** - Add an element to the top of the stack
+
+   ```mermaid
+   graph TD
+      N((New Item)) --> T[Top]
+      T --- M[Middle]
+      M --- B[Bottom]
+      classDef new fill:#bbf,stroke:#333,stroke-width:2px;
+      class N new;
+   ```
+
 2. **pop()** - Remove and return the top element
+
+   ```mermaid
+   graph TD
+      T[Top] -.-> O((Output))
+      style O fill:#f96,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5;
+      subgraph Remaining Stack
+      M[Middle] --- B[Bottom]
+      end
+   ```
+
 3. **peek() / top()** - Return the top element without removing it
 4. **isEmpty()** - Check if the stack is empty
 5. **size()** - Return the number of elements in the stack
@@ -72,10 +106,12 @@ print("Size:", size)  # 2
 ```
 
 **Advantages:**
+
 - Simple and easy to use
 - Built-in operations
 
 **Disadvantages:**
+
 - `append()` can be slow if resizing is needed
 - No size limit enforcement
 
@@ -113,6 +149,7 @@ print("Size:", size)  # 2
 ```
 
 **Advantages:**
+
 - O(1) time complexity for append and pop
 - More memory efficient
 - Thread-safe operations
@@ -147,10 +184,12 @@ print("Size:", stack.qsize())  # 2
 ```
 
 **Advantages:**
+
 - Thread-safe (useful in multi-threaded applications)
 - Built-in size limit
 
 **Disadvantages:**
+
 - Blocking operations (can wait if stack is empty/full)
 - Peek operation not directly available
 
@@ -164,47 +203,47 @@ class Stack:
         """Initialize an empty stack with optional maximum size."""
         self.items = []
         self.max_size = max_size
-    
+
     def push(self, item):
         """Add an item to the top of the stack."""
         if self.max_size is not None and len(self.items) >= self.max_size:
             raise OverflowError("Stack is full")
         self.items.append(item)
-    
+
     def pop(self):
         """Remove and return the top item from the stack."""
         if self.is_empty():
             raise IndexError("pop from empty stack")
         return self.items.pop()
-    
+
     def peek(self):
         """Return the top item without removing it."""
         if self.is_empty():
             raise IndexError("peek from empty stack")
         return self.items[-1]
-    
+
     def is_empty(self):
         """Check if the stack is empty."""
         return len(self.items) == 0
-    
+
     def is_full(self):
         """Check if the stack is full."""
         if self.max_size is None:
             return False
         return len(self.items) >= self.max_size
-    
+
     def size(self):
         """Return the number of items in the stack."""
         return len(self.items)
-    
+
     def clear(self):
         """Remove all items from the stack."""
         self.items.clear()
-    
+
     def __str__(self):
         """String representation of the stack."""
         return f"Stack({self.items})"
-    
+
     def __len__(self):
         """Return the size of the stack."""
         return len(self.items)
@@ -234,22 +273,24 @@ print("Size:", stack.size())  # 2
 ## Time Complexity
 
 | Operation | Time Complexity | Space Complexity |
-|-----------|----------------|------------------|
-| push()    | O(1)*          | O(1)             |
-| pop()     | O(1)           | O(1)             |
-| peek()    | O(1)           | O(1)             |
-| isEmpty() | O(1)           | O(1)             |
-| size()    | O(1)           | O(1)             |
-| search()  | O(n)           | O(1)             |
+| --------- | --------------- | ---------------- |
+| push()    | O(1)\*          | O(1)             |
+| pop()     | O(1)            | O(1)             |
+| peek()    | O(1)            | O(1)             |
+| isEmpty() | O(1)            | O(1)             |
+| size()    | O(1)            | O(1)             |
+| search()  | O(n)            | O(1)             |
 
 **Note:** Push operation is O(1) amortized. In rare cases when the underlying list needs to resize, it can be O(n).
 
 ### Space Complexity:
+
 - Overall space complexity: **O(n)** where n is the number of elements in the stack
 
 ## Applications
 
 ### 1. Expression Evaluation
+
 - Infix to Postfix conversion
 - Postfix expression evaluation
 - Checking balanced parentheses
@@ -261,7 +302,7 @@ def is_balanced_parentheses(expression):
     opening = "({["
     closing = ")}]"
     matches = {')': '(', '}': '{', ']': '['}
-    
+
     for char in expression:
         if char in opening:
             stack.append(char)
@@ -269,7 +310,7 @@ def is_balanced_parentheses(expression):
             if not stack or stack[-1] != matches[char]:
                 return False
             stack.pop()
-    
+
     return len(stack) == 0
 
 
@@ -280,33 +321,35 @@ print(is_balanced_parentheses("((()))"))  # True
 ```
 
 ### 2. Function Call Management
+
 - Call stack in programming languages
 - Recursion implementation
 - Backtracking
 
 ### 3. Undo/Redo Operations
+
 ```python
 class TextEditor:
     def __init__(self):
         self.text = ""
         self.undo_stack = []
         self.redo_stack = []
-    
+
     def write(self, text):
         self.undo_stack.append(self.text)
         self.text += text
         self.redo_stack.clear()  # Clear redo stack on new action
-    
+
     def undo(self):
         if self.undo_stack:
             self.redo_stack.append(self.text)
             self.text = self.undo_stack.pop()
-    
+
     def redo(self):
         if self.redo_stack:
             self.undo_stack.append(self.text)
             self.text = self.redo_stack.pop()
-    
+
     def get_text(self):
         return self.text
 
@@ -323,17 +366,19 @@ print(editor.get_text())  # "Hello World"
 ```
 
 ### 4. Browser History
+
 - Back button functionality
 - Forward button after going back
 
 ### 5. Depth-First Search (DFS)
+
 ```python
 def dfs_iterative(graph, start):
     """Perform DFS using a stack."""
     visited = set()
     stack = [start]
     result = []
-    
+
     while stack:
         node = stack.pop()
         if node not in visited:
@@ -343,7 +388,7 @@ def dfs_iterative(graph, start):
             for neighbor in reversed(graph.get(node, [])):
                 if neighbor not in visited:
                     stack.append(neighbor)
-    
+
     return result
 
 
@@ -363,6 +408,7 @@ print(dfs_iterative(graph, 'A'))  # ['A', 'B', 'D', 'E', 'F', 'C']
 ## Common Problems
 
 ### 1. Valid Parentheses (LeetCode #20)
+
 ```python
 def is_valid(s):
     """
@@ -371,7 +417,7 @@ def is_valid(s):
     """
     stack = []
     mapping = {')': '(', '}': '{', ']': '['}
-    
+
     for char in s:
         if char in mapping:
             top = stack.pop() if stack else '#'
@@ -379,7 +425,7 @@ def is_valid(s):
                 return False
         else:
             stack.append(char)
-    
+
     return not stack
 
 
@@ -389,28 +435,29 @@ print(is_valid("(]"))      # False
 ```
 
 ### 2. Min Stack (LeetCode #155)
+
 ```python
 class MinStack:
     """Stack that supports push, pop, top, and retrieving minimum element in O(1)."""
-    
+
     def __init__(self):
         self.stack = []
         self.min_stack = []
-    
+
     def push(self, val):
         self.stack.append(val)
         if not self.min_stack or val <= self.min_stack[-1]:
             self.min_stack.append(val)
-    
+
     def pop(self):
         if self.stack:
             val = self.stack.pop()
             if val == self.min_stack[-1]:
                 self.min_stack.pop()
-    
+
     def top(self):
         return self.stack[-1] if self.stack else None
-    
+
     def get_min(self):
         return self.min_stack[-1] if self.min_stack else None
 
@@ -427,12 +474,13 @@ print(min_stack.get_min())  # -2
 ```
 
 ### 3. Evaluate Reverse Polish Notation (LeetCode #150)
+
 ```python
 def eval_rpn(tokens):
     """Evaluate the value of an arithmetic expression in Reverse Polish Notation."""
     stack = []
     operators = {'+', '-', '*', '/'}
-    
+
     for token in tokens:
         if token in operators:
             b = stack.pop()
@@ -449,7 +497,7 @@ def eval_rpn(tokens):
                 stack.append(int(a / b))
         else:
             stack.append(int(token))
-    
+
     return stack[0]
 
 
@@ -458,19 +506,20 @@ print(eval_rpn(["4", "13", "5", "/", "+"]))  # 6 = 4 + (13 / 5)
 ```
 
 ### 4. Next Greater Element
+
 ```python
 def next_greater_elements(nums):
     """Find the next greater element for each element in the array."""
     n = len(nums)
     result = [-1] * n
     stack = []
-    
+
     for i in range(n):
         while stack and nums[i] > nums[stack[-1]]:
             idx = stack.pop()
             result[idx] = nums[i]
         stack.append(i)
-    
+
     return result
 
 
@@ -479,32 +528,33 @@ print(next_greater_elements([1, 2, 3, 4, 5]))   # [2, 3, 4, 5, -1]
 ```
 
 ### 5. Implement Queue Using Stacks (LeetCode #232)
+
 ```python
 class MyQueue:
     """Implement a queue using two stacks."""
-    
+
     def __init__(self):
         self.stack_in = []   # For enqueue operations
         self.stack_out = []  # For dequeue operations
-    
+
     def push(self, x):
         """Add element to the back of queue."""
         self.stack_in.append(x)
-    
+
     def pop(self):
         """Remove element from the front of queue."""
         self._move()
         return self.stack_out.pop()
-    
+
     def peek(self):
         """Get the front element."""
         self._move()
         return self.stack_out[-1]
-    
+
     def empty(self):
         """Check if queue is empty."""
         return not self.stack_in and not self.stack_out
-    
+
     def _move(self):
         """Move elements from stack_in to stack_out if needed."""
         if not self.stack_out:
@@ -524,12 +574,14 @@ print(queue.empty())  # False
 ## Best Practices
 
 ### 1. Choose the Right Implementation
+
 - Use **list** for simple use cases
 - Use **deque** for better performance
 - Use **LifoQueue** for thread-safe operations
 - Use **custom class** for specific requirements
 
 ### 2. Always Check for Empty Stack
+
 ```python
 # Bad
 stack = []
@@ -551,6 +603,7 @@ except IndexError:
 ```
 
 ### 3. Use Meaningful Names
+
 ```python
 # Bad
 s = []
@@ -562,13 +615,14 @@ call_stack.append(function_name)
 ```
 
 ### 4. Consider Memory Constraints
+
 ```python
 # For large stacks, consider maximum size
 class BoundedStack:
     def __init__(self, max_size):
         self.stack = []
         self.max_size = max_size
-    
+
     def push(self, item):
         if len(self.stack) >= self.max_size:
             raise OverflowError("Stack overflow")
@@ -576,24 +630,25 @@ class BoundedStack:
 ```
 
 ### 5. Use Type Hints (Python 3.5+)
+
 ```python
 from typing import List, Optional
 
 class Stack:
     def __init__(self) -> None:
         self.items: List[int] = []
-    
+
     def push(self, item: int) -> None:
         self.items.append(item)
-    
+
     def pop(self) -> int:
         if self.is_empty():
             raise IndexError("pop from empty stack")
         return self.items.pop()
-    
+
     def peek(self) -> Optional[int]:
         return self.items[-1] if self.items else None
-    
+
     def is_empty(self) -> bool:
         return len(self.items) == 0
 ```
@@ -601,6 +656,7 @@ class Stack:
 ## Summary
 
 ### Key Takeaways:
+
 1. Stack follows LIFO principle
 2. Main operations: push, pop, peek
 3. All basic operations are O(1)
@@ -609,6 +665,7 @@ class Stack:
 6. Choose implementation based on requirements (thread-safety, size limits, etc.)
 
 ### When to Use Stack:
+
 - ✅ When you need LIFO behavior
 - ✅ For reversing sequences
 - ✅ For backtracking algorithms
@@ -617,6 +674,7 @@ class Stack:
 - ✅ For implementing undo/redo
 
 ### When NOT to Use Stack:
+
 - ❌ When you need random access to elements
 - ❌ When you need FIFO behavior (use Queue instead)
 - ❌ When you need to access elements in the middle
@@ -624,6 +682,7 @@ class Stack:
 ---
 
 **Related Topics:**
+
 - [Queues](README_Queues.md)
 - [Linked Lists](README_LinkedList.md)
 - [Recursion and Call Stack](README_Recursion.md)
