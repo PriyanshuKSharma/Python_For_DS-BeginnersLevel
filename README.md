@@ -8,6 +8,7 @@ Welcome to the "Python for Data Science - Beginner's Level" repository! This col
 - **Sequential Data Types**: Working with lists, tuples, and dictionaries.
 - **Functions and Lambda Expressions**: Understanding how to define and use functions, including lambda expressions.
 - **📚 [Data Structures Documentation](DataStructures_Documentation/)**: Comprehensive guides for all Python data structures with examples and best practices.
+- **🚀 [OOP Mastery](OOP_Mastery.py)**: Introduction to Object-Oriented Programming (Classes, Inheritance, Encapsulation, Polymorphism, Abstraction).
 
 ## Getting Started
 
