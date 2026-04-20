@@ -17,7 +17,7 @@ print(st)
 # print(st[-1])
 
 
-#Using OOP
+#Using OOP:
 class Stack:
     def __init__(self):
         self.st = []
@@ -54,6 +54,9 @@ print("Printing Top most element",stack.top())  # 4
 print("Element popped",stack.size()) # 5
 
 
-#Stack implementation using 
-
+#Stack implementation using Linked List:
+class Node:
+    def __init__(Self, data):
+        self.data = data
+        self.next = None
 
