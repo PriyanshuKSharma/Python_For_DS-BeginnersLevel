@@ -74,6 +74,73 @@ bird = Bird()
 print(dog.speak(), bird.fly())
 ```
 
+---
+
+#### The `super()` Method in Inheritance
+
+The **`super()`** method is a built-in Python function that returns a proxy (temporary) object of the parent class, allowing a subclass to call methods and constructors from its superclass. 
+
+##### 1. Why use `super()` instead of `ParentClass.method(self)`?
+
+In your code, you might see parents initialized explicitly like:
+```python
+ToyotaCar.__init__(self, brand="Toyota")  # Explicit call
+```
+Using `super()` is highly preferred and more elegant:
+```python
+super().__init__(brand="Toyota")          # Using super()
+```
+
+| Feature | Explicit Class Call (`Parent.__init__(self)`) | Using `super().__init__()` |
+| :--- | :--- | :--- |
+| **Passing `self`** | **Must** pass `self` explicitly as the first argument | **No** need to pass `self` (Python injects it automatically) |
+| **DRY Principle** | Violates DRY—if the parent class is renamed, you must update all calls | Adheres to DRY—flexible if class hierarchy changes |
+| **Multiple Inheritance** | Can result in parent constructors being skipped or called multiple times | Guarantees every parent is initialized **exactly once** via MRO |
+
+##### 2. `super()` in Multilevel Inheritance
+
+*(Based on `Revision/inheritence.py`)*
+
+Consider a multilevel inheritance hierarchy where `Car` is the grandparent, `ToyotaCar` is the parent, and `Fortuner` is the child:
+
+```python
+class Car:
+    @staticmethod
+    def start():
+        print('car started ✅')
+
+class ToyotaCar(Car):
+    def __init__(self, brand):
+        self.brand = brand
+
+class Fortuner(ToyotaCar):
+    def __init__(self, type):
+        # 1. Calls the parent's (ToyotaCar) __init__ using super()
+        # 2. No need to pass 'self' explicitly
+        super().__init__(brand="Toyota")
+        self.type = type
+
+car1 = Fortuner("Legender")
+car1.start()  # Inherited from Car
+print(car1.brand, car1.type)  # Output: Toyota Legender
+```
+
+##### 3. Multiple Inheritance & Method Resolution Order (MRO)
+
+When a class inherits from multiple parents, Python uses a lookup order called **Method Resolution Order (MRO)** (derived using the C3 Linearization algorithm) to resolve which parent's method to call.
+
+* **Diamond Problem Resolution:** When using `super()`, Python resolves multiple inheritance hierarchies in a strict linear order. You can view this order by printing `ClassName.__mro__` or `ClassName.mro()`.
+
+```python
+# MRO lookup example
+print(Fortuner.__mro__)
+# Output: (<class 'Fortuner'>, <class 'ToyotaCar'>, <class 'Car'>, <class 'object'>)
+```
+
+By calling `super()`, Python looks up the next class in this `__mro__` chain, ensuring that sibling and parent methods are executed cleanly and exactly once.
+
+---
+
 ### II. Polymorphism
 
 The ability of different objects to respond to the same method call in different ways.
@@ -399,27 +466,9 @@ print(c2.category)    # Vehicle   (c2 still uses the class attribute)
 
 ---
 
-### 3.7 Calling `super().__init__()` in Inheritance
+### 3.7 The `super()` Method in Python OOP
 
-When a child class has its own `__init__`, you **must** call `super().__init__()` to properly initialize the parent's attributes:
-
-```python
-class Vehicle:
-    def __init__(self, name: str):
-        self.name = name
-
-class ElectricCar(Vehicle):
-    def __init__(self, name: str, model: str, battery_kwh: int):
-        super().__init__(name)          # initializes self.name from Vehicle
-        self.model       = model
-        self.battery_kwh = battery_kwh
-
-    def info(self) -> str:
-        return f"{self.name} {self.model} — {self.battery_kwh} kWh"
-
-tesla = ElectricCar("Tesla", "Model 3", 75)
-print(tesla.info())   # Tesla Model 3 — 75 kWh
-```
+For a complete conceptual deep dive into the **`super()`** method (including multilevel inheritance, comparison with explicit parent class calls, and Method Resolution Order), see [The super() Method in Inheritance](#the-super-method-in-inheritance) under the **Inheritance** pillar.
 
 ---
 
@@ -1235,7 +1284,97 @@ Python prefers duck typing — you don't need a shared base class as long as obj
 
 ## 9. Abstraction with interfaces and `abc` (covered above)
 
-## 10. Common OOP pitfalls & best practices
+---
+
+## 10. Core Software Design Principles: DRY vs. WET
+
+### 10.1 What is DRY?
+
+**DRY** stands for **"Don't Repeat Yourself"**. It is a fundamental principle of software development introduced in *The Pragmatic Programmer* (by Andy Hunt and Dave Thomas):
+
+> *"Every piece of knowledge must have a single, unambiguous, authoritative representation within a system."*
+
+In simple terms: **Do not duplicate code or logic.** If you write the same or highly similar logic in multiple places, you create a major maintenance problem. If that logic needs to change, you must find and update every single duplicate, which leads to bugs.
+
+---
+
+### 10.2 What is the Opposite? WET Code
+
+The opposite of DRY is **WET**:
+* **W**rite **E**verything **T**wice
+* **W**e **E**njoy **T**yping
+* **W**aste **E**veryone's **T**ime
+
+WET code is highly redundant and repetitive. Changing a single business rule or calculation requires scouring the codebase to update it in multiple files.
+
+---
+
+### 10.3 How DRY is Applied in Object-Oriented Programming (OOP)
+
+OOP provides powerful tools to eliminate duplication:
+
+#### 1. Inheritance (Code Reuse)
+Instead of copy-pasting standard methods (like `.start()` and `.stop()`) across `ToyotaCar`, `FordCar`, and `BMWCar`, we define them once in a parent `Car` class. Subclasses inherit this logic automatically.
+
+```python
+# ❌ WET (Bad): Repeating logic
+class Toyota:
+    def start(self): print("Ignition turned on")
+class Ford:
+    def start(self): print("Ignition turned on")
+
+# ✅ DRY (Good): Shared base logic
+class Vehicle:
+    def start(self): print("Ignition turned on")
+
+class Toyota(Vehicle): pass
+class Ford(Vehicle): pass
+```
+
+#### 2. The `super()` Method (Single Point of Change)
+By calling `super().__init__()` instead of `ParentClass.__init__(self)` inside child constructors, you avoid repeating parent class names. If the parent class is renamed, you only change it once in the class definition header.
+
+#### 3. Methods & Helper Functions
+If you need to calculate averages, validate emails, or convert temperatures in multiple methods, consolidate that calculations into a single method (or `@staticmethod`) and invoke it.
+
+```python
+# ❌ WET (Bad): Repeating the average math
+class Student:
+    def __init__(self, marks):
+        self.marks = marks
+    def get_avg(self):
+        return sum(self.marks) / len(self.marks) # Duplicate math
+    def result(self):
+        avg = sum(self.marks) / len(self.marks)  # Duplicate math
+        return "Pass" if avg >= 35 else "Fail"
+
+# ✅ DRY (Good): Reusing the computed average via property or helper
+class Student:
+    def __init__(self, marks):
+        self.marks = marks
+    @property
+    def avg(self):
+        return sum(self.marks) / len(self.marks) # Single point of truth
+    def get_avg(self):
+        return self.avg
+    def result(self):
+        return "Pass" if self.avg >= 35 else "Fail"
+```
+
+#### 4. Composition (Modular Delegation)
+Instead of repeating complex logic (like credit card processing or logging) inside different class definitions, bundle it into its own helper class (e.g., `PaymentGateway`, `Logger`) and give other classes a reference to it (e.g., `self.payment_gateway = PaymentGateway()`).
+
+---
+
+### 10.4 The Benefits of DRY Code
+1. **Maintainability:** You only need to fix bugs or update features in **one place**.
+2. **Readability:** Codebases are much smaller, cleaner, and easier to comprehend.
+3. **Testing:** You only write tests for the single authoritative version of your logic.
+4. **Consistency:** Avoids bugs where one copied block of code gets updated but others are forgotten.
+
+---
+
+## 11. Common OOP pitfalls & best practices
 
 - Prefer composition over inheritance when behavior can be delegated.
 - Keep `__init__` simple; avoid heavy work (IO, long computations).
