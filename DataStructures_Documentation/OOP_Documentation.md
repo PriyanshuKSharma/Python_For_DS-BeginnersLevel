@@ -7,6 +7,7 @@ Object-Oriented Programming is a programming paradigm based on the concept of "o
 ---
 
 ## 1. Class and Object
+
 - **Class**: A template or blueprint for creating objects.
 - **Object**: An instance of a class.
 
@@ -40,7 +41,9 @@ print(s1.greet())
 This section explains the classic OOP pillars with concrete Python examples.
 
 ### I. Inheritance
+
 Allows a class to inherit attributes and methods from another class.
+
 - **Single Inheritance**: Child inherits from one parent.
 - **Multiple Inheritance**: Child inherits from multiple parents.
 - **Multilevel Inheritance**: Grandchild inherits from Child, who inherits from Parent.
@@ -72,7 +75,9 @@ print(dog.speak(), bird.fly())
 ```
 
 ### II. Polymorphism
+
 The ability of different objects to respond to the same method call in different ways.
+
 - **Method Overriding**: Child class provides a specific implementation of a method already defined in the parent.
 
 Polymorphism also includes operator overloading and duck typing ("if it quacks like a duck").
@@ -91,7 +96,9 @@ make_it_speak(Cat()) # Meow
 ```
 
 ### III. Encapsulation
+
 The bundling of data with the methods that operate on that data. It restricts direct access to some components of an object.
+
 - **Public**: Accessible from everywhere.
 - **Protected (`_`)**: Suggests it's for internal use.
 - **Private (`__`)**: Restricts access from outside the class.
@@ -125,7 +132,9 @@ print(acc.get_balance())
 ```
 
 ### IV. Abstraction
+
 Hiding the complex implementation details and showing only the necessary features.
+
 - Achieved using the `abc` (Abstract Base Classes) module.
 
 Example with `abc`:
@@ -155,21 +164,20 @@ print(rect.area())
 
 ### 3.1 What is `__init__`?
 
-`__init__` (pronounced *"dunder init"*) is the **initializer method** — Python's constructor. It is automatically called **every time a new object is created** from a class.
+`__init__` (pronounced _"dunder init"_) is the **initializer method** — Python's constructor. It is automatically called **every time a new object is created** from a class.
 
-| Term | Meaning |
-|------|---------|
-| `__init__` | Initializer — sets up the object's initial state |
-| `self` | Reference to the newly created instance |
+| Term                | Meaning                                            |
+| ------------------- | -------------------------------------------------- |
+| `__init__`          | Initializer — sets up the object's initial state   |
+| `self`              | Reference to the newly created instance            |
 | Instance attributes | Per-object data, set with `self.attribute = value` |
 
 > **How Python calls it internally:**
 > `Car("BMW", "X5")` → Python first calls `Car.__new__(Car)` to allocate memory, then calls `Car.__init__(instance, "BMW", "X5")` to populate it.
 
-> The ***self*** parameter is a reference to the current instance of the class, and is used to access variables and methods. This parameter is passed automatically by Python when a method is called.
+> The **_self_** parameter is a reference to the current instance of the class, and is used to access variables and methods. This parameter is passed automatically by Python when a method is called.
 
-> ***self*** **must always be the first parameter** but is never passed explicitly when creating an object — Python injects it automatically.
-
+> **_self_** **must always be the first parameter** but is never passed explicitly when creating an object — Python injects it automatically.
 
 ---
 
@@ -188,7 +196,7 @@ class ClassName:
 
 ### 3.3 Real-world Example — `Car` class
 
-*(Taken from `oop.py`)*
+_(Taken from `oop.py`)_
 
 ```python
 class Car:
@@ -363,13 +371,13 @@ with Managed() as m:
 
 ### 3.11 Common `__init__` Mistakes
 
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| Forgetting `self` as first param | Always write `def __init__(self, ...)` |
+| ❌ Mistake                                                 | ✅ Fix                                                         |
+| ---------------------------------------------------------- | -------------------------------------------------------------- |
+| Forgetting `self` as first param                           | Always write `def __init__(self, ...)`                         |
 | Using mutable default args (`def __init__(self, data=[])`) | Use `None` default: `data=None`, then `self.data = data or []` |
-| Doing heavy I/O / long computations in `__init__` | Move heavy work to a separate method or factory |
-| Not calling `super().__init__()` in child class | Always call `super().__init__(...)` when overriding |
-| Returning a value from `__init__` | `__init__` must return `None` |
+| Doing heavy I/O / long computations in `__init__`          | Move heavy work to a separate method or factory                |
+| Not calling `super().__init__()` in child class            | Always call `super().__init__(...)` when overriding            |
+| Returning a value from `__init__`                          | `__init__` must return `None`                                  |
 
 ```python
 # ❌ Mutable default argument — shared across all instances!
@@ -407,11 +415,11 @@ a = Animal()      # ← no arguments passed
 a.speak()         # Sound: ...
 ```
 
-| Property | Detail |
-|----------|--------|
-| Arguments (besides `self`) | None |
-| Flexibility | Low — every object gets the same initial state |
-| When to use | Simple sentinel/default objects, singletons, state machines |
+| Property                   | Detail                                                      |
+| -------------------------- | ----------------------------------------------------------- |
+| Arguments (besides `self`) | None                                                        |
+| Flexibility                | Low — every object gets the same initial state              |
+| When to use                | Simple sentinel/default objects, singletons, state machines |
 
 ---
 
@@ -435,15 +443,15 @@ l1.specs()   # Dell | RAM: 16GB | Storage: 512GB
 l2.specs()   # Apple | RAM: 32GB | Storage: 1024GB
 ```
 
-| Property | Detail |
-|----------|--------|
-| Arguments (besides `self`) | One or more, all **required** |
-| Flexibility | High — each object starts with unique state |
-| When to use | Most domain objects (User, Product, Order, etc.) |
+| Property                   | Detail                                           |
+| -------------------------- | ------------------------------------------------ |
+| Arguments (besides `self`) | One or more, all **required**                    |
+| Flexibility                | High — each object starts with unique state      |
+| When to use                | Most domain objects (User, Product, Order, etc.) |
 
 ---
 
-#### Type 3 — Default-Value Constructor *(Parameterized with Defaults)*
+#### Type 3 — Default-Value Constructor _(Parameterized with Defaults)_
 
 A parameterized constructor where some (or all) parameters have **fallback values**, making them optional at call time. This is Python's way of simulating constructor overloading.
 
@@ -467,29 +475,31 @@ p3.info()   # OnePlus 12R — ₹35000
 ```
 
 > **Rule:** Required parameters must come **before** default-value parameters.
+>
 > ```python
 > def __init__(self, name, age, city="Delhi"):   # ✅ valid
 > def __init__(self, name, city="Delhi", age):   # ❌ SyntaxError
 > ```
 
-| Property | Detail |
-|----------|--------|
-| Arguments (besides `self`) | Mix of required + optional |
-| Flexibility | Very high — works as default OR parameterized |
-| When to use | Config objects, models with sensible defaults |
+| Property                   | Detail                                        |
+| -------------------------- | --------------------------------------------- |
+| Arguments (besides `self`) | Mix of required + optional                    |
+| Flexibility                | Very high — works as default OR parameterized |
+| When to use                | Config objects, models with sensible defaults |
 
 ---
 
 #### Quick Comparison
 
-| Feature | Default | Parameterized | Default-Value |
-|---------|---------|--------------|---------------|
-| Extra arguments | ✗ | ✓ (required) | ✓ (optional) |
-| Objects always identical? | ✓ | ✗ | ✗ |
-| Simulates overloading? | ✗ | ✗ | ✓ |
-| Most flexible | Low | Medium | High |
+| Feature                   | Default | Parameterized | Default-Value |
+| ------------------------- | ------- | ------------- | ------------- |
+| Extra arguments           | ✗       | ✓ (required)  | ✓ (optional)  |
+| Objects always identical? | ✓       | ✗             | ✗             |
+| Simulates overloading?    | ✗       | ✗             | ✓             |
+| Most flexible             | Low     | Medium        | High          |
 
 > 💡 Python has **no true constructor overloading**. Use `@classmethod` factory methods for complex alternative constructors:
+>
 > ```python
 > class Car:
 >     def __init__(self, name, model):
@@ -510,7 +520,7 @@ p3.info()   # OnePlus 12R — ₹35000
 
 ### 4.0 What is an Attribute?
 
-> **Attribute** — a variable that belongs to an object or a class. It stores the *state* (data) of that object.
+> **Attribute** — a variable that belongs to an object or a class. It stores the _state_ (data) of that object.
 
 In Python, attributes are accessed with **dot notation**: `object.attribute_name`.
 
@@ -523,10 +533,10 @@ object  ──dot──▶  attribute
 
 There are **two kinds** of attributes:
 
-| Kind | Belongs to | Defined | Accessed via |
-|------|-----------|---------|-------------|
-| **Instance attribute** | Each individual object | Inside `__init__` using `self.` | `object.attr` |
-| **Class attribute** | The class itself (shared) | Directly inside the class body | `ClassName.attr` or `object.attr` |
+| Kind                   | Belongs to                | Defined                         | Accessed via                      |
+| ---------------------- | ------------------------- | ------------------------------- | --------------------------------- |
+| **Instance attribute** | Each individual object    | Inside `__init__` using `self.` | `object.attr`                     |
+| **Class attribute**    | The class itself (shared) | Directly inside the class body  | `ClassName.attr` or `object.attr` |
 
 ---
 
@@ -694,13 +704,13 @@ print(r.perimeter)   # 20
 
 ### 4.6 Quick Comparison
 
-| | Instance Attribute | Class Attribute | `@property` |
-|--|-------------------|----------------|-------------|
-| **Defined in** | `__init__` via `self.` | Class body (top level) | Method with `@property` |
-| **Unique per object?** | ✅ Yes | ❌ No (shared) | ✅ Yes (computed per object) |
-| **Stored in memory?** | ✅ Yes | ✅ Yes (once) | ❌ No (recalculated on access) |
-| **Can have validation?** | ❌ (manual) | ❌ (manual) | ✅ via setter |
-| **Accessed with `()`?** | No | No | No |
+|                          | Instance Attribute     | Class Attribute        | `@property`                    |
+| ------------------------ | ---------------------- | ---------------------- | ------------------------------ |
+| **Defined in**           | `__init__` via `self.` | Class body (top level) | Method with `@property`        |
+| **Unique per object?**   | ✅ Yes                 | ❌ No (shared)         | ✅ Yes (computed per object)   |
+| **Stored in memory?**    | ✅ Yes                 | ✅ Yes (once)          | ❌ No (recalculated on access) |
+| **Can have validation?** | ❌ (manual)            | ❌ (manual)            | ✅ via setter                  |
+| **Accessed with `()`?**  | No                     | No                     | No                             |
 
 ---
 
@@ -744,12 +754,12 @@ car = Car(); print(car.engine.start())
 
 ### 7.0 What is a Method?
 
-> **Method** — a function defined **inside a class**. It describes the *behaviour* (actions) an object can perform.
+> **Method** — a function defined **inside a class**. It describes the _behaviour_ (actions) an object can perform.
 
-| Term | Meaning |
-|------|---------|
-| **Attribute** | *What* an object **has** (data / state) |
-| **Method** | *What* an object **does** (behaviour / action) |
+| Term          | Meaning                                        |
+| ------------- | ---------------------------------------------- |
+| **Attribute** | _What_ an object **has** (data / state)        |
+| **Method**    | _What_ an object **does** (behaviour / action) |
 
 Methods are accessed with dot notation, just like attributes, but they are **called with `()`**:
 
@@ -836,6 +846,7 @@ print(s.name, s.marks)               # Anushka 85
 - **No** implicit first parameter — no `self`, no `cls`.
 - Does **not** access or modify instance or class data.
 - Used for utility / helper functions that logically belong to the class.
+- Work at class level
 
 ```python
 class MathUtils:
@@ -856,20 +867,21 @@ print(MathUtils.is_even(4))      # True
 m = MathUtils()
 print(m.is_even(9))              # False
 ```
+> Decorators allow us to wrap another function in order to extend the behaviour of the function in a simple and readable way.(wrapped function, w/o permanently modifying it)
 
 ---
 
 ### 7.4 Comparison: Instance vs Class vs Static Method
 
-| Feature | Instance Method | Class Method | Static Method |
-|---------|----------------|-------------|---------------|
-| First parameter | `self` (instance) | `cls` (class) | None |
-| Access instance attrs? | ✅ Yes | ❌ No | ❌ No |
-| Access class attrs? | ✅ Yes (via `self`) | ✅ Yes (via `cls`) | ❌ No |
-| Modify instance state? | ✅ Yes | ❌ No | ❌ No |
-| Decorator needed? | ❌ None | `@classmethod` | `@staticmethod` |
-| Called on object? | ✅ Typical | ✅ or via class | ✅ or via class |
-| Common use | Core object behaviour | Factory / alt constructors | Utilities / helpers |
+| Feature                | Instance Method       | Class Method               | Static Method       |
+| ---------------------- | --------------------- | -------------------------- | ------------------- |
+| First parameter        | `self` (instance)     | `cls` (class)              | None                |
+| Access instance attrs? | ✅ Yes                | ❌ No                      | ❌ No               |
+| Access class attrs?    | ✅ Yes (via `self`)   | ✅ Yes (via `cls`)         | ❌ No               |
+| Modify instance state? | ✅ Yes                | ❌ No                      | ❌ No               |
+| Decorator needed?      | ❌ None               | `@classmethod`             | `@staticmethod`     |
+| Called on object?      | ✅ Typical            | ✅ or via class            | ✅ or via class     |
+| Common use             | Core object behaviour | Factory / alt constructors | Utilities / helpers |
 
 ---
 
@@ -931,7 +943,139 @@ print(result)   # Engine + Wheels + Body
 
 ---
 
+### 7.7 When to Use Which Method Type
+
+#### Decision Flowchart
+
+```
+Does the method need to read or change THIS object's data (self.attribute)?
+│
+├── YES  →  Use an  INSTANCE METHOD     def method(self)
+│
+└── NO   →  Does it need to read or change the CLASS itself (e.g. class attribute)?
+            │
+            ├── YES  →  Use a  CLASS METHOD      @classmethod  def method(cls)
+            │
+            └── NO   →  It's a pure utility — use a  STATIC METHOD   @staticmethod  def method()
+```
+
+---
+
+#### At a Glance — Scenarios
+
+| Scenario | Use |
+|----------|-----|
+| Greet a student by their name | **Instance** — needs `self.name` |
+| Check if a student passed/failed | **Instance** — needs `self.marks` |
+| Update a student's marks | **Instance** — modifies `self.marks` |
+| Get the school name (shared by all students) | **Class** — reads a class attribute |
+| Create a Student from a CSV string `"Priyanshu,90"` | **Class** — factory / alternative constructor |
+| Change the school name for every student at once | **Class** — modifies class attribute via `cls` |
+| Validate that marks are between 0–100 | **Static** — pure logic, no object data needed |
+| Convert Celsius to Fahrenheit | **Static** — pure math, completely self-contained |
+| Calculate average of a list of numbers | **Static** — utility helper |
+| Count total objects created | **Class** — tracks a class-level counter |
+
+---
+
+#### Real-world Example — All Three Applied Correctly
+
+```python
+class Student:
+    school = "Delhi Public School"   # class attribute
+    _count = 0                        # class attribute — object counter
+
+    def __init__(self, name, marks):
+        self.name  = name
+        self.marks = marks            # list of marks
+        Student._count += 1
+
+    # ── INSTANCE METHODS ────────────────────────────────────────
+    # Use when: you need self.something
+
+    def get_avg(self):
+        """Calculate average — needs this student's marks."""
+        avg = sum(self.marks) / len(self.marks)
+        print(f"{self.name} → Avg: {avg:.1f}")
+        return avg
+
+    def result(self):
+        """Pass/fail — depends on this student's average."""
+        avg = sum(self.marks) / len(self.marks)
+        status = "PASS ✅" if avg >= 35 else "FAIL ❌"
+        print(f"{self.name} — {status}")
+
+    def update_marks(self, new_marks):
+        """Modify marks — changes this student's state."""
+        self.marks = new_marks
+        print(f"Marks updated for {self.name}")
+
+    # ── CLASS METHODS ────────────────────────────────────────────
+    # Use when: you need cls.something or an alternative constructor
+
+    @classmethod
+    def get_school(cls):
+        """Return school name shared by all students."""
+        return cls.school
+
+    @classmethod
+    def total_students(cls):
+        """How many Student objects exist?"""
+        return cls._count
+
+    @classmethod
+    def from_string(cls, data):
+        """Alternative constructor: 'Priyanshu:90,80,70'"""
+        name, raw = data.split(":")
+        marks = list(map(int, raw.split(",")))
+        return cls(name, marks)
+
+    # ── STATIC METHODS ───────────────────────────────────────────
+    # Use when: pure logic — no self, no cls needed
+
+    @staticmethod
+    def is_valid_marks(marks):
+        """Validate marks list — doesn't need any object data."""
+        return all(0 <= m <= 100 for m in marks)
+
+    @staticmethod
+    def grade(avg):
+        """Convert average to grade — pure math, self-contained."""
+        if avg >= 90: return "A"
+        if avg >= 75: return "B"
+        if avg >= 50: return "C"
+        return "D"
+
+
+# ── Usage ─────────────────────────────────────────────────────
+s1 = Student("Priyanshu", [90, 80, 70])
+s2 = Student.from_string("Anushka:50,30,20")   # class method
+
+s1.get_avg()        # Priyanshu → Avg: 80.0       (instance)
+s2.result()         # Anushka — FAIL ❌            (instance)
+
+print(Student.get_school())        # Delhi Public School   (class)
+print(Student.total_students())    # 2                     (class)
+
+print(Student.is_valid_marks([90, 80, 70]))  # True        (static)
+print(Student.grade(80))                     # B           (static)
+```
+
+---
+
+#### Common Mistakes
+
+| ❌ Wrong | ✅ Correct | Why |
+|---------|-----------|-----|
+| `@staticmethod` but reads `self.name` | Use instance method | Static has no `self` |
+| `@classmethod` but reads `self.marks` | Use instance method | `cls` is the class, not the object |
+| Instance method for pure math | Use `@staticmethod` | Cleaner — signals no side-effects |
+| Class method to modify one student's marks | Use instance method | `cls` affects the class, not one object |
+
+---
+
 ## 8. Polymorphism and duck typing
+
 
 Python prefers duck typing — you don't need a shared base class as long as objects implement the required interface.
 
