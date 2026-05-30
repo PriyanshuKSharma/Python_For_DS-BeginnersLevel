@@ -1009,11 +1009,31 @@ s1.update_marks(45)  # Marks updated to 45
 
 ---
 
-### 7.2 Class Method (In-Depth Guide)
+### 7.2 Class Method
 
-A **Class Method** is a method that is bound to the **class itself** rather than any specific instance of the class. It has access to the class-level state (class attributes) but **cannot** access instance-level attributes (`self.attribute`).
+> **Definition:** A class method is **bound to the class**, not to any individual object (instance). It receives the **class itself as the implicit first argument** (conventionally named `cls`), injected automatically by Python — just like `self` is injected for instance methods.
+
+#### 📝 Notes
+
+- Decorated with **`@classmethod`** — this tells Python to pass the class, not the object, as the first argument.
+- The first parameter is **`cls`** (short for *class*) — you can technically name it anything, but `cls` is the universal convention.
+- **`cls` = the class** → `self` = the instance. Same idea, different scope.
+- Can **read and modify class attributes** (shared by all objects).
+- **Cannot** access instance attributes — there is no `self`, so no per-object data.
+- Can be called **on the class directly** (`Student.method()`) **or on an instance** (`s1.method()`) — Python always passes the class, not the instance.
+- Commonly used as **alternative / factory constructors** — Python's substitute for constructor overloading.
+
+```
+How Python calls it internally:
+
+  Student.get_school()
+      │
+      └──▶  Student.get_school(Student)   ← Python injects the class as cls
+                                 └── cls = Student
+```
 
 ---
+
 
 #### 1. Core Syntax & Parameters
 
@@ -1336,10 +1356,252 @@ print(Student.grade(80))                     # B           (static)
 
 ---
 
-## 8. Polymorphism and duck typing
+## 8. Polymorphism and Duck Typing
+
+### 8.0 What is Polymorphism?
+
+> **Polymorphism** (from Greek: *poly* = many, *morphe* = form) — the ability of **different objects to respond to the same method call** in their own way.
+
+The same interface (`speak()`, `area()`, `+`) works on many different types — each type handles it differently.
+
+```
+make_sound(dog)   →  "Woof"
+make_sound(cat)   →  "Meow"
+make_sound(bird)  →  "Chirp"
+
+Same function call → different behaviour depending on the object.
+```
+
+---
+
+### 8.1 Types of Polymorphism in Python
+
+| Type | How | Example |
+|------|-----|---------|
+| **Method Overriding** | Child class redefines a parent's method | `Dog.speak()` overrides `Animal.speak()` |
+| **Operator Overloading** | Dunder methods redefine operators (`+`, `*`, `==`) | `Point(1,2) + Point(3,4)` |
+| **Duck Typing** | No inheritance needed — just implement the same interface | Any object with `.speak()` works |
+
+---
+
+### 8.2 Method Overriding (Runtime Polymorphism)
+
+A child class provides its **own implementation** of a method already defined in the parent. At runtime Python picks the right version based on the actual object type.
+
+```python
+class Animal:
+    def speak(self):
+        return "..."          # default — meant to be overridden
+
+class Dog(Animal):
+    def speak(self):
+        return "Woof 🐕"     # overrides Animal.speak
+
+class Cat(Animal):
+    def speak(self):
+        return "Meow 🐈"     # overrides Animal.speak
+
+class Bird(Animal):
+    def speak(self):
+        return "Chirp 🐦"    # overrides Animal.speak
 
 
-Python prefers duck typing — you don't need a shared base class as long as objects implement the required interface.
+# Polymorphism in action — same call, different result
+animals = [Dog(), Cat(), Bird()]
+
+for animal in animals:
+    print(animal.speak())    # Python calls the right .speak() automatically
+# Output:
+# Woof 🐕
+# Meow 🐈
+# Chirp 🐦
+```
+
+---
+
+### 8.3 Polymorphism with Functions
+
+You don't need a loop — a plain function can accept any object that has the required method:
+
+```python
+def make_sound(animal):
+    """Works with ANY object that has a .speak() method."""
+    print(animal.speak())
+
+make_sound(Dog())    # Woof 🐕
+make_sound(Cat())    # Meow 🐈
+make_sound(Bird())   # Chirp 🐦
+```
+
+The function doesn't care *what type* `animal` is — only that it has `.speak()`. This is **duck typing**.
+
+---
+
+### 8.4 Operator Overloading (Compile-time Polymorphism)
+
+Python's built-in operators (`+`, `-`, `*`, `==`, `<`, etc.) can be redefined for custom classes using **dunder (magic) methods**.
+
+| Operator | Dunder Method |
+|---------|--------------|
+| `+` | `__add__` |
+| `-` | `__sub__` |
+| `*` | `__mul__` |
+| `==` | `__eq__` |
+| `<` | `__lt__` |
+| `str()` | `__str__` |
+| `len()` | `__len__` |
+
+```python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):          # overloads  +
+        return Point(self.x + other.x, self.y + other.y)
+
+    def __eq__(self, other):           # overloads  ==
+        return self.x == other.x and self.y == other.y
+
+    def __str__(self):                 # overloads  str()  /  print()
+        return f"Point({self.x}, {self.y})"
+
+
+p1 = Point(1, 2)
+p2 = Point(3, 4)
+
+print(p1 + p2)    # Point(4, 6)   ← __add__ called
+print(p1 == p2)   # False         ← __eq__ called
+print(p1)         # Point(1, 2)   ← __str__ called
+```
+
+---
+
+### 8.5 Duck Typing
+
+> *"If it walks like a duck and quacks like a duck, it's a duck."*
+
+Python does **not** require a shared base class or interface declaration. As long as an object has the required method or attribute, it will work — regardless of its actual type.
+
+```python
+# These three classes share NO common parent — yet they all work the same way
+class Dog:
+    def speak(self):
+        return "Woof 🐕"
+
+class Robot:
+    def speak(self):
+        return "Beep boop 🤖"
+
+class Child:
+    def speak(self):
+        return "Hello! 👦"
+
+
+def make_it_speak(entity):
+    """Doesn't check the type — just calls .speak()"""
+    print(entity.speak())
+
+
+make_it_speak(Dog())    # Woof 🐕
+make_it_speak(Robot())  # Beep boop 🤖
+make_it_speak(Child())  # Hello! 👦
+```
+
+Python doesn't ask *"Is this an Animal?"* — it asks *"Does this have a `.speak()` method?"*
+
+---
+
+### 8.6 Practical Duck Typing — File-Like Objects
+
+Python's standard library relies heavily on duck typing. Any object with `.read()` and `.write()` behaves like a file:
+
+```python
+import io
+
+def process(file_like):
+    """Works with real files, StringIO, BytesIO — anything with .read()"""
+    content = file_like.read()
+    print(f"Read {len(content)} characters")
+
+# Works with a real file:
+# with open("data.txt") as f:
+#     process(f)
+
+# Also works with an in-memory buffer — no file on disk needed:
+buf = io.StringIO("Hello from duck typing!")
+process(buf)   # Read 23 characters
+```
+
+---
+
+### 8.7 `isinstance()` vs Duck Typing
+
+| Approach | How it checks | When to use |
+|---------|--------------|-------------|
+| `isinstance(obj, Animal)` | Strict type check — must be `Animal` or subclass | When type correctness is critical (security, serialisation) |
+| **Duck typing** (just call the method) | No check — try it, catch `AttributeError` | Most everyday Python code |
+| `hasattr(obj, "speak")` | Check for capability without a type check | When you want to be explicit but stay flexible |
+
+```python
+# ── Duck typing (Pythonic) ──────────────────────────────────
+def make_sound(entity):
+    try:
+        print(entity.speak())
+    except AttributeError:
+        print(f"{type(entity).__name__} has no speak() method")
+
+
+# ── hasattr approach (explicit capability check) ─────────────
+def make_sound_safe(entity):
+    if hasattr(entity, "speak"):
+        print(entity.speak())
+    else:
+        print("Cannot speak!")
+
+
+make_sound(Dog())     # Woof 🐕
+make_sound(42)        # int has no speak() method
+make_sound_safe(Cat())  # Meow 🐈
+```
+
+---
+
+### 8.8 Polymorphism with `len()` and `str()`
+
+Built-in functions are themselves polymorphic — they work on any type that implements the right dunder:
+
+```python
+print(len("hello"))     # 5      — str.__len__
+print(len([1, 2, 3]))   # 3      — list.__len__
+print(len({1, 2}))      # 2      — set.__len__
+
+class Bag:
+    def __init__(self, items):
+        self.items = items
+    def __len__(self):
+        return len(self.items)
+
+b = Bag(["apple", "banana", "cherry"])
+print(len(b))           # 3      — Bag.__len__  ← polymorphism!
+```
+
+---
+
+### 8.9 Key Takeaways
+
+| Concept | One-line summary |
+|---------|-----------------|
+| **Polymorphism** | Same interface, different behaviour per object type |
+| **Method Overriding** | Child redefines parent's method — runtime dispatch |
+| **Operator Overloading** | Dunder methods let operators work on custom types |
+| **Duck Typing** | Python checks *capability*, not *identity* |
+| **No base class needed** | Any object with the right method works |
+
+> 💡 **Python's philosophy:** *"We are all adults here."* — Python trusts you to pass the right type of object. Prefer duck typing over strict `isinstance` checks.
+
+---
+
 
 ## 9. Abstraction with interfaces and `abc` (covered above)
 
