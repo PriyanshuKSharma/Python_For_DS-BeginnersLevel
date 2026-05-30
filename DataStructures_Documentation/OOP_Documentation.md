@@ -166,6 +166,11 @@ print(rect.area())
 > **How Python calls it internally:**
 > `Car("BMW", "X5")` → Python first calls `Car.__new__(Car)` to allocate memory, then calls `Car.__init__(instance, "BMW", "X5")` to populate it.
 
+> The ***self*** parameter is a reference to the current instance of the class, and is used to access variables and methods. This parameter is passed automatically by Python when a method is called.
+
+> ***self*** **must always be the first parameter** but is never passed explicitly when creating an object — Python injects it automatically.
+
+
 ---
 
 ### 3.2 Basic Syntax
