@@ -24,7 +24,7 @@ Python Lists are implemented as **Dynamic Arrays**.
 
 ## 🔗 2. Linked Lists
 
-Implemented as nodes with pointers. (See [Full Guide](README_LinkedList.md)).
+Implemented as nodes with pointers. (See [Full Guide](LinkedList.md)).
 
 | Operation             | Complexity | Explanation (Hinglish)                                  |
 | :-------------------- | :--------- | :------------------------------------------------------ |

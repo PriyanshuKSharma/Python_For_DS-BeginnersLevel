@@ -683,7 +683,7 @@ class Stack:
 
 **Related Topics:**
 
-- [Queues](README_Queues.md)
-- [Linked Lists](README_LinkedList.md)
-- [Recursion and Call Stack](README_Recursion.md)
-- [Time Complexity](README_TimeComplexity_Concept.md)
+- [Queues](Queues.md)
+- [Linked Lists](LinkedList.md)
+- [Recursion and Call Stack](Recursion.md)
+- [Time Complexity](TimeComplexity_Concept.md)

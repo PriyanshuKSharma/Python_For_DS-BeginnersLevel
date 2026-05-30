@@ -6,7 +6,7 @@ This directory contains comprehensive documentation for all major Python data st
 
 ## 📋 Data Structure Guides
 
-### 1. [Lists](README_Lists.md)
+### 1. [Lists](Lists.md)
 
 **Ordered, Mutable, Allows Duplicates**
 
@@ -15,7 +15,7 @@ This directory contains comprehensive documentation for all major Python data st
 - Supports indexing, slicing, and iteration
 - **Use when**: You need ordered, changeable data
 
-### 2. [Tuples](README_Tuples.md)
+### 2. [Tuples](Tuples.md)
 
 **Ordered, Immutable, Allows Duplicates**
 
@@ -24,7 +24,7 @@ This directory contains comprehensive documentation for all major Python data st
 - Supports unpacking and named tuples
 - **Use when**: You need ordered, unchangeable data
 
-### 3. [Linked Lists](README_LinkedList.md)
+### 3. [Linked Lists](LinkedList.md)
 
 **Linear, Dynamic, Non-Contiguous**
 
@@ -33,7 +33,7 @@ This directory contains comprehensive documentation for all major Python data st
 - No random access (must traverse)
 - **Use when**: You need frequent insertions/deletions
 
-### 4. [Dictionaries](README_Dictionaries.md)
+### 4. [Dictionaries](Dictionaries.md)
 
 **Key-Value Pairs, Mutable, Unique Keys**
 
@@ -42,7 +42,7 @@ This directory contains comprehensive documentation for all major Python data st
 - Rich methods for manipulation and iteration
 - **Use when**: You need key-value associations
 
-### 5. [Sets](README_Sets.md)
+### 5. [Sets](Sets.md)
 
 **Unordered, Mutable, Unique Elements**
 
@@ -51,7 +51,7 @@ This directory contains comprehensive documentation for all major Python data st
 - Ideal for uniqueness and set mathematics
 - **Use when**: You need unique collections or set operations
 
-### 6. [Strings](README_Strings.md)
+### 6. [Strings](Strings.md)
 
 **Immutable Character Sequences**
 
@@ -60,7 +60,7 @@ This directory contains comprehensive documentation for all major Python data st
 - Pattern matching and validation methods
 - **Use when**: You need text processing and manipulation
 
-### 7. [NumPy](README_NumPy.md)
+### 7. [NumPy](NumPy.md)
 
 **Numerical Computing Arrays**
 
@@ -69,7 +69,7 @@ This directory contains comprehensive documentation for all major Python data st
 - Broadcasting and vectorized operations
 - **Use when**: You need numerical computations and arrays
 
-### 8. [Pandas](README_Pandas.md)
+### 8. [Pandas](Pandas.md)
 
 **Data Analysis and Manipulation**
 
@@ -80,8 +80,8 @@ This directory contains comprehensive documentation for all major Python data st
 
 ## 🎯 Quick Reference
 
-👉 **[What is Time Complexity? (Concept & Big O Explained)](README_TimeComplexity_Concept.md)**  
-👉 **[Universal Time Complexity Guide (Lists, Sets, Dicts, etc.)](README_TimeComplexity_All.md)**
+👉 **[What is Time Complexity? (Concept & Big O Explained)](TimeComplexity_Concept.md)**  
+👉 **[Universal Time Complexity Guide (Lists, Sets, Dicts, etc.)](TimeComplexity_All.md)**
 
 | Data Structure   | Ordered | Mutable | Duplicates           | Syntax                |
 | ---------------- | ------- | ------- | -------------------- | --------------------- |

@@ -128,7 +128,7 @@ class LinkedList:
 
 ## ⏳ Time Complexity Analysis
 
-👉 **[Read Detailed Universal Time Complexity Guide (Hinglish)](README_TimeComplexity_All.md)**
+👉 **[Read Detailed Universal Time Complexity Guide (Hinglish)](TimeComplexity_All.md)**
 
 | Operation          | Best Case | Worst Case |
 | :----------------- | :-------- | :--------- |
