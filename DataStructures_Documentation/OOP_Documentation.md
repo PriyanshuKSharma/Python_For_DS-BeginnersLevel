@@ -151,37 +151,234 @@ print(rect.area())
 
 ---
 
-## 3. Constructors and object lifecycle
+## 3. Constructors and Object Lifecycle
 
-- **Constructor (`__init__`)**: Initializes instance state. It is called when an object is created.
-- **Destructor (`__del__`)**: Called when an object is about to be destroyed (rarely used; prefer context managers).
+### 3.1 What is `__init__`?
+
+`__init__` (pronounced *"dunder init"*) is the **initializer method** — Python's constructor. It is automatically called **every time a new object is created** from a class.
+
+| Term | Meaning |
+|------|---------|
+| `__init__` | Initializer — sets up the object's initial state |
+| `self` | Reference to the newly created instance |
+| Instance attributes | Per-object data, set with `self.attribute = value` |
+
+> **How Python calls it internally:**
+> `Car("BMW", "X5")` → Python first calls `Car.__new__(Car)` to allocate memory, then calls `Car.__init__(instance, "BMW", "X5")` to populate it.
+
+---
+
+### 3.2 Basic Syntax
+
+```python
+class ClassName:
+    def __init__(self, param1, param2):
+        self.param1 = param1   # binds argument to instance attribute
+        self.param2 = param2
+```
+
+`self` **must always be the first parameter** but is never passed explicitly when creating an object — Python injects it automatically.
+
+---
+
+### 3.3 Real-world Example — `Car` class
+
+*(Taken from `oop.py`)*
+
+```python
+class Car:
+    def __init__(self, name, model):
+        self.name = name    # e.g. "BMW"
+        self.model = model  # e.g. "X5"
+
+# Creating instances — __init__ is called automatically
+c1 = Car("BMW", "X5")
+print(c1.name, c1.model)   # BMW X5
+
+c2 = Car("Audi", "A4")
+print(c2.name, c2.model)   # Audi A4
+```
+
+Each call to `Car(...)` creates an **independent object**. Changing `c1.name` does not affect `c2.name`.
+
+---
+
+### 3.4 Default Parameter Values
+
+You can give parameters default values so they become optional:
+
+```python
+class Car:
+    def __init__(self, name, model, year=2024, color="White"):
+        self.name  = name
+        self.model = model
+        self.year  = year
+        self.color = color
+
+c1 = Car("BMW", "X5")                    # uses defaults
+c2 = Car("Audi", "A4", 2023, "Black")    # overrides defaults
+print(c1.year, c1.color)  # 2024 White
+print(c2.year, c2.color)  # 2023 Black
+```
+
+---
+
+### 3.5 Type Hints in `__init__`
+
+Type hints make the initializer self-documenting and IDE-friendly (no runtime enforcement):
+
+```python
+class Car:
+    def __init__(self, name: str, model: str, year: int = 2024) -> None:
+        self.name:  str = name
+        self.model: str = model
+        self.year:  int = year
+```
+
+> **Tip:** The return type of `__init__` is always `None`.
+
+---
+
+### 3.6 Class Attributes vs Instance Attributes
+
+```python
+class Car:
+    # Class attribute — shared by ALL instances
+    category: str = "Vehicle"
+
+    def __init__(self, name: str, model: str):
+        # Instance attributes — unique per object
+        self.name  = name
+        self.model = model
+
+c1 = Car("BMW", "X5")
+c2 = Car("Audi", "A4")
+
+print(Car.category)   # Vehicle   (accessed via class)
+print(c1.category)    # Vehicle   (inherited from class)
+c1.category = "SUV"   # creates a NEW instance attribute on c1 only
+print(c1.category)    # SUV
+print(c2.category)    # Vehicle   (c2 still uses the class attribute)
+```
+
+---
+
+### 3.7 Calling `super().__init__()` in Inheritance
+
+When a child class has its own `__init__`, you **must** call `super().__init__()` to properly initialize the parent's attributes:
+
+```python
+class Vehicle:
+    def __init__(self, name: str):
+        self.name = name
+
+class ElectricCar(Vehicle):
+    def __init__(self, name: str, model: str, battery_kwh: int):
+        super().__init__(name)          # initializes self.name from Vehicle
+        self.model       = model
+        self.battery_kwh = battery_kwh
+
+    def info(self) -> str:
+        return f"{self.name} {self.model} — {self.battery_kwh} kWh"
+
+tesla = ElectricCar("Tesla", "Model 3", 75)
+print(tesla.info())   # Tesla Model 3 — 75 kWh
+```
+
+---
+
+### 3.8 Validation Inside `__init__`
+
+You can add guard clauses to enforce valid state on creation:
+
+```python
+class Car:
+    def __init__(self, name: str, model: str, year: int):
+        if not name or not model:
+            raise ValueError("name and model cannot be empty")
+        if year < 1886 or year > 2100:          # first car was 1886
+            raise ValueError(f"Invalid year: {year}")
+        self.name  = name
+        self.model = model
+        self.year  = year
+
+# Car("", "X5", 2024)  →  ValueError: name and model cannot be empty
+```
+
+---
+
+### 3.9 Destructor `__del__` and Object Lifecycle
+
+```
+Object creation          Object destruction
+      │                         │
+  __new__()  ──▶  __init__()   ──▶  __del__()
+  (allocate)     (initialize)       (clean up)
+```
 
 ```python
 class Resource:
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.name = name
-        print(f"Resource {name} acquired")
+        print(f"[+] Resource '{name}' acquired")
 
     def __del__(self):
-        print(f"Resource {self.name} released")
+        print(f"[-] Resource '{self.name}' released")
 
-res = Resource('db')
-del res
+res = Resource("database_connection")
+del res   # triggers __del__ immediately
+# If not deleted manually, Python's GC calls it on program exit
 ```
 
-Prefer `with`-based context managers for predictable cleanup:
+> ⚠️ **Avoid heavy logic in `__del__`** — exceptions raised inside it are silently ignored, and the timing of GC is not guaranteed. Use context managers instead.
+
+---
+
+### 3.10 Prefer Context Managers for Cleanup
 
 ```python
 class Managed:
     def __enter__(self):
-        print('enter')
+        print("Resource acquired")
         return self
-    def __exit__(self, exc_type, exc, tb):
-        print('exit')
 
-with Managed():
-    print('inside')
+    def __exit__(self, exc_type, exc, tb):
+        print("Resource released")
+        return False   # don't suppress exceptions
+
+with Managed() as m:
+    print("Doing work...")
+# Output:
+# Resource acquired
+# Doing work...
+# Resource released
 ```
+
+---
+
+### 3.11 Common `__init__` Mistakes
+
+| ❌ Mistake | ✅ Fix |
+|-----------|--------|
+| Forgetting `self` as first param | Always write `def __init__(self, ...)` |
+| Using mutable default args (`def __init__(self, data=[])`) | Use `None` default: `data=None`, then `self.data = data or []` |
+| Doing heavy I/O / long computations in `__init__` | Move heavy work to a separate method or factory |
+| Not calling `super().__init__()` in child class | Always call `super().__init__(...)` when overriding |
+| Returning a value from `__init__` | `__init__` must return `None` |
+
+```python
+# ❌ Mutable default argument — shared across all instances!
+class Bad:
+    def __init__(self, items=[]):
+        self.items = items
+
+# ✅ Correct pattern
+class Good:
+    def __init__(self, items=None):
+        self.items = items if items is not None else []
+```
+
+---
 
 ## 4. Attributes: class vs instance, properties
 
