@@ -95,72 +95,195 @@ make_it_speak(dog)   # Woof
 make_it_speak(Cat()) # Meow
 ```
 
-### III. Encapsulation
+### III. Encapsulation & "Private-like" Members in Python
 
-The bundling of data with the methods that operate on that data. It restricts direct access to some components of an object.
+Encapsulation is the bundling of data and the methods that operate on that data, while restricting direct access to some of the object's components. 
 
-- **Public**: Accessible from everywhere.
-- **Protected (`_`)**: Suggests it's for internal use.
-- **Private (`__`)**: Restricts access from outside the class.
+In languages like C++ or Java, keywords like `private` and `protected` are strictly enforced by the compiler. In Python, **there are no true private access specifiers**. Python's philosophy is *"We are all consenting adults here"*. Instead, Python achieves "private-like" access conceptually and structurally through prefixes:
 
-Python does not enforce strict private access, but name mangling (`__name`) helps avoid accidental access.
+| Access Level | Prefix Syntax | Conceptual Meaning | Actual Behavior in Python |
+| :--- | :--- | :--- | :--- |
+| **Public** | `attribute` | Anyone can access & modify | Fully accessible inside & outside the class |
+| **Protected-like** | `_attribute` | Internal use warning (Convention) | Fully accessible, but flagged as internal (don't access directly) |
+| **Private-like** | `__attribute` | Strictly internal to this class | Accessible via **Name Mangling** (`_ClassName__attribute`) |
+
+---
+
+#### 1. Conceptual Implementation of Protected-like members (`_`)
+
+The single leading underscore (`_`) is a purely conceptual convention. It tells other programmers: *"This is a protected member. Do not access it outside the class."*
 
 ```python
-class BankAccount:
-    def __init__(self, owner, balance=0):
-        self.owner = owner            # public
-        self._currency = 'USD'        # protected (by convention)
-        self.__balance = balance      # private (name mangled)
+class User:
+    def __init__(self, username):
+        self.username = username
+        self._status = "Active"  # Protected-like attribute (by convention)
 
-    def deposit(self, amount):
-        if amount > 0:
-            self.__balance += amount
+    def _display_status(self):   # Protected-like method
+        return f"User is {self._status}"
 
-    def withdraw(self, amount):
-        if amount <= self.__balance:
-            self.__balance -= amount
-            return amount
-        raise ValueError('Insufficient funds')
-
-    def get_balance(self):
-        return self.__balance
-
-acc = BankAccount('Sam', 100)
-acc.deposit(50)
-print(acc.get_balance())
-# direct access to __balance will fail: acc.__balance -> AttributeError
+u = User("Alice")
+# ❌ Bad practice (violates convention):
+print(u._status)           # Works, but highly discouraged!
+print(u._display_status()) # Works, but highly discouraged!
 ```
+
+---
+
+#### 2. Conceptual & Actual Implementation of Private-like members (`__`)
+
+The double leading underscore (`__`) invokes Python's **Name Mangling** mechanism. 
+
+##### What is Name Mangling?
+When Python sees `__attribute` or `__method`, it automatically renames (mangles) it internally to `_ClassName__attribute` or `_ClassName__method`. This is not to restrict access for security, but to **prevent accidental override or naming conflicts** (especially in inheritance).
+
+##### Examples from `Revision/oop2.py`:
+
+##### Example A: Private-like Attributes (`Account` Class)
+```python
+class Account:
+    def __init__(self, acc_no, acc_pass):
+        self.acc_no = acc_no
+        self.__acc_pass = acc_pass  # Private-like attribute
+
+    def reset_password(self):
+        print(self.__acc_pass)      # Accessor method (accessible inside)
+
+acc1 = Account(123456, '1234')
+
+# 1. Accessing via accessor method (Allowed)
+acc1.reset_password()  # Outputs: 1234
+
+# 2. Attempting direct access (Raises AttributeError)
+# print(acc1.__acc_pass)  # ❌ AttributeError: 'Account' object has no attribute '__acc_pass'
+
+# 3. Accessing via name mangling (Allowed but discouraged)
+print(acc1._Account__acc_pass)  # Outputs: 1234
+```
+
+##### Example B: Private-like Methods & Attributes (`SecretAgent` Class)
+```python
+class SecretAgent:
+    def __init__(self, codename, real_name):
+        self.codename = codename      # Public attribute
+        self.__real_name = real_name  # Private-like attribute
+
+    def __decrypt_secret(self):       # Private-like method
+        return "Decrypted: Target located."
+
+    def reveal_identity(self):
+        # Accessible inside the class natively
+        print(f"Agent: {self.codename}")
+        print(f"Real Name: {self.__real_name}")
+        print(self.__decrypt_secret())
+
+secret_agent = SecretAgent("007", "James Bond")
+
+# 1. Accessing inside class using reveal_identity (Allowed)
+secret_agent.reveal_identity()
+# Outputs:
+# Agent: 007
+# Real Name: James Bond
+# Decrypted: Target located.
+
+# 2. Attempting direct access/call externally (Raises AttributeError)
+# print(secret_agent.__real_name)         # ❌ AttributeError
+# secret_agent.__decrypt_secret()          # ❌ AttributeError
+
+# 3. Accessing mangled method externally (Allowed but discouraged)
+print(secret_agent._SecretAgent__decrypt_secret())  # Outputs: Decrypted: Target located.
+```
+
+---
 
 ### IV. Abstraction
 
-Hiding the complex implementation details and showing only the necessary features.
+Hiding the complex internal implementation details of a system and showing only the essential features/interfaces to the outside world. 
 
-- Achieved using the `abc` (Abstract Base Classes) module.
+There are two layers to Abstraction in Python:
+1. **Conceptual Abstraction (Complexity Hiding)**: Designing classes that hide internal calculations and states behind simple methods.
+2. **Structural Abstraction (Interface Enforcement)**: Creating abstract base templates using the `abc` module to define contracts that subclasses must implement.
 
-Example with `abc`:
+#### 1. Conceptual Abstraction (Real-world `Car` Example)
+
+*(Taken from `Revision/abstraction_prac.py`)*
+
+Consider how a car operates. A driver interacts only with simple public controls (`start` button, `drive` selector). The complex internal mechanisms (pedals, clutch engagement, fuel injection) are hidden.
+
+```python
+class Car:
+    def __init__(self):
+        # Hidden/internal states (kept simple for illustration)
+        self.acc = False
+        self.brk = False
+        self.clutch = False
+        
+    def start(self):
+        # Internal step-by-step coordination is abstracted away
+        self.clutch = True
+        self.acc = True
+        print("Car Started ✅")
+
+    def drive(self):
+        if self.acc == True and self.clutch == True:
+            print("Car is Driving 🚗💨")
+        else:
+            print("Cannot Drive ❌")
+
+# --- Client Interface ---
+car1 = Car()
+car1.start()  # Hides the complex pedal state configurations
+car1.drive()  # User simply drives without manually managing raw pedal values
+```
+
+#### 2. Structural Abstraction (Abstract Base Classes)
+
+Achieved using Python's built-in `abc` (Abstract Base Classes) module. This defines a common interface that other classes must inherit and implement.
 
 ```python
 from abc import ABC, abstractmethod
 
-class Shape(ABC):
+class Vehicle(ABC):
     @abstractmethod
-    def area(self):
+    def start(self):
         pass
 
-class Rectangle(Shape):
-    def __init__(self, w, h):
-        self.w, self.h = w, h
+    @abstractmethod
+    def drive(self):
+        pass
 
-    def area(self):
-        return self.w * self.h
+class ElectricCar(Vehicle):
+    def __init__(self):
+        self.battery_ready = False
 
-rect = Rectangle(3, 4)
-print(rect.area())
+    def start(self):
+        self.battery_ready = True
+        print("Electric system online silently ⚡")
+
+    def drive(self):
+        if self.battery_ready:
+            print("Car is gliding smoothly 🤫")
+
+# You cannot instantiate the abstract class itself:
+# v = Vehicle()  -->  TypeError: Can't instantiate abstract class Vehicle
 ```
 
 ---
 
 ## 3. Constructors and Object Lifecycle
+
+### 3.0 What is a Constructor?
+
+A **Constructor** is a special method (or block of code) in Object-Oriented Programming (OOP) that is automatically invoked when a new instance (object) of a class is created.
+
+**Key Purposes of a Constructor:**
+1. **Resource Allocation**: Reserves memory space for the new object.
+2. **State Initialization**: Assigns initial values to the object's instance variables (attributes), preparing it for immediate use.
+3. **Setup Tasks**: Executes any startup configuration or validation required when an object is born.
+
+In Python, the constructor concept is implemented via the **`__init__`** method (initializer).
+
+---
 
 ### 3.1 What is `__init__`?
 
@@ -365,6 +488,37 @@ with Managed() as m:
 # Resource acquired
 # Doing work...
 # Resource released
+```
+
+### 3.10.1 The `del` Keyword in Python OOP
+
+The `del` keyword in Python is a general-purpose instruction used to delete references to objects, variables, list/dict elements, or individual attributes of an object.
+
+#### 1. Deleting an Object Attribute
+You can remove a specific attribute from an active instance using `del object.attribute`. Trying to access the attribute after deletion will raise an `AttributeError`.
+
+```python
+class Account:
+    def __init__(self, bal):
+        self.balance = bal
+
+acc = Account(5000)
+print(acc.balance)  # 5000
+del acc.balance     # removes the balance attribute from acc
+
+# Accessing it now raises an error:
+# print(acc.balance)  --> AttributeError: 'Account' object has no attribute 'balance'
+```
+
+#### 2. Deleting an Entire Object Reference
+Using `del object` removes the variable name from the local/global namespace. If this was the last reference to the object in memory, Python's Garbage Collector will trigger its `__del__` destructor method to free up memory. Accessing the object after deletion raises a `NameError`.
+
+```python
+acc = Account(1000)
+del acc             # deletes the variable reference
+
+# Accessing it now raises an error:
+# print(acc)        # --> NameError: name 'acc' is not defined
 ```
 
 ---
