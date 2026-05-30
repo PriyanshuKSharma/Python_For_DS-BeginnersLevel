@@ -4,6 +4,20 @@ class Student:
 s1 = Student()
 # print(s1.name)
 
+# ──────────────────────────────────────────────
+# CONSTRUCTORS & INITIALIZATION
+# ──────────────────────────────────────────────
+# A CONSTRUCTOR is a special method in a class that is automatically invoked
+# when a new object of that class is created.
+#
+# In Python, the constructor is defined using the special method `__init__` (Initializer).
+#
+# Key Features:
+# 1. Automatic Execution: Called automatically whenever we instantiate an object (e.g., c1 = Car("BMW", "X5")).
+# 2. Initialization: Its primary purpose is to initialize (assign values to) the data attributes of the class.
+# 3. 'self' parameter: Must have 'self' as the first parameter to reference the newly created object.
+# 4. Return Value: Must always return None. It cannot return a value.
+
 class Car:
     def __init__(self, name, model):
         self.name = name
