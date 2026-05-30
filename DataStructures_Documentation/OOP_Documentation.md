@@ -1009,37 +1009,96 @@ s1.update_marks(45)  # Marks updated to 45
 
 ---
 
-### 7.2 Class Method
+### 7.2 Class Method (In-Depth Guide)
 
-- Decorated with `@classmethod`.
-- Receives the **class itself** as the first parameter (`cls`), not an instance.
-- Cannot access instance attributes — only class-level data.
-- Often used as **alternative constructors** (factory methods).
+A **Class Method** is a method that is bound to the **class itself** rather than any specific instance of the class. It has access to the class-level state (class attributes) but **cannot** access instance-level attributes (`self.attribute`).
+
+---
+
+#### 1. Core Syntax & Parameters
+
+* **`@classmethod` Decorator:** You must decorate a class method with the built-in `@classmethod` decorator.
+* **The `cls` Parameter:** The first parameter of a class method is always **`cls`**, which represents the class itself. When you call the method, Python automatically injects the class object as `cls`. 
+
+```python
+class Demo:
+    @classmethod
+    def my_class_method(cls):
+        print(f"This method is running on class: {cls.__name__}")
+```
+
+---
+
+#### 2. Key Use Cases
+
+Class methods are primarily used for two main purposes in Python:
+
+##### Use Case A: Alternative Constructors (Factory Methods)
+Unlike languages like Java or C++, Python does not support true method/constructor overloading. A class can only have **one** `__init__` method.
+
+Class methods solve this limitation by serving as **Alternative Constructors** (factory methods) to create instances of the class from different data formats (e.g., strings, dictionaries, JSON, lists).
 
 ```python
 class Student:
-    school = "Delhi Public School"   # class attribute
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
 
-    def __init__(self, name, marks):
-        self.name  = name
-        self.marks = marks
-
-    @classmethod
-    def get_school(cls):
-        return cls.school            # accesses class attribute
-
+    # 1. Constructor from a single string: "Priyanshu:20"
     @classmethod
     def from_string(cls, data_str):
-        # Alternative constructor — e.g. "Priyanshu:90"
-        name, marks = data_str.split(":")
-        return cls(name, int(marks)) # creates and returns a new instance
+        name, age = data_str.split(":")
+        return cls(name, int(age))  # Instantiates and returns a new object
 
+    # 2. Constructor from a dictionary: {"name": "Anushka", "age": 19}
+    @classmethod
+    def from_dict(cls, data_dict):
+        return cls(data_dict["name"], data_dict["age"])
 
-print(Student.get_school())          # Delhi Public School
+# Instantiating using standard constructor:
+s1 = Student("Priyanshu", 20)
 
-s = Student.from_string("Anushka:85")
-print(s.name, s.marks)               # Anushka 85
+# Instantiating using Alternative Constructors:
+s2 = Student.from_string("Anushka:19")
+s3 = Student.from_dict({"name": "Karan", "age": 21})
+
+print(s2.name, s2.age)  # Output: Anushka 19
+print(s3.name, s3.age)  # Output: Karan 21
 ```
+
+##### Use Case B: Accessing and Modifying Class-Level State
+Class methods can read and modify variables that belong to the class itself, which are shared across all instances (like counter variables or shared configuration settings).
+
+```python
+class Employee:
+    company = "Google"  # Class attribute
+
+    def __init__(self, name):
+        self.name = name
+
+    @classmethod
+    def get_company(cls):
+        return cls.company
+
+    @classmethod
+    def change_company(cls, new_company):
+        cls.company = new_company  # Modifies the shared class state
+
+e1 = Employee("Alice")
+e2 = Employee("Bob")
+
+print(e1.get_company())  # Output: Google
+Employee.change_company("DeepMind")
+print(e2.get_company())  # Output: DeepMind (Updates for all employees!)
+```
+
+---
+
+#### 3. How to Call a Class Method
+
+You can call a class method in two ways, but calling it directly on the **Class** is the most readable and standard practice:
+1. **Via the Class (Preferred):** `ClassName.method_name()`
+2. **Via an Instance:** `instance_name.method_name()` *(Python still automatically passes the class object as the first parameter behind the scenes)*.
 
 ---
 
