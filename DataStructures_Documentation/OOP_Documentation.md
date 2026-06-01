@@ -143,24 +143,154 @@ By calling `super()`, Python looks up the next class in this `__mro__` chain, en
 
 ### II. Polymorphism
 
-The ability of different objects to respond to the same method call in different ways.
+> **Definition:** Polymorphism (Greek: *poly* = many, *morphe* = form) — the ability of **different objects to respond to the same method call** in their own way.
 
-- **Method Overriding**: Child class provides a specific implementation of a method already defined in the parent.
+#### 📝 Notes
 
-Polymorphism also includes operator overloading and duck typing ("if it quacks like a duck").
+- The **same interface** (method name, operator, function) works across **many different types**.
+- Python decides *at runtime* which version of a method to call based on the actual object — this is called **dynamic dispatch**.
+- Python supports polymorphism **without strict type checking** — you just need the right method to exist on the object.
+- Polymorphism works through:
+  - **Method Overriding** — child class redefines parent's method
+  - **Operator Overloading** — dunder methods redefine `+`, `==`, `len()`, etc.
+  - **Duck Typing** — "if it has `.speak()`, call it" — no base class required
+
+---
+
+#### 1. Method Overriding (Runtime Polymorphism)
+
+Child class provides its **own implementation** of a method already defined in the parent. Python automatically calls the right version at runtime.
 
 ```python
-class Cat(Animal):
+class Animal:
     def speak(self):
-        return "Meow"
+        return "..."
 
-# Duck typing example
-def make_it_speak(entity):
+class Dog(Animal):
+    def speak(self):        # overrides Animal.speak
+        return "Woof 🐕"
+
+class Cat(Animal):
+    def speak(self):        # overrides Animal.speak
+        return "Meow 🐈"
+
+class Bird(Animal):
+    def speak(self):        # overrides Animal.speak
+        return "Chirp 🐦"
+
+# Same call — different result depending on the actual object type
+animals = [Dog(), Cat(), Bird()]
+for a in animals:
+    print(a.speak())
+# Woof 🐕 / Meow 🐈 / Chirp 🐦
+```
+
+---
+
+#### 2. Method Overloading — Python's Approach
+
+Python does **not** support true method overloading (same name, different parameters) like Java/C++. Instead, use **default parameters** or `*args`:
+
+```python
+class Calculator:
+    def add(self, a, b, c=0):    # c is optional — simulates overloading
+        return a + b + c
+
+calc = Calculator()
+print(calc.add(1, 2))      # 3   (c defaults to 0)
+print(calc.add(1, 2, 3))   # 6   (c = 3)
+```
+
+---
+
+#### 3. Operator Overloading
+
+Redefine Python's built-in operators for custom classes using **dunder (magic) methods**:
+
+| Operator | Method | Example |
+|---------|--------|---------|
+| `+` | `__add__` | `p1 + p2` |
+| `-` | `__sub__` | `p1 - p2` |
+| `*` | `__mul__` | `p1 * 3` |
+| `==` | `__eq__` | `p1 == p2` |
+| `<` | `__lt__` | `p1 < p2` |
+| `str()` | `__str__` | `print(p1)` |
+| `len()` | `__len__` | `len(obj)` |
+
+```python
+class Vector:
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+
+    def __add__(self, other):        # overloads +
+        return Vector(self.x + other.x, self.y + other.y)
+
+    def __str__(self):               # overloads str() / print()
+        return f"Vector({self.x}, {self.y})"
+
+    def __eq__(self, other):         # overloads ==
+        return self.x == other.x and self.y == other.y
+
+v1 = Vector(1, 2)
+v2 = Vector(3, 4)
+print(v1 + v2)       # Vector(4, 6)
+print(v1 == v2)      # False
+```
+
+---
+
+#### 4. Duck Typing
+
+> *"If it walks like a duck and quacks like a duck, it's a duck."*
+
+Python doesn't check **what type** an object is — only whether it has the **required method**. No shared base class needed:
+
+```python
+class Dog:
+    def speak(self):
+        return "Woof 🐕"
+
+class Robot:
+    def speak(self):
+        return "Beep boop 🤖"
+
+def make_it_speak(entity):   # works with ANY object that has .speak()
     print(entity.speak())
 
-make_it_speak(dog)   # Woof
-make_it_speak(Cat()) # Meow
+make_it_speak(Dog())     # Woof 🐕
+make_it_speak(Robot())   # Beep boop 🤖  ← Robot is not an Animal, but it works!
 ```
+
+---
+
+#### 5. Polymorphism with Built-in Functions
+
+Python's built-in functions are themselves polymorphic:
+
+```python
+print(len("hello"))      # 5  — str.__len__
+print(len([1, 2, 3]))    # 3  — list.__len__
+
+class Bag:
+    def __init__(self, items):
+        self.items = items
+    def __len__(self):
+        return len(self.items)
+
+print(len(Bag(["a", "b", "c"])))   # 3 — Bag.__len__ — polymorphism!
+```
+
+---
+
+#### Quick Summary
+
+| Type | How it works | Needs inheritance? |
+|------|-------------|-------------------|
+| Method Overriding | Child redefines parent's method | ✅ Yes |
+| Operator Overloading | Dunder methods customise operators | ❌ No |
+| Duck Typing | Any object with the right method works | ❌ No |
+
+> **See Section 8** for an in-depth guide with more examples and `isinstance()` vs duck typing comparison.
 
 ### III. Encapsulation & "Private-like" Members in Python
 
