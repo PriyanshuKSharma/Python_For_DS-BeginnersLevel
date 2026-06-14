@@ -131,7 +131,7 @@
     readerSource.textContent = `${item.source} / ${item.category}`;
     readerMeta.textContent = `${item.path} · ${item.lines.toLocaleString()} extracted lines${item.pages ? ` · ${item.pages.length} pages` : ''}`;
     readerOriginal.href = `../${encodeURI(item.path)}`;
-    readerContent.innerHTML = item.source === 'Markdown' ? renderMarkdown(item.content) : renderPdf(item);
+    readerContent.innerHTML = item.source === 'Markdown' ? renderMarkdown(item.content) : item.source === 'Python' ? '<pre><code>' + escapeHtml(item.content) + '</code></pre>' : renderPdf(item);
     buildToc();
     document.querySelectorAll('.library-item').forEach(el => el.classList.toggle('active', el.dataset.id === item.id));
     if (innerWidth < 780) document.querySelector('.library-reader').scrollIntoView({ behavior: 'smooth' });
