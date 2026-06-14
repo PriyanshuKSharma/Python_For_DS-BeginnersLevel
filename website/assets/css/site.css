@@ -19,6 +19,29 @@
   --header-h: 68px;
 }
 
+:root[data-theme="dark"] {
+  --ink: #eaf0fa;
+  --ink-soft: #9aa7b9;
+  --paper: #0d1117;
+  --surface: #161b22;
+  --surface-soft: #21262d;
+  --line: #30363d;
+  --blue: #58a6ff;
+  --blue-deep: #79c0ff;
+  --teal: #3fb950;
+  --yellow: #e3b341;
+  --coral: #ff7b72;
+  --green: #3fb950;
+  --code: #f0f6fc;
+  --shadow: 0 12px 35px rgba(0, 0, 0, .4);
+}
+
+:root[data-theme="light"] .sun-icon { display: none; }
+:root[data-theme="light"] .moon-icon { display: block; }
+:root[data-theme="dark"] .sun-icon { display: block; }
+:root[data-theme="dark"] .moon-icon { display: none; }
+
+
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
@@ -46,9 +69,8 @@ main { flex: 1; }
   align-items: center;
   gap: 1rem;
   padding: 0 max(1.25rem, calc((100vw - 1280px) / 2));
-  background: rgba(255,255,255,.94);
+  background: var(--surface);
   border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(12px);
 }
 .brand { display: flex; align-items: center; gap: .65rem; font-weight: 700; white-space: nowrap; }
 .brand-mark {
