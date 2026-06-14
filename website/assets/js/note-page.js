@@ -67,16 +67,18 @@
   if (sourcesEl && meta) {
     const sources = [
       meta.pdf && { label: 'Open source PDF', href: `../${meta.pdf}`, kind: 'PDF' },
-      meta.doc && { label: 'Read detailed Markdown guide', href: `../${meta.doc}`, kind: 'DOC' },
+      meta.doc && { label: 'Read detailed Markdown guide', href: `../${meta.doc}`, kind: 'DOC', docPath: meta.doc },
       meta.pyFile && { label: 'Open practice Python file', href: `../${meta.pyFile}`, kind: 'PY', pyPath: meta.pyFile },
       meta.video && { label: 'Watch related video', href: meta.video, kind: 'VIDEO' }
     ].filter(Boolean);
     if (sources.length) {
       sourcesEl.innerHTML = `<section class="source-panel">
         <div><strong>Study sources</strong><span>Use the original course material alongside this note.</span></div>
-        <div class="source-links">${sources.map(source =>
-          `<a href="${source.href}" ${source.kind === 'PY' ? `class="py-source-link" data-path="${source.pyPath}"` : 'target="_blank" rel="noreferrer"'} ><b>${source.kind}</b>${source.label}</a>`
-        ).join('')}</div>
+        <div class="source-links">${sources.map(source => {
+          if (source.kind === 'PY') return `<a href="${source.href}" class="py-source-link" data-path="${source.pyPath}"><b>${source.kind}</b>${source.label}</a>`;
+          if (source.kind === 'DOC') return `<a href="${source.href}" class="doc-source-link" data-path="${source.docPath}"><b>${source.kind}</b>${source.label}</a>`;
+          return `<a href="${source.href}" target="_blank" rel="noreferrer"><b>${source.kind}</b>${source.label}</a>`;
+        }).join('')}</div>
       </section>`;
     }
   }
@@ -146,7 +148,23 @@
           terminalOverlay.classList.add('active');
           document.body.style.overflow = 'hidden';
         } else {
-          // Fallback if not found in content library
+          window.open(link.href, '_blank');
+        }
+      });
+    });
+
+    const docLinks = document.querySelectorAll('.doc-source-link');
+    docLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const docPath = link.getAttribute('data-path');
+        const libEntry = typeof CONTENT_LIBRARY !== 'undefined' ? CONTENT_LIBRARY.find(d => d.path === docPath) : null;
+        if (libEntry) {
+          document.querySelector('.terminal-title').textContent = `bash — cat ${docPath}`;
+          terminalContent.textContent = libEntry.content;
+          terminalOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        } else {
           window.open(link.href, '_blank');
         }
       });
