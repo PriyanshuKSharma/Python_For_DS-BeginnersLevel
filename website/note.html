@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/site.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 
@@ -77,7 +78,23 @@
     <span>Created by: <strong>Priyanshu K. Sharma</strong></span>
   </footer>
 
+  <!-- ── Terminal Modal ── -->
+  <div id="codeTerminalModal" class="terminal-modal-overlay">
+    <div class="terminal-modal">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <div class="terminal-dot red" id="closeTerminalBtn" title="Close"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+        </div>
+        <div class="terminal-title">bash — python3</div>
+      </div>
+      <div class="terminal-body" id="terminalCodeContent"></div>
+    </div>
+  </div>
+
   <script src="assets/js/python-notes.js"></script>
+  <script src="assets/js/content-library-data.js"></script>
   <script src="assets/js/note-content.js"></script>
   <script src="assets/js/note-page.js"></script>
   <script src="assets/js/theme.js"></script>
