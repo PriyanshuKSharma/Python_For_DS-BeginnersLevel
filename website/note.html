@@ -47,8 +47,11 @@
   <div class="note-layout">
 
     <!-- Sidebar -->
-    <aside class="sidebar" aria-label="All notes">
-      <div class="sidebar-title">All Notes</div>
+    <aside class="sidebar" id="noteSidebar" aria-label="All notes">
+      <div class="sidebar-header" id="sidebarToggleBtn" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: .35rem .45rem .75rem;" title="Toggle All Notes">
+        <div class="sidebar-title" style="padding: 0;">All Notes</div>
+        <svg id="sidebarToggleIcon" viewBox="0 0 16 16" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ink-soft); transition: transform 0.2s;"><polyline points="4 6 8 10 12 6"></polyline></svg>
+      </div>
       <nav class="sidebar-nav" id="sidebarNav" aria-label="Notes navigation"></nav>
     </aside>
 
