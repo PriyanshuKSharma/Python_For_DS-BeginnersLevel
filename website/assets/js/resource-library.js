@@ -58,9 +58,47 @@ function renderFileLibrary(id, countId, files) {
   const target = document.getElementById(id);
   const count = document.getElementById(countId);
   if (!target) return;
-  target.innerHTML = files.map(file => `<a href="../${encodeURI(file)}" target="_blank">${file}</a>`).join('');
+  target.innerHTML = files.map(file => `<a href="../${encodeURI(file)}" class="resource-file-link" data-path="${file}">${file}</a>`).join('');
   if (count) count.textContent = `(${files.length})`;
 }
 
 renderFileLibrary('docLibrary', 'docCount', DOCUMENTATION_FILES);
 renderFileLibrary('pyLibrary', 'pyCount', PYTHON_FILES);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const terminalOverlay = document.getElementById('codeTerminalModal');
+  const terminalContent = document.getElementById('terminalCodeContent');
+  const closeTerminalBtn = document.getElementById('closeTerminalBtn');
+  const terminalTitle = document.getElementById('terminalTitle');
+
+  if (terminalOverlay && terminalContent && closeTerminalBtn) {
+    document.querySelectorAll('.resource-file-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const path = link.getAttribute('data-path');
+        const isPy = path.endsWith('.py');
+        const libEntry = typeof CONTENT_LIBRARY !== 'undefined' ? CONTENT_LIBRARY.find(d => d.path === path) : null;
+        if (libEntry) {
+          if (terminalTitle) terminalTitle.textContent = `bash — ${isPy ? 'python3' : 'cat'} ${path.split('/').pop()}`;
+          terminalContent.textContent = libEntry.content;
+          terminalOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        } else {
+          window.open(link.href, '_blank');
+        }
+      });
+    });
+
+    closeTerminalBtn.onclick = () => {
+      terminalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    terminalOverlay.onclick = (e) => {
+      if (e.target === terminalOverlay) {
+        terminalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    };
+  }
+});
