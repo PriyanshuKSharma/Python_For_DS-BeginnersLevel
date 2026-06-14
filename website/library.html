@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Notes Library | Python Notes</title>
+  <meta name="description" content="Full searchable text from every DataStructures_Documentation Markdown guide and every Python_Course PDF.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Python Notes home"><span class="brand-mark">Py</span><span>Python Notes</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><line x1="1" y1="4" x2="17" y2="4"/><line x1="1" y1="9" x2="17" y2="9"/><line x1="1" y1="14" x2="17" y2="14"/></svg>
+    </button>
+    <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
+      <a href="index.html">Notes</a><a class="active" href="library.html">Complete Library</a><a href="cheat-sheet.html">Cheat Sheet</a><a href="projects.html">Projects</a><a href="resources.html">Resources</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Switch theme" title="Switch theme">
+      <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.4A8.5 8.5 0 0 1 9.6 3.5 8.5 8.5 0 1 0 20.5 14.4Z"/></svg>
+    </button>
+  </header>
+
+  <section class="library-hero">
+    <div>
+      <p class="eyebrow">Every source, fully extracted</p>
+      <h1>Complete Notes Library</h1>
+      <p>Read and search all text from <strong>DataStructures_Documentation</strong> and every PDF in <strong>Python_Course</strong>, including the complete OOP interview guide.</p>
+    </div>
+    <div class="library-stats">
+      <div><strong id="libraryDocCount">0</strong><span>Documents</span></div>
+      <div><strong id="libraryLineCount">0</strong><span>Source lines</span></div>
+      <div><strong id="libraryPageCount">0</strong><span>PDF pages</span></div>
+    </div>
+  </section>
+
+  <div class="library-shell">
+    <aside class="library-browser">
+      <label class="library-search"><span>Search full text</span><input id="librarySearch" type="search" placeholder="Try inheritance, binary search, pandas..." autocomplete="off"></label>
+      <div class="library-filters" id="libraryFilters"></div>
+      <div class="library-results-meta"><strong id="libraryVisible">0</strong> documents</div>
+      <nav class="library-list" id="libraryList" aria-label="Complete notes documents"></nav>
+    </aside>
+
+    <main class="library-reader">
+      <header class="reader-header">
+        <div>
+          <p class="reader-source" id="readerSource">Select a document</p>
+          <h2 id="readerTitle">Complete course notes</h2>
+          <p id="readerMeta">Choose a guide or PDF from the library.</p>
+        </div>
+        <a class="btn" id="readerOriginal" href="#" target="_blank">Open original</a>
+      </header>
+      <nav class="reader-toc" id="readerToc" aria-label="Document table of contents"></nav>
+      <article class="reader-content" id="readerContent">
+        <p>Loading complete library...</p>
+      </article>
+    </main>
+  </div>
+
+  <footer class="site-footer"><span>Complete Python Notes Library</span><span>All Markdown and Python_Course PDF text included</span><span>Created by: <strong>Priyanshu K. Sharma</strong></span></footer>
+  <script src="assets/js/content-library-data.js"></script>
+  <script src="assets/js/content-library.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/nav-toggle.js"></script>
+</body>
+</html>
