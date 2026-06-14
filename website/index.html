@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python for Data Science Notes | Beginner's Level</title>
+  <meta name="description" content="Complete Python for Data Science notes — OOP, Data Structures, Algorithms, NumPy, Pandas. Guided by Mohit Sir. 3rd Semester.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Python Notes home">
+      <span class="brand-mark">Py</span>
+      <span>Python Notes</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">
+      <svg viewBox="0 0 18 18" aria-hidden="true">
+        <line x1="1" y1="4" x2="17" y2="4"/>
+        <line x1="1" y1="9" x2="17" y2="9"/>
+        <line x1="1" y1="14" x2="17" y2="14"/>
+      </svg>
+    </button>
+    <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
+      <a class="active" href="index.html">Notes</a>
+      <a href="library.html">Complete Library</a>
+      <a href="cheat-sheet.html">Cheat Sheet</a>
+      <a href="projects.html">Projects</a>
+      <a href="resources.html">Resources</a>
+      <a href="https://www.youtube.com/watch?v=-hh6raHUUvk&t=101s" target="_blank" rel="noreferrer">Video 1</a>
+      <a href="https://www.youtube.com/watch?v=ERCMXc8x7mc" target="_blank" rel="noreferrer">OOP Video</a>
+      <a href="https://github.com/PriyanshuKSharma/Python_For_DS-BeginnersLevel" target="_blank" rel="noreferrer">Repo</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Switch theme" title="Switch theme">
+      <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.4A8.5 8.5 0 0 1 9.6 3.5 8.5 8.5 0 1 0 20.5 14.4Z"/></svg>
+    </button>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Python for Data Science | 3rd Semester · Guided by Mohit Sir</p>
+      <h1>Learn Python from Basics to Data Science & OOP Mastery.</h1>
+      <p class="hero-sub">
+        Video-linked notes for Python fundamentals, OOP (4 pillars), Data Structures, Sorting Algorithms, NumPy, Pandas, and competitive programming with LeetCode & HackerRank.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="note.html?id=intro">Start Notes</a>
+        <a class="btn" href="library.html">Complete Library</a>
+        <a class="btn" href="cheat-sheet.html">Cheat Sheet</a>
+        <a class="btn" href="projects.html">Projects</a>
+      </div>
+      <div class="hero-stats" aria-label="Site statistics">
+        <div><strong id="statNotes">30</strong><span>Notes</span></div>
+        <div><strong>6</strong><span>Tracks</span></div>
+        <div><strong>3</strong><span>Videos</span></div>
+      </div>
+    </div>
+    <div class="hero-illustration" aria-hidden="true">
+      <img src="assets/hero-illustration.png" alt="Python snake logo with data science charts, neural networks, and NumPy Pandas icons">
+    </div>
+  </section>
+
+  <section class="study-path" aria-labelledby="pathTitle">
+    <div class="section-heading">
+      <p class="eyebrow">Recommended order</p>
+      <h2 id="pathTitle">A clear path through the course</h2>
+      <p>Start with the eight lecture PDFs, deepen each topic with the repository notes, then practise with real Python files.</p>
+    </div>
+    <div class="path-grid">
+      <a class="path-step" href="note.html?id=intro"><span>01</span><strong>Python foundations</strong><small>Syntax, variables, strings and conditions</small></a>
+      <a class="path-step" href="note.html?id=lists"><span>02</span><strong>Collections</strong><small>Lists, tuples, dictionaries and sets</small></a>
+      <a class="path-step" href="note.html?id=control-flow"><span>03</span><strong>Program flow</strong><small>Loops, functions, recursion and files</small></a>
+      <a class="path-step featured" href="note.html?id=oops-notes-pdf"><span>04</span><strong>OOP mastery</strong><small>Four pillars plus 30 interview questions</small></a>
+      <a class="path-step" href="note.html?id=sorting-overview"><span>05</span><strong>DSA practice</strong><small>Data structures, searching and sorting</small></a>
+      <a class="path-step" href="note.html?id=numpy"><span>06</span><strong>Data science</strong><small>NumPy, Pandas, notebooks and regression</small></a>
+    </div>
+  </section>
+
+  <!-- ── Toolbar ── -->
+  <section class="toolbar" aria-label="Notes search and filters">
+    <label class="search-box" for="searchInput">
+      <span>Search</span>
+      <input id="searchInput" type="search" placeholder="Search Python notes..." autocomplete="off">
+    </label>
+    <div class="visible-count"><strong id="visibleCount">30</strong> visible notes</div>
+  </section>
+
+  <!-- ── Filter bar ── -->
+  <div class="filter-bar" id="filterBar" aria-label="Note category filters">
+    <button class="filter-btn active" data-cat="all">All</button>
+    <button class="filter-btn" data-cat="foundation">Foundation</button>
+    <button class="filter-btn" data-cat="oop">OOP</button>
+    <button class="filter-btn" data-cat="ds">Data Structures</button>
+    <button class="filter-btn" data-cat="algo">Algorithms</button>
+    <button class="filter-btn" data-cat="science">Data Science</button>
+    <button class="filter-btn" data-cat="cp">Competitive</button>
+    <button class="filter-btn" data-cat="pdf">PDFs</button>
+  </div>
+
+  <!-- ── Catalog ── -->
+  <main class="catalog" id="notesCatalog" aria-live="polite"></main>
+
+  <div class="no-results" id="noResults">
+    <div class="empty-mark">0</div>
+    <p>No Python notes match <strong id="noResultsQuery"></strong>.</p>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    <span>Python for DS Notes</span>
+    <span class="footer-credit">
+      📺 Videos:
+      <a href="https://www.youtube.com/watch?v=-hh6raHUUvk&t=101s" target="_blank" rel="noreferrer">Python Full Course</a> ·
+      <a href="https://www.youtube.com/watch?v=ERCMXc8x7mc" target="_blank" rel="noreferrer">OOP</a> ·
+      <a href="https://www.youtube.com/watch?v=cKeKp17afZw" target="_blank" rel="noreferrer">OOP Playlist</a>
+    </span>
+    <span>Created by: <strong>Priyanshu K. Sharma</strong></span>
+    <span>Repo: <a href="https://github.com/PriyanshuKSharma/Python_For_DS-BeginnersLevel" target="_blank" rel="noreferrer">Python_For_DS</a></span>
+  </footer>
+
+  <script src="assets/js/python-notes.js"></script>
+  <script src="assets/js/home.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/nav-toggle.js"></script>
+</body>
+</html>
