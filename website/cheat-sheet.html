@@ -413,7 +413,54 @@ flat = [n for row in matrix for n in row]</pre>
     <span>Created by: <strong>Priyanshu K. Sharma</strong></span>
   </footer>
 
+  <!-- ── Terminal Modal ── -->
+  <div id="codeTerminalModal" class="terminal-modal-overlay">
+    <div class="terminal-modal">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <div class="terminal-dot red" id="closeTerminalBtn" title="Close"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+        </div>
+        <div class="terminal-title" id="terminalTitle">bash — python3 cheat-sheet.py</div>
+      </div>
+      <div class="terminal-body" id="terminalCodeContent"></div>
+    </div>
+  </div>
+
   <script src="assets/js/theme.js"></script>
   <script src="assets/js/nav-toggle.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const terminalOverlay = document.getElementById('codeTerminalModal');
+      const terminalContent = document.getElementById('terminalCodeContent');
+      const closeTerminalBtn = document.getElementById('closeTerminalBtn');
+      const terminalTitle = document.getElementById('terminalTitle');
+
+      if (terminalOverlay && terminalContent && closeTerminalBtn) {
+        document.querySelectorAll('.cheat-card pre').forEach(pre => {
+          pre.addEventListener('click', () => {
+            const cardTitle = pre.previousElementSibling ? pre.previousElementSibling.textContent.toLowerCase().replace(/ /g, '_') : 'snippet';
+            if(terminalTitle) terminalTitle.textContent = `bash — python3 ${cardTitle}.py`;
+            terminalContent.textContent = pre.textContent;
+            terminalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          });
+        });
+
+        closeTerminalBtn.onclick = () => {
+          terminalOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        };
+
+        terminalOverlay.onclick = (e) => {
+          if (e.target === terminalOverlay) {
+            terminalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        };
+      }
+    });
+  </script>
 </body>
 </html>
