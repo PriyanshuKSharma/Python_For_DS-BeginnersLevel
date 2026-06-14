@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python Cheat Sheet | Python for DS Notes</title>
+  <meta name="description" content="Quick-reference Python cheat sheet — syntax, data structures, OOP, NumPy, Pandas snippets.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Python Notes home">
+      <span class="brand-mark">Py</span>
+      <span>Python Notes</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">
+      <svg viewBox="0 0 18 18" aria-hidden="true">
+        <line x1="1" y1="4" x2="17" y2="4"/>
+        <line x1="1" y1="9" x2="17" y2="9"/>
+        <line x1="1" y1="14" x2="17" y2="14"/>
+      </svg>
+    </button>
+    <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
+      <a href="index.html">Notes</a>
+      <a href="library.html">Complete Library</a>
+      <a class="active" href="cheat-sheet.html">Cheat Sheet</a>
+      <a href="projects.html">Projects</a>
+      <a href="resources.html">Resources</a>
+      <a href="https://www.youtube.com/watch?v=-hh6raHUUvk&t=101s" target="_blank" rel="noreferrer">Video 1</a>
+      <a href="https://www.youtube.com/watch?v=ERCMXc8x7mc" target="_blank" rel="noreferrer">OOP Video</a>
+      <a href="https://github.com/PriyanshuKSharma/Python_For_DS-BeginnersLevel" target="_blank" rel="noreferrer">Repo</a>
+    </nav>
+  </header>
+
+  <!-- ── Page Header ── -->
+  <div class="page-header">
+    <p class="eyebrow">Quick Reference</p>
+    <h1>Python Cheat Sheet</h1>
+    <p>Essential Python snippets — syntax, data structures, OOP, NumPy, Pandas, algorithms.</p>
+  </div>
+
+  <!-- ── Cheat Sheet Grid ── -->
+  <div class="cheat-layout">
+    <div class="cheat-grid">
+
+      <!-- Variables & Types -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Variables & Types</div>
+        <pre>x = 10           # int
+pi = 3.14        # float
+s = "hello"      # str
+flag = True      # bool
+z = 2+3j         # complex
+
+type(x)          # int
+isinstance(x, int)  # True
+int("42")        # 42
+float(10)        # 10.0
+str(3.14)        # "3.14"</pre>
+      </div>
+
+      <!-- Control Flow -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Control Flow</div>
+        <pre>if x > 0:
+    print("positive")
+elif x < 0:
+    print("negative")
+else:
+    print("zero")
+
+for i in range(5):
+    if i == 3: break
+    if i == 1: continue
+    print(i)
+
+while x > 0:
+    x -= 1</pre>
+      </div>
+
+      <!-- Functions -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Functions</div>
+        <pre>def add(a, b=0): return a + b
+def multi_ret(): return 1, 2, 3
+
+def variadic(*args, **kw):
+    for a in args: print(a)
+    for k,v in kw.items(): print(k,v)
+
+# Lambda
+sq = lambda x: x ** 2
+double = lambda x: x * 2
+
+# Higher order
+list(map(sq, [1,2,3]))     # [1,4,9]
+list(filter(lambda x: x>2, [1,2,3,4]))  # [3,4]</pre>
+      </div>
+
+      <!-- Strings -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Strings</div>
+        <pre>s = "Hello, Python!"
+len(s)             # 14
+s[0]               # H
+s[-1]              # !
+s[7:13]            # Python
+s[::-1]            # reversed
+
+s.upper() / s.lower()
+s.strip() / s.split(",")
+",".join(["a","b","c"])
+f"Name: {name}, GPA: {gpa:.1f}"
+s.startswith("He")   # True
+s.replace("Python","World")</pre>
+      </div>
+
+      <!-- Lists -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Lists</div>
+        <pre>lst = [1, 2, 3, 4, 5]
+lst[1:4]           # [2,3,4]
+lst[::-1]          # reversed
+
+lst.append(6)
+lst.insert(0, 0)
+lst.remove(3)
+lst.pop()          # remove last
+lst.sort()
+lst.reverse()
+lst.index(2)
+lst.count(1)
+
+# Comprehension
+[x**2 for x in range(5)]
+[x for x in lst if x > 2]</pre>
+      </div>
+
+      <!-- Tuples -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Tuples</div>
+        <pre>t = (1, 2, 3)       # immutable
+t = (42,)           # single-elem
+
+# Packing/unpacking
+x, y, z = t
+a, *rest = (1,2,3,4)  # rest=[2,3,4]
+
+# Swap
+a, b = b, a
+
+t.count(1)          # 1
+t.index(2)          # 1
+
+# Use as dict key (hashable)
+d = {(0,0): "origin"}</pre>
+      </div>
+
+      <!-- Sets -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Sets</div>
+        <pre>A = {1, 2, 3, 4}
+B = {3, 4, 5, 6}
+
+A | B   # Union: {1..6}
+A & B   # Intersection: {3,4}
+A - B   # Difference: {1,2}
+A ^ B   # Symmetric: {1,2,5,6}
+
+s.add(7)
+s.remove(1)     # KeyError if miss
+s.discard(99)   # safe
+A.issubset(B)
+A.isdisjoint(B)
+
+fs = frozenset({1,2,3})  # immutable set</pre>
+      </div>
+
+      <!-- Dictionaries -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Dictionaries</div>
+        <pre>d = {"a": 1, "b": 2}
+d["a"]              # 1
+d.get("c", 0)       # 0 (default)
+d["c"] = 3          # add key
+del d["a"]          # delete key
+
+d.keys() / d.values() / d.items()
+d.update({"x": 10})
+d.pop("b")
+d.setdefault("z", 0)
+
+# Comprehension
+{x: x**2 for x in range(5)}
+
+from collections import defaultdict
+dd = defaultdict(int)</pre>
+      </div>
+
+      <!-- OOP -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">OOP Basics</div>
+        <pre>class Animal:
+    kind = "Mammal"           # class attr
+
+    def __init__(self, name):
+        self.name = name      # instance attr
+
+    def speak(self):          # method
+        return f"{self.name} speaks"
+
+    @classmethod
+    def info(cls): return cls.kind
+
+    @staticmethod
+    def breathe(): return "breathing"
+
+    def __str__(self):
+        return f"Animal({self.name})"
+
+a = Animal("Dog")
+print(a.speak())
+print(Animal.info())</pre>
+      </div>
+
+      <!-- Inheritance -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Inheritance & ABC</div>
+        <pre>class Dog(Animal):
+    def __init__(self, name, breed):
+        super().__init__(name)
+        self.breed = breed
+
+    def speak(self):    # override
+        return "Woof!"
+
+from abc import ABC, abstractmethod
+class Shape(ABC):
+    @abstractmethod
+    def area(self): pass
+
+class Circle(Shape):
+    def __init__(self, r): self.r = r
+    def area(self): return 3.14 * self.r**2
+
+# Multiple inheritance
+class Child(Father, Mother): pass
+print(Child.__mro__)</pre>
+      </div>
+
+      <!-- NumPy -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">NumPy</div>
+        <pre>import numpy as np
+
+a = np.array([1,2,3])
+m = np.array([[1,2],[3,4]])
+np.zeros((3,4))
+np.ones((2,5))
+np.arange(0,10,2)
+np.linspace(0,1,5)
+
+a.shape / a.dtype / a.ndim
+m.reshape(4,1)
+m.T           # transpose
+
+a + b / a * b / a**2
+np.sum(m, axis=0)  # col sums
+np.mean(m, axis=1) # row means
+np.dot(a, b)</pre>
+      </div>
+
+      <!-- Pandas -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Pandas</div>
+        <pre>import pandas as pd
+
+df = pd.read_csv("data.csv")
+df.head() / df.tail()
+df.shape / df.dtypes
+df.describe() / df.info()
+df.isnull().sum()
+
+df["col"]                    # Series
+df[["a","b"]]                # DataFrame
+df[df["score"] > 80]         # filter
+df.iloc[0] / df.loc[0,"a"]
+
+df.sort_values("score", ascending=False)
+df.groupby("grade")["score"].mean()
+df.dropna() / df.fillna(0)
+pd.merge(df1, df2, on="id")</pre>
+      </div>
+
+      <!-- Sorting -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Sorting Algorithms</div>
+        <pre># Bubble Sort O(n²)
+def bubble(arr):
+    for i in range(len(arr)):
+        for j in range(len(arr)-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j],arr[j+1] = arr[j+1],arr[j]
+
+# Merge Sort O(n log n)
+def merge_sort(arr):
+    if len(arr)<=1: return arr
+    mid = len(arr)//2
+    L = merge_sort(arr[:mid])
+    R = merge_sort(arr[mid:])
+    return merge(L, R)
+
+# Quick Sort O(n log n) avg
+def quick(arr):
+    if len(arr)<=1: return arr
+    p = arr[len(arr)//2]
+    return quick([x for x in arr if x&lt;p]) + \
+           [x for x in arr if x==p] + \
+           quick([x for x in arr if x>p])</pre>
+      </div>
+
+      <!-- Searching -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Searching</div>
+        <pre># Linear Search O(n)
+def linear(arr, t):
+    for i,v in enumerate(arr):
+        if v == t: return i
+    return -1
+
+# Binary Search O(log n) — sorted only
+def binary(arr, t):
+    lo, hi = 0, len(arr)-1
+    while lo <= hi:
+        mid = (lo+hi)//2
+        if arr[mid] == t: return mid
+        elif arr[mid] < t: lo = mid+1
+        else: hi = mid-1
+    return -1
+
+# Built-in
+arr.index(val)        # linear
+bisect.bisect(arr, t) # binary (sorted)</pre>
+      </div>
+
+      <!-- Error Handling -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Error Handling</div>
+        <pre>try:
+    x = int(input("Enter: "))
+    result = 10 / x
+except ValueError:
+    print("Not a number")
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+except Exception as e:
+    print(f"Error: {e}")
+else:
+    print(f"Result: {result}")
+finally:
+    print("Always runs")
+
+# Custom exception
+class MyError(Exception):
+    def __init__(self, msg):
+        super().__init__(msg)
+
+raise MyError("Something went wrong")</pre>
+      </div>
+
+      <!-- Comprehensions -->
+      <div class="cheat-card">
+        <div class="cheat-card-header">Comprehensions</div>
+        <pre># List
+[x**2 for x in range(10)]
+[x for x in lst if x > 0]
+
+# Dict
+{k: v for k,v in items}
+{x: x**2 for x in range(5)}
+
+# Set
+{x % 3 for x in range(10)}
+
+# Generator (memory-efficient)
+(x**2 for x in range(1000))
+
+# Nested
+[[i*j for j in range(4)]
+       for i in range(4)]
+
+# Flatten
+flat = [n for row in matrix for n in row]</pre>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    <span>Python for DS Notes</span>
+    <span class="footer-credit">Quick-reference cheat sheet for Python for Data Science</span>
+    <span>Created by: <strong>Priyanshu K. Sharma</strong></span>
+  </footer>
+
+  <script src="assets/js/nav-toggle.js"></script>
+</body>
+</html>
