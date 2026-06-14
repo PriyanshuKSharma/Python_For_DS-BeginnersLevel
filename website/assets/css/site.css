@@ -93,7 +93,7 @@ main { flex: 1; }
   font-weight: 600;
 }
 .site-nav a:hover { color: var(--blue); background: #eff5ff; }
-.site-nav a.active { color: #fff; background: var(--ink); }
+.site-nav a.active { color: var(--paper); background: var(--ink); }
 .nav-toggle { display: none; margin-left: auto; border: 0; background: none; padding: .5rem; }
 .nav-toggle svg { width: 22px; stroke: var(--ink); stroke-width: 2; fill: none; }
 
