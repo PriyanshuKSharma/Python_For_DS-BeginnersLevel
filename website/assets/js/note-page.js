@@ -167,15 +167,18 @@
     });
 
     const docLinks = document.querySelectorAll('.doc-source-link');
+    const docOverlay = document.getElementById('docModalOverlay');
+    const docContent = document.getElementById('docModalContent');
+    const closeDocBtn = document.getElementById('closeDocBtn');
+
     docLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const docPath = link.getAttribute('data-path');
         const libEntry = typeof CONTENT_LIBRARY !== 'undefined' ? CONTENT_LIBRARY.find(d => d.path === docPath) : null;
-        if (libEntry) {
-          document.querySelector('.terminal-title').textContent = `bash — cat ${docPath}`;
-          terminalContent.textContent = libEntry.content;
-          terminalOverlay.classList.add('active');
+        if (libEntry && docOverlay && docContent && typeof marked !== 'undefined') {
+          docContent.innerHTML = marked.parse(libEntry.content);
+          docOverlay.classList.add('active');
           document.body.style.overflow = 'hidden';
         } else {
           window.open(link.href, '_blank');
@@ -194,6 +197,22 @@
         document.body.style.overflow = '';
       }
     });
+
+    if (closeDocBtn) {
+      closeDocBtn.addEventListener('click', () => {
+        docOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    }
+
+    if (docOverlay) {
+      docOverlay.addEventListener('click', (e) => {
+        if (e.target === docOverlay) {
+          docOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    }
   }
 
   // ── Note navigation (prev / next) ─────────────────
