@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Note | Python for Data Science Notes</title>
+  <meta name="description" content="Detailed Python note with code examples, explanations and video references.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Python Notes home">
+      <span class="brand-mark">Py</span>
+      <span>Python Notes</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">
+      <svg viewBox="0 0 18 18" aria-hidden="true">
+        <line x1="1" y1="4" x2="17" y2="4"/>
+        <line x1="1" y1="9" x2="17" y2="9"/>
+        <line x1="1" y1="14" x2="17" y2="14"/>
+      </svg>
+    </button>
+    <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
+      <a href="index.html">Notes</a>
+      <a href="library.html">Complete Library</a>
+      <a href="cheat-sheet.html">Cheat Sheet</a>
+      <a href="projects.html">Projects</a>
+      <a href="resources.html">Resources</a>
+      <a href="https://www.youtube.com/watch?v=-hh6raHUUvk&t=101s" target="_blank" rel="noreferrer">Video 1</a>
+      <a href="https://www.youtube.com/watch?v=ERCMXc8x7mc" target="_blank" rel="noreferrer">OOP Video</a>
+      <a href="https://github.com/PriyanshuKSharma/Python_For_DS-BeginnersLevel" target="_blank" rel="noreferrer">Repo</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Switch theme" title="Switch theme">
+      <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.4A8.5 8.5 0 0 1 9.6 3.5 8.5 8.5 0 1 0 20.5 14.4Z"/></svg>
+    </button>
+  </header>
+
+  <!-- ── Note Layout ── -->
+  <div class="note-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="All notes">
+      <div class="sidebar-title">All Notes</div>
+      <nav class="sidebar-nav" id="sidebarNav" aria-label="Notes navigation"></nav>
+    </aside>
+
+    <!-- Content -->
+    <article class="note-content">
+      <div class="reading-progress" aria-hidden="true"><span id="readingProgress"></span></div>
+      <h1 id="noteTitle">Loading…</h1>
+      <p id="noteSub" style="color:var(--muted); margin-top:.25rem; margin-bottom:.75rem;"></p>
+      <div class="note-tags" id="noteTags"></div>
+      <div id="noteVideo"></div>
+      <div id="noteSources"></div>
+      <nav class="on-page-nav" id="onPageNav" aria-label="On this page"></nav>
+      <div id="noteMain"></div>
+      <nav class="note-nav" id="noteNav" aria-label="Note navigation"></nav>
+    </article>
+
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    <span>Python for DS Notes</span>
+    <span class="footer-credit">
+      📺 Videos:
+      <a href="https://www.youtube.com/watch?v=-hh6raHUUvk&t=101s" target="_blank" rel="noreferrer">Python Full Course</a> ·
+      <a href="https://www.youtube.com/watch?v=ERCMXc8x7mc" target="_blank" rel="noreferrer">OOP</a>
+    </span>
+    <span>Created by: <strong>Priyanshu K. Sharma</strong></span>
+  </footer>
+
+  <script src="assets/js/python-notes.js"></script>
+  <script src="assets/js/note-content.js"></script>
+  <script src="assets/js/note-page.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/nav-toggle.js"></script>
+</body>
+</html>
