@@ -96,8 +96,17 @@
     </div>
   </div>
 
-  <script src="assets/js/python-notes.js"></script>
+  <!-- ── Document Modal ── -->
+  <div id="docModalOverlay" class="terminal-modal-overlay">
+    <div class="note-content" style="max-height: 90vh; overflow-y: auto; width: 100%; max-width: 880px; margin: 2rem auto; position: relative;">
+      <button id="closeDocBtn" style="position: absolute; top: 1rem; right: 1rem; background: var(--surface); border: 1px solid var(--line); border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; line-height: 1;">&times;</button>
+      <div id="docModalContent"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="assets/js/content-library-data.js"></script>
+  <script src="assets/js/python-notes.js"></script>
   <script src="assets/js/note-content.js"></script>
   <script src="assets/js/note-page.js"></script>
   <script src="assets/js/theme.js"></script>
