@@ -70,33 +70,65 @@ document.addEventListener('DOMContentLoaded', () => {
   const terminalContent = document.getElementById('terminalCodeContent');
   const closeTerminalBtn = document.getElementById('closeTerminalBtn');
   const terminalTitle = document.getElementById('terminalTitle');
+  
+  const docOverlay = document.getElementById('docModalOverlay');
+  const docContent = document.getElementById('docModalContent');
+  const closeDocBtn = document.getElementById('closeDocBtn');
 
-  if (terminalOverlay && terminalContent && closeTerminalBtn) {
-    document.querySelectorAll('.resource-file-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const path = link.getAttribute('data-path');
-        const isPy = path.endsWith('.py');
-        const libEntry = typeof CONTENT_LIBRARY !== 'undefined' ? CONTENT_LIBRARY.find(d => d.path === path) : null;
-        if (libEntry) {
-          if (terminalTitle) terminalTitle.textContent = `bash — ${isPy ? 'python3' : 'cat'} ${path.split('/').pop()}`;
+  document.querySelectorAll('.resource-file-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const path = link.getAttribute('data-path');
+      const isPy = path.endsWith('.py');
+      const isMd = path.endsWith('.md');
+      const libEntry = typeof CONTENT_LIBRARY !== 'undefined' ? CONTENT_LIBRARY.find(d => d.path === path) : null;
+      
+      if (libEntry) {
+        if (isMd && docOverlay && docContent && typeof marked !== 'undefined') {
+          docContent.innerHTML = marked.parse(libEntry.content);
+          docOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        } else if (isPy && terminalOverlay && terminalContent) {
+          if (terminalTitle) terminalTitle.textContent = `bash — python3 ${path.split('/').pop()}`;
           terminalContent.textContent = libEntry.content;
           terminalOverlay.classList.add('active');
           document.body.style.overflow = 'hidden';
         } else {
           window.open(link.href, '_blank');
         }
-      });
+      } else {
+        window.open(link.href, '_blank');
+      }
     });
+  });
 
+  if (closeTerminalBtn) {
     closeTerminalBtn.onclick = () => {
       terminalOverlay.classList.remove('active');
       document.body.style.overflow = '';
     };
+  }
 
+  if (terminalOverlay) {
     terminalOverlay.onclick = (e) => {
       if (e.target === terminalOverlay) {
         terminalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    };
+  }
+  
+  if (closeDocBtn) {
+    closeDocBtn.onclick = () => {
+      docOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+  }
+
+  if (docOverlay) {
+    docOverlay.onclick = (e) => {
+      if (e.target === docOverlay) {
+        docOverlay.classList.remove('active');
         document.body.style.overflow = '';
       }
     };
