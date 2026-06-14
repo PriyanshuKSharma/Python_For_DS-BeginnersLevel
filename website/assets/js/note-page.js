@@ -22,6 +22,19 @@
     });
   }
 
+  // ── Sidebar Toggle ────────────────────────────────
+  const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+  const sidebarToggleIcon = document.getElementById('sidebarToggleIcon');
+  if (sidebarToggleBtn && sidebarNav) {
+    sidebarToggleBtn.addEventListener('click', () => {
+      const isCollapsed = sidebarNav.style.display === 'none';
+      sidebarNav.style.display = isCollapsed ? 'flex' : 'none';
+      if (sidebarToggleIcon) {
+        sidebarToggleIcon.style.transform = isCollapsed ? 'rotate(0deg)' : 'rotate(-90deg)';
+      }
+    });
+  }
+
   // ── Main content ─────────────────────────────────
   const main = document.getElementById('noteMain');
   if (!main || !content) {
