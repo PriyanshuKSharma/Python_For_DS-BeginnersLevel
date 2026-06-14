@@ -68,21 +68,28 @@
     const sources = [
       meta.pdf && { label: 'Open source PDF', href: `../${meta.pdf}`, kind: 'PDF' },
       meta.doc && { label: 'Read detailed Markdown guide', href: `../${meta.doc}`, kind: 'DOC' },
-      meta.pyFile && { label: 'Open practice Python file', href: `../${meta.pyFile}`, kind: 'PY' },
+      meta.pyFile && { label: 'Open practice Python file', href: `../${meta.pyFile}`, kind: 'PY', pyPath: meta.pyFile },
       meta.video && { label: 'Watch related video', href: meta.video, kind: 'VIDEO' }
     ].filter(Boolean);
     if (sources.length) {
       sourcesEl.innerHTML = `<section class="source-panel">
         <div><strong>Study sources</strong><span>Use the original course material alongside this note.</span></div>
         <div class="source-links">${sources.map(source =>
-          `<a href="${source.href}" target="_blank" rel="noreferrer"><b>${source.kind}</b>${source.label}</a>`
+          `<a href="${source.href}" ${source.kind === 'PY' ? `class="py-source-link" data-path="${source.pyPath}"` : 'target="_blank" rel="noreferrer"'} ><b>${source.kind}</b>${source.label}</a>`
         ).join('')}</div>
       </section>`;
     }
   }
 
   // Body
-  main.innerHTML = content.body || '';
+  let bodyHTML = content.body || '';
+  if (meta && meta.doc && typeof CONTENT_LIBRARY !== 'undefined') {
+    const libEntry = CONTENT_LIBRARY.find(d => d.path === meta.doc);
+    if (libEntry && typeof marked !== 'undefined') {
+      bodyHTML = marked.parse(libEntry.content);
+    }
+  }
+  main.innerHTML = bodyHTML;
 
   // On-page navigation
   const pageNav = document.getElementById('onPageNav');
@@ -110,6 +117,52 @@
     };
     addEventListener('scroll', updateProgress, { passive: true });
     updateProgress();
+  }
+
+  // Terminal Modal Logic
+  const terminalOverlay = document.getElementById('codeTerminalModal');
+  const terminalContent = document.getElementById('terminalCodeContent');
+  const closeTerminalBtn = document.getElementById('closeTerminalBtn');
+
+  if (terminalOverlay && terminalContent && closeTerminalBtn) {
+    const preBlocks = main.querySelectorAll('pre');
+    preBlocks.forEach(pre => {
+      pre.addEventListener('click', () => {
+        terminalContent.textContent = pre.textContent;
+        terminalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    const pyLinks = document.querySelectorAll('.py-source-link');
+    pyLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pyPath = link.getAttribute('data-path');
+        const libEntry = typeof CONTENT_LIBRARY !== 'undefined' ? CONTENT_LIBRARY.find(d => d.path === pyPath) : null;
+        if (libEntry) {
+          document.querySelector('.terminal-title').textContent = `bash — python3 ${pyPath}`;
+          terminalContent.textContent = libEntry.content;
+          terminalOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        } else {
+          // Fallback if not found in content library
+          window.open(link.href, '_blank');
+        }
+      });
+    });
+
+    closeTerminalBtn.addEventListener('click', () => {
+      terminalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    terminalOverlay.addEventListener('click', (e) => {
+      if (e.target === terminalOverlay) {
+        terminalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
   }
 
   // ── Note navigation (prev / next) ─────────────────
