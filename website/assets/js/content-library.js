@@ -133,6 +133,34 @@
     readerOriginal.href = `../${encodeURI(item.path)}`;
     readerContent.innerHTML = item.source === 'Markdown' ? renderMarkdown(item.content) : item.source === 'Python' ? '<pre><code>' + escapeHtml(item.content) + '</code></pre>' : renderPdf(item);
     buildToc();
+    
+    // Bind terminal modal events
+    const terminalOverlay = document.getElementById('codeTerminalModal');
+    const terminalContent = document.getElementById('terminalCodeContent');
+    const closeTerminalBtn = document.getElementById('closeTerminalBtn');
+    const terminalTitle = document.getElementById('terminalTitle');
+
+    if (terminalOverlay && terminalContent && closeTerminalBtn) {
+      readerContent.querySelectorAll('pre').forEach(pre => {
+        pre.addEventListener('click', () => {
+          if(terminalTitle) terminalTitle.textContent = `bash — python3 ${item.path}`;
+          terminalContent.textContent = pre.textContent;
+          terminalOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      closeTerminalBtn.onclick = () => {
+        terminalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+      terminalOverlay.onclick = (e) => {
+        if (e.target === terminalOverlay) {
+          terminalOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      };
+    }
+
     document.querySelectorAll('.library-item').forEach(el => el.classList.toggle('active', el.dataset.id === item.id));
     if (innerWidth < 780) document.querySelector('.library-reader').scrollIntoView({ behavior: 'smooth' });
   }
