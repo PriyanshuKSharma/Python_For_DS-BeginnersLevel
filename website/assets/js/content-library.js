@@ -131,7 +131,29 @@
     readerSource.textContent = `${item.source} / ${item.category}`;
     readerMeta.textContent = `${item.path} · ${item.lines.toLocaleString()} extracted lines${item.pages ? ` · ${item.pages.length} pages` : ''}`;
     readerOriginal.href = `../${encodeURI(item.path)}`;
-    readerContent.innerHTML = item.source === 'Markdown' ? renderMarkdown(item.content) : item.source === 'Python' ? '<pre><code>' + escapeHtml(item.content) + '</code></pre>' : renderPdf(item);
+    
+    // Style the reader content dynamically based on file type
+    if (item.source === 'Markdown' || item.source === 'PDF') {
+      readerContent.className = 'reader-content note-content'; // Apply the PDF-like card style from note.html
+      readerContent.innerHTML = item.source === 'Markdown' ? renderMarkdown(item.content) : renderPdf(item);
+    } else if (item.source === 'Python') {
+      readerContent.className = 'reader-content terminal-modal'; // Apply terminal style
+      readerContent.style.display = 'flex';
+      readerContent.style.flexDirection = 'column';
+      readerContent.style.margin = '0 auto';
+      readerContent.innerHTML = `
+        <div class="terminal-header" style="border-radius: 6px 6px 0 0;">
+          <div class="terminal-dots">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+          </div>
+          <div class="terminal-title">bash — python3 ${item.path.split('/').pop()}</div>
+        </div>
+        <div class="terminal-body" style="border-radius: 0 0 6px 6px;">${escapeHtml(item.content)}</div>
+      `;
+    }
+    
     buildToc();
     
     // Bind terminal modal events
