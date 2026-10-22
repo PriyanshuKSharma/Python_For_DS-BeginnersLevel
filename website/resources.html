@@ -52,12 +52,12 @@
     <section class="resource-section">
       <h2>Detailed Markdown Guides</h2>
       <div class="resource-grid">
-        <a class="resource-item" href="../DataStructures_Documentation/OOP_Documentation.md" target="_blank"><span class="resource-type">MD · Complete Guide</span><b>Object-Oriented Programming</b><span>Detailed Python-focused OOP reference.</span></a>
-        <a class="resource-item" href="../DataStructures_Documentation/DataStructures_Index.md" target="_blank"><span class="resource-type">MD · Index</span><b>Data Structures Library</b><span>Master index for lists, tuples, sets, dictionaries, stacks and linked lists.</span></a>
-        <a class="resource-item" href="../DataStructures_Documentation/Sorting_and_Searching.md" target="_blank"><span class="resource-type">MD · Algorithms</span><b>Sorting & Searching</b><span>Concepts, implementations and comparisons.</span></a>
-        <a class="resource-item" href="../DataStructures_Documentation/TimeComplexity_All.md" target="_blank"><span class="resource-type">MD · Big-O</span><b>Time Complexity</b><span>Complexity reference for repository algorithms and structures.</span></a>
-        <a class="resource-item" href="../DataStructures_Documentation/NumPy.md" target="_blank"><span class="resource-type">MD · Data Science</span><b>NumPy Complete Guide</b><span>Arrays, operations, broadcasting and numerical computing.</span></a>
-        <a class="resource-item" href="../DataStructures_Documentation/Pandas.md" target="_blank"><span class="resource-type">MD · Data Science</span><b>Pandas Complete Guide</b><span>Series, DataFrames, cleaning and analysis.</span></a>
+        <a class="resource-item resource-file-link" href="../DataStructures_Documentation/OOP_Documentation.md" data-path="DataStructures_Documentation/OOP_Documentation.md"><span class="resource-type">MD · Complete Guide</span><b>Object-Oriented Programming</b><span>Detailed Python-focused OOP reference.</span></a>
+        <a class="resource-item resource-file-link" href="../DataStructures_Documentation/DataStructures_Index.md" data-path="DataStructures_Documentation/DataStructures_Index.md"><span class="resource-type">MD · Index</span><b>Data Structures Library</b><span>Master index for lists, tuples, sets, dictionaries, stacks and linked lists.</span></a>
+        <a class="resource-item resource-file-link" href="../DataStructures_Documentation/Sorting_and_Searching.md" data-path="DataStructures_Documentation/Sorting_and_Searching.md"><span class="resource-type">MD · Algorithms</span><b>Sorting & Searching</b><span>Concepts, implementations and comparisons.</span></a>
+        <a class="resource-item resource-file-link" href="../DataStructures_Documentation/TimeComplexity_All.md" data-path="DataStructures_Documentation/TimeComplexity_All.md"><span class="resource-type">MD · Big-O</span><b>Time Complexity</b><span>Complexity reference for repository algorithms and structures.</span></a>
+        <a class="resource-item resource-file-link" href="../DataStructures_Documentation/NumPy.md" data-path="DataStructures_Documentation/NumPy.md"><span class="resource-type">MD · Data Science</span><b>NumPy Complete Guide</b><span>Arrays, operations, broadcasting and numerical computing.</span></a>
+        <a class="resource-item resource-file-link" href="../DataStructures_Documentation/Pandas.md" data-path="DataStructures_Documentation/Pandas.md"><span class="resource-type">MD · Data Science</span><b>Pandas Complete Guide</b><span>Series, DataFrames, cleaning and analysis.</span></a>
       </div>
     </section>
 
@@ -99,9 +99,21 @@
 
   <!-- ── Document Modal ── -->
   <div id="docModalOverlay" class="terminal-modal-overlay">
-    <div class="note-content" style="max-height: 90vh; overflow-y: auto; width: 100%; max-width: 880px; margin: 2rem auto; position: relative;">
-      <button id="closeDocBtn" style="position: absolute; top: 1rem; right: 1rem; background: var(--surface); border: 1px solid var(--line); border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; line-height: 1;">&times;</button>
-      <div id="docModalContent"></div>
+    <div class="terminal-modal" style="max-width: 920px; height: 88vh; background: var(--surface);">
+      <div class="terminal-header" style="background: var(--bg-header); border-bottom: 1px solid var(--line); justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="terminal-dots">
+            <div class="terminal-dot red" id="closeDocBtn" title="Close"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+          </div>
+          <div class="terminal-title" id="docModalTitle" style="color: var(--ink); font-weight: 700; font-size: 0.85rem;">Document Viewer</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <a id="docModalLibraryLink" href="library.html" class="cheat-action-btn" style="text-decoration: none;" target="_blank">Open in Complete Library ↗</a>
+        </div>
+      </div>
+      <div class="note-content" id="docModalContent" style="padding: 2rem; overflow-y: auto; flex: 1; color: var(--ink);"></div>
     </div>
   </div>
 
