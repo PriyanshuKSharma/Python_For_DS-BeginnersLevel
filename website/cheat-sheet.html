@@ -16,7 +16,7 @@
   <!-- ── Header ── -->
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Python Notes home">
-      <span class="brand-mark">Py</span>
+      <span class="brand-mark"><img src="assets/python-logo.svg" alt="Python Logo" class="brand-logo" width="28" height="28"></span>
       <span>Python Notes</span>
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">
@@ -64,12 +64,12 @@
       </div>
 
       <div class="cheat-categories" id="categoryFilterBar">
-        <button class="cat-tab active" data-category="all"><span>🌟 All Modules</span> <span class="badge-count">16</span></button>
-        <button class="cat-tab" data-category="fundamentals"><span>⚡ Core Syntax & Memory</span> <span class="badge-count">4</span></button>
-        <button class="cat-tab" data-category="data-structures"><span>📦 Data Structures</span> <span class="badge-count">5</span></button>
-        <button class="cat-tab" data-category="oop"><span>🏛️ OOP Architecture</span> <span class="badge-count">2</span></button>
-        <button class="cat-tab" data-category="algorithms"><span>⏱️ Algorithms & Big-O</span> <span class="badge-count">3</span></button>
-        <button class="cat-tab" data-category="datascience"><span>📊 NumPy & Pandas</span> <span class="badge-count">2</span></button>
+        <button class="cat-tab active" data-category="all"><span>All Modules</span> <span class="badge-count">16</span></button>
+        <button class="cat-tab" data-category="fundamentals"><span>Core Syntax & Memory</span> <span class="badge-count">4</span></button>
+        <button class="cat-tab" data-category="data-structures"><span>Data Structures</span> <span class="badge-count">5</span></button>
+        <button class="cat-tab" data-category="oop"><span>OOP Architecture</span> <span class="badge-count">2</span></button>
+        <button class="cat-tab" data-category="algorithms"><span>Algorithms & Big-O</span> <span class="badge-count">3</span></button>
+        <button class="cat-tab" data-category="datascience"><span>NumPy & Pandas</span> <span class="badge-count">2</span></button>
       </div>
     </div>
 
@@ -80,7 +80,7 @@
       <article class="cheat-card" data-category="fundamentals" data-tags="variables types memory mutability reference id stack heap">
         <header class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">🧠</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg></span>
             <div>
               <h3>Variables & Memory Architecture</h3>
             </div>
@@ -144,7 +144,7 @@ print(list_a)        # [1, 2, 3, 4] -> Unchanged!</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong><code>is</code> vs <code>==</code>:</strong> <code>==</code> compares <em>values/equality</em>; <code>is</code> compares <em>memory address identity</em> (<code>id(a) == id(b)</code>).</li>
               <li><strong>Integer Interning:</strong> CPython pre-caches small integers from <code>-5</code> to <code>256</code> in memory. Therefore <code>a = 100; b = 100; a is b</code> is <code>True</code>.</li>
@@ -166,7 +166,7 @@ print(list_a)        # [1, 2, 3, 4] -> Unchanged!</code></pre>
       <article class="cheat-card" data-category="fundamentals" data-tags="control flow if elif else loops while for break continue for-else">
         <header class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">🔀</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg></span>
             <div>
               <h3>Control Flow & Decision Logic</h3>
             </div>
@@ -228,7 +228,7 @@ status = "Adult" if age >= 18 else "Minor"</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Short-circuiting:</strong> In <code>A and B</code>, if <code>A</code> is falsy, <code>B</code> is never evaluated. In <code>A or B</code>, if <code>A</code> is truthy, <code>B</code> is never evaluated.</li>
               <li><strong>The <code>for-else</code> Pattern:</strong> Eliminates boilerplate flags like <code>found = False</code> when searching or checking for prime numbers.</li>
@@ -249,7 +249,7 @@ status = "Adult" if age >= 18 else "Minor"</code></pre>
       <article class="cheat-card" data-category="fundamentals" data-tags="functions lambda args kwargs scope legb closures call stack">
         <header class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">⚡</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></span>
             <div>
               <h3>Functions, Scopes & Lambda</h3>
             </div>
@@ -310,7 +310,7 @@ evens_squared = list(map(lambda x: x**2, filter(lambda x: x % 2 == 0, nums)))
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Default Mutable Trap:</strong> Default parameters are evaluated <em>once when the function is defined</em>, not every time it is called. Never write <code>def f(x=[])</code>; always use <code>def f(x=None)</code>.</li>
               <li><strong>Keyword-only arguments:</strong> <code>def f(a, *, b):</code> forces caller to pass <code>b</code> as a named keyword argument (<code>f(1, b=2)</code>).</li>
@@ -331,7 +331,7 @@ evens_squared = list(map(lambda x: x**2, filter(lambda x: x % 2 == 0, nums)))
       <article class="cheat-card" data-category="fundamentals" data-tags="strings slicing indexing immutability formatting regex">
         <header class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">🔤</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg></span>
             <div>
               <h3>Strings & Dual-Index Slicing</h3>
             </div>
@@ -396,7 +396,7 @@ sentence = " ".join(words) # O(n) runtime, single allocation!</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Immutability:</strong> <code>s[0] = 'J'</code> raises a <code>TypeError</code>. Use <code>s = 'J' + s[1:]</code> or convert to a <code>list</code> first.</li>
               <li><strong>Reverse String:</strong> <code>s[::-1]</code> creates a new reversed string in $O(n)$ time using optimized C slicing.</li>
@@ -417,7 +417,7 @@ sentence = " ".join(words) # O(n) runtime, single allocation!</code></pre>
       <article class="cheat-card" data-category="data-structures" data-tags="lists dynamic array append slicing pop comprehension mutable">
         <header class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">📋</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line></svg></span>
             <div>
               <h3>Lists: Dynamic Array Mechanics</h3>
             </div>
@@ -475,7 +475,7 @@ new_sorted = sorted(lst, key=abs) # Returns new list</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Queue Warning:</strong> Never use <code>list</code> as a FIFO queue (calling <code>pop(0)</code>). Use <code>collections.deque</code> which has double-ended pointers for $O(1)$ push/pop from both ends.</li>
               <li><strong>Sorting Algorithm:</strong> Python uses <strong>Timsort</strong> (hybrid of Merge Sort and Insertion Sort). It is adaptive ($O(n)$ best case) and stable.</li>
@@ -496,7 +496,7 @@ new_sorted = sorted(lst, key=abs) # Returns new list</code></pre>
       <article class="cheat-card" data-category="data-structures" data-tags="tuples immutable packing unpacking hashable namedtuple">
         <header class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">🔒</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
             <div>
               <h3>Tuples: Immutability & Memory Packing</h3>
             </div>
@@ -556,7 +556,7 @@ grid[(12.5, 45.8)] = "Radar Station Alpha"</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Defensive Programming:</strong> Use tuples for data that should never be mutated by downstream consumers (e.g., database connection configs, geometric coordinates).</li>
               <li><strong>Tuple with Mutable Element:</strong> <code>t = ([1, 2], 3)</code> is itself immutable (its pointers cannot change), but <code>t[0].append(99)</code> will mutate the inner list! Such a tuple is NOT hashable.</li>
@@ -635,7 +635,7 @@ merged = defaults | custom  # custom overrides defaults</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Runtime Complexity:</strong> Lookup, insert, and delete are all <strong>$O(1)$ average</strong>. Degrades to $O(n)$ only under catastrophic hash collisions.</li>
               <li><strong>Iteration Guard:</strong> Never add or remove keys from a dictionary while looping over it (raises <code>RuntimeError: dictionary changed size during iteration</code>). Use <code>list(d.keys())</code> instead.</li>
@@ -711,7 +711,7 @@ frozen = frozenset([1, 2, 3])  # Hashable!</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Empty Set Syntax:</strong> <code>s = {}</code> creates an empty <em>dict</em>, NOT a set! You MUST use <code>s = set()</code>.</li>
               <li><strong>Membership Optimization:</strong> Always convert lists to sets if you perform frequent <code>if item in collection</code> lookups inside a loop ($O(1)$ vs $O(n)$).</li>
@@ -793,7 +793,7 @@ class LinkedList:
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Array vs Linked List:</strong> Arrays have $O(1)$ random indexing but $O(n)$ insertion/deletion. Linked Lists have $O(1)$ pointer insertion at head/tail but $O(n)$ search (no random access).</li>
               <li><strong>LeetCode Pattern:</strong> Fast and Slow Pointers (Floyd's Cycle Detection) can find middle of linked list or detect loops in $O(n)$ time and $O(1)$ space.</li>
@@ -814,7 +814,7 @@ class LinkedList:
       <article class="cheat-card" data-category="oop" data-tags="oop classes objects inheritance encapsulation polymorphism abstraction abc">
         <header class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">🏛️</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg></span>
             <div>
               <h3>OOP Architecture & 4 Pillars</h3>
             </div>
@@ -878,7 +878,7 @@ print(proc.pay(150.0)) # "Paid $150.00 via ****-****-****-3456"</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Name Mangling:</strong> <code>self.__x</code> is transformed internally to <code>_ClassName__x</code> to prevent accidental overriding in subclasses.</li>
               <li><strong>MRO (Method Resolution Order):</strong> Python uses the C3 Linearization algorithm to resolve multiple inheritance collisions (check via <code>Class.__mro__</code>).</li>
@@ -957,7 +957,7 @@ print(repr(v3))      # "Vector2D(4, 6)"</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Context Managers:</strong> Implementing <code>__enter__</code> and <code>__exit__</code> enables the <code>with</code> statement, guaranteeing resource release (files, locks, DB sockets).</li>
               <li><strong>Fallbacks:</strong> If <code>__str__</code> is not defined, Python falls back to <code>__repr__</code> automatically.</li>
@@ -977,7 +977,7 @@ print(repr(v3))      # "Vector2D(4, 6)"</code></pre>
       <article class="cheat-card" data-category="algorithms" data-tags="sorting adaptive non-adaptive bubble insertion selection merge quick timsort">
         <header class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">⚡</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></span>
             <div>
               <h3>Adaptive vs Non-Adaptive Sorting</h3>
             </div>
@@ -1045,7 +1045,7 @@ def selection_sort(arr):
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Adaptive Winners:</strong> Insertion Sort and Bubble Sort with a <code>swapped</code> flag. Both run in $O(n)$ time when input is already sorted!</li>
               <li><strong>Non-Adaptive Reality:</strong> Selection Sort always does $\frac{n(n-1)}{2}$ comparisons regardless of input ordering.</li>
@@ -1067,7 +1067,7 @@ def selection_sort(arr):
       <article class="cheat-card" data-category="algorithms" data-tags="searching binary search linear search bisect divide and conquer">
         <header class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">🔍</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
             <div>
               <h3>Searching: Binary vs Linear</h3>
             </div>
@@ -1124,7 +1124,7 @@ idx = bisect.bisect_left(sorted_arr, 30) # 2 (O(log n))</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Prerequisite:</strong> Binary Search <em>strictly</em> requires a sorted array. If the array is unsorted, sorting it takes $O(n \log n)$, which is slower than a single linear search ($O(n)$) for one-off lookups.</li>
               <li><strong>Integer Overflow Guard:</strong> In languages with fixed integer sizes, write <code>mid = low + (high - low) // 2</code> to prevent overflow.</li>
@@ -1221,7 +1221,7 @@ idx = bisect.bisect_left(sorted_arr, 30) # 2 (O(log n))</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Time-Space Trade-off:</strong> Merge Sort guarantees $O(n \log n)$ worst-case time, but requires $O(n)$ extra memory buffer for merging. Quick Sort requires only $O(\log n)$ recursion stack memory, but can degrade to $O(n^2)$ if pivot is picked poorly.</li>
               <li><strong>Counting Sort:</strong> Non-comparison integer sort running in $O(n + k)$ where $k$ is the range of values.</li>
@@ -1241,7 +1241,7 @@ idx = bisect.bisect_left(sorted_arr, 30) # 2 (O(log n))</code></pre>
       <article class="cheat-card" data-category="datascience" data-tags="numpy arrays vectorization broadcasting linear algebra data science">
         <header class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">🔢</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></span>
             <div>
               <h3>NumPy: Vectorization & SIMD</h3>
             </div>
@@ -1299,7 +1299,7 @@ filtered = matrix[matrix > 3] # [4, 5, 6]</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Views vs Copies:</strong> Basic slicing in NumPy (<code>b = a[1:4]</code>) produces a <strong>view</strong>, NOT a copy. Modifying <code>b</code> mutates <code>a</code>! Use <code>b = a[1:4].copy()</code> to detach.</li>
               <li><strong>Broadcasting Rule:</strong> Two dimensions are compatible if they are equal, or one of them is 1.</li>
@@ -1320,7 +1320,7 @@ filtered = matrix[matrix > 3] # [4, 5, 6]</code></pre>
       <article class="cheat-card" data-category="datascience" data-tags="pandas dataframe series data wrangling loc iloc groupby data science">
         <header class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">🐼</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="3" x2="9" y2="21"></line></svg></span>
             <div>
               <h3>Pandas: DataFrames & Data Wrangling</h3>
             </div>
@@ -1373,7 +1373,7 @@ df.fillna({"score": 0, "status": "Unknown"}, inplace=True)</code></pre>
           </div>
 
           <div class="card-notes">
-            <div class="notes-title">📌 Revision Notes & Interview Insights</div>
+            <div class="notes-title">Revision Notes & Technical Insights</div>
             <ul>
               <li><strong>Chained Assignment Warning:</strong> Never write <code>df[df['a']>0]['b'] = 1</code> (triggers <code>SettingWithCopyWarning</code>). Always use <code>df.loc[df['a']>0, 'b'] = 1</code>.</li>
               <li><strong>Merge & Join:</strong> <code>pd.merge(df1, df2, on="id", how="inner")</code> implements standard SQL relational joins.</li>
@@ -1396,7 +1396,7 @@ df.fillna({"score": 0, "status": "Unknown"}, inplace=True)</code></pre>
   <footer class="site-footer">
     <span>Python for DS Notes</span>
     <span class="footer-credit">Interactive Masterclass Reference · Created for Students & Professionals</span>
-    <span>Created by: <strong>Priyanshu K. Sharma</strong></span>
+    <span>Curated & Engineered by: <strong>Priyanshu K. Sharma</strong> (Synthesized from YouTube masterclasses & documentation)</span>
   </footer>
 
   <!-- ── Interactive Terminal Modal ── -->

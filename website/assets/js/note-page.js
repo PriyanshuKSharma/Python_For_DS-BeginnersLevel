@@ -16,7 +16,7 @@
     PYTHON_NOTES.forEach(note => {
       const a = document.createElement('a');
       a.href = `note.html?id=${note.id}`;
-      a.textContent = `${note.icon} ${note.title}`;
+      a.innerHTML = `<span class="sidebar-icon" style="display:inline-flex; align-items:center; width:16px; height:16px; margin-right:0.45rem; flex-shrink:0;">${note.icon}</span><span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${note.title}</span>`;
       if (note.id === noteId) a.classList.add('active');
       sidebarNav.appendChild(a);
     });

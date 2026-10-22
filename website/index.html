@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Python for Data Science Notes | Beginner's Level</title>
-  <meta name="description" content="Complete Python for Data Science notes — OOP, Data Structures, Algorithms, NumPy, Pandas. Guided by Mohit Sir. 3rd Semester.">
+  <meta name="description" content="Comprehensive Python for Data Science learning portal — OOP, Data Structures, Algorithms, NumPy, Pandas. Curated and engineered by Priyanshu by synthesizing top technical video masterclasses and documentation for self-paced mastery and revision.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
   <!-- ── Header ── -->
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Python Notes home">
-      <span class="brand-mark">Py</span>
+      <span class="brand-mark"><img src="assets/python-logo.svg" alt="Python Logo" class="brand-logo" width="28" height="28"></span>
       <span>Python Notes</span>
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">
@@ -45,7 +45,26 @@
   <!-- ── Hero ── -->
   <section class="hero">
     <div class="hero-copy">
-      <p class="eyebrow">Python for Data Science | 3rd Semester · Guided by Mohit Sir</p>
+      <div class="curator-hero-badge" aria-label="Project Origin & Curation">
+        <div class="curator-badge-inner">
+          <div class="curator-avatar-wrap">
+            <div class="curator-pulse"></div>
+            <svg class="curator-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="curator-content">
+            <div class="curator-header-line">
+              <span class="curator-tag">Mastery & Revision Engineering</span>
+              <span class="curator-dot">•</span>
+              <span class="curator-author">Curated by <strong>Priyanshu</strong></span>
+            </div>
+            <p class="curator-text">
+              Synthesized from leading YouTube masterclasses & technical documentation for self-paced learning, high-retention revision, and technical interview readiness.
+            </p>
+          </div>
+        </div>
+      </div>
       <h1>Learn Python from Basics to Data Science & OOP Mastery.</h1>
       <p class="hero-sub">
         Video-linked notes for Python fundamentals, OOP (4 pillars), Data Structures, Sorting Algorithms, NumPy, Pandas, and competitive programming with LeetCode & HackerRank.
@@ -75,35 +94,123 @@
       <p>A continuous mastery journey spanning core language mechanics, computer science data structures, object-oriented design, algorithmic complexity, and real-world data science.</p>
     </div>
     <div class="path-grid">
-      <a class="path-step" href="note.html?id=intro">
-        <span>STAGE 01 · FOUNDATIONS</span>
-        <strong>Python Foundations & Memory</strong>
-        <small>Syntax, variables, CPython heap memory pointers, dynamic typing, strings, and conditions.</small>
+      <a class="path-step-card" href="note.html?id=intro">
+        <div class="stage-header">
+          <span class="stage-badge">STAGE 01 · FOUNDATIONS</span>
+          <span class="topic-pill">Core Engine</span>
+        </div>
+        <h3 class="stage-title">Python Foundations & Architecture</h3>
+        <p class="stage-desc">Master CPython internals, bytecode compilation (.pyc), PVM evaluation, dynamic typing, stack pointers, heap allocation, two's complement binary, and dual-index string slicing.</p>
+        <div class="stage-topics">
+          <span class="topic-pill">CPython VM</span>
+          <span class="topic-pill">Stack vs Heap</span>
+          <span class="topic-pill">Interning</span>
+          <span class="topic-pill">LEGB Scope</span>
+          <span class="topic-pill">Slicing</span>
+        </div>
+        <div class="stage-links">
+          <span>5 Core Notes (Intro, Variables, Control Flow, Functions, Strings)</span>
+          <span>Explore ➔</span>
+        </div>
       </a>
-      <a class="path-step" href="note.html?id=lists">
-        <span>STAGE 02 · DATA STRUCTURES</span>
-        <strong>Collections & Data Structures</strong>
-        <small>Dynamic arrays, tuples, hash map dictionaries, hash sets, stacks, and linked lists.</small>
+
+      <a class="path-step-card" href="note.html?id=lists">
+        <div class="stage-header">
+          <span class="stage-badge">STAGE 02 · DATA STRUCTURES</span>
+          <span class="topic-pill">Collections</span>
+        </div>
+        <h3 class="stage-title">Collections & Memory Layouts</h3>
+        <p class="stage-desc">Dynamic contiguous array resizing, immutable tuple records, hash map dictionary bucket indexing, collision probing, mathematical hash sets, LIFO call stacks, and linked pointer chains.</p>
+        <div class="stage-topics">
+          <span class="topic-pill">Dynamic Arrays</span>
+          <span class="topic-pill">Hash Tables</span>
+          <span class="topic-pill">Venn Sets</span>
+          <span class="topic-pill">Call Stacks</span>
+          <span class="topic-pill">Linked Lists</span>
+        </div>
+        <div class="stage-links">
+          <span>6 Core Notes (Lists, Tuples, Sets, Dictionaries, Stacks, Linked Lists)</span>
+          <span>Explore ➔</span>
+        </div>
       </a>
-      <a class="path-step" href="note.html?id=control-flow">
-        <span>STAGE 03 · PROGRAM FLOW</span>
-        <strong>Execution & Functional Logic</strong>
-        <small>Decision trees, loops, call stack frames, LEGB scopes, and lambda expressions.</small>
+
+      <a class="path-step-card" href="note.html?id=classes-objects">
+        <div class="stage-header">
+          <span class="stage-badge">STAGE 03 · OOP MASTERY</span>
+          <span class="topic-pill">4 Pillars</span>
+        </div>
+        <h3 class="stage-title">Object-Oriented Architecture</h3>
+        <p class="stage-desc">Classes as blueprints, instance dictionaries, encapsulation with private name mangling, C3 Method Resolution Order (MRO), duck typing polymorphism, and abstract contracts via abc.ABC.</p>
+        <div class="stage-topics">
+          <span class="topic-pill">Encapsulation</span>
+          <span class="topic-pill">Inheritance (MRO)</span>
+          <span class="topic-pill">Polymorphism</span>
+          <span class="topic-pill">Abstraction</span>
+          <span class="topic-pill">Dunders</span>
+        </div>
+        <div class="stage-links">
+          <span>7 Core Notes (Classes, Inheritance, Encapsulation, Polymorphism, ABC, Dunders)</span>
+          <span>Explore ➔</span>
+        </div>
       </a>
-      <a class="path-step" href="note.html?id=classes-objects">
-        <span>STAGE 04 · OOP ARCHITECTURE</span>
-        <strong>Object-Oriented Design (4 Pillars)</strong>
-        <small>Encapsulation, abstraction (ABC), inheritance with MRO, polymorphism, and dunder methods.</small>
+
+      <a class="path-step-card" href="note.html?id=sorting-overview">
+        <div class="stage-header">
+          <span class="stage-badge">STAGE 04 · ALGORITHMS</span>
+          <span class="topic-pill">Big-O & Analysis</span>
+        </div>
+        <h3 class="stage-title">Algorithms & Complexity Matrix</h3>
+        <p class="stage-desc">In-depth study of 6 sorting algorithms, binary search interval halving, Adaptive vs Non-Adaptive mechanics, stability trade-offs, and rigorous Big-O asymptotic analysis.</p>
+        <div class="stage-topics">
+          <span class="topic-pill">Adaptive Sorting</span>
+          <span class="topic-pill">Divide & Conquer</span>
+          <span class="topic-pill">Binary Search</span>
+          <span class="topic-pill">Inversion Count</span>
+          <span class="topic-pill">Big-O Bounds</span>
+        </div>
+        <div class="stage-links">
+          <span>4 Core Notes (Sorting Overview, Merge/Quick Sort, Searching, Big-O Analysis)</span>
+          <span>Explore ➔</span>
+        </div>
       </a>
-      <a class="path-step" href="note.html?id=sorting-overview">
-        <span>STAGE 05 · ALGORITHMS</span>
-        <strong>Algorithms & Big-O Complexity</strong>
-        <small>6 sorting algorithms, binary search space halving, adaptive vs non-adaptive, and stability.</small>
+
+      <a class="path-step-card" href="note.html?id=numpy">
+        <div class="stage-header">
+          <span class="stage-badge">STAGE 05 · DATA SCIENCE</span>
+          <span class="topic-pill">SIMD & Wrangling</span>
+        </div>
+        <h3 class="stage-title">NumPy, Pandas & Supervised ML</h3>
+        <p class="stage-desc">Bare-metal contiguous C-arrays, SIMD vectorization, broadcasting rules, 2D tabular DataFrames, split-apply-combine groupby, missing data imputation, and Ordinary Least Squares (OLS) regression.</p>
+        <div class="stage-topics">
+          <span class="topic-pill">NumPy ndarray</span>
+          <span class="topic-pill">Broadcasting</span>
+          <span class="topic-pill">Pandas DataFrames</span>
+          <span class="topic-pill">Linear Regression</span>
+          <span class="topic-pill">Jupyter</span>
+        </div>
+        <div class="stage-links">
+          <span>4 Core Notes (NumPy, Pandas, Regression ML, Jupyter Notebooks)</span>
+          <span>Explore ➔</span>
+        </div>
       </a>
-      <a class="path-step" href="note.html?id=numpy">
-        <span>STAGE 06 · DATA SCIENCE</span>
-        <strong>NumPy, Pandas & ML Regression</strong>
-        <small>SIMD contiguous C-arrays, 2D tabular wrangling, Jupyter notebooks, and supervised ML.</small>
+
+      <a class="path-step-card" href="note.html?id=leetcode">
+        <div class="stage-header">
+          <span class="stage-badge">STAGE 06 · COMPETITIVE CODING</span>
+          <span class="topic-pill">20 Solved</span>
+        </div>
+        <h3 class="stage-title">LeetCode & HackerRank Solutions</h3>
+        <p class="stage-desc">20 solved coding challenges: Fast I/O, two-pointer scan, Floyd's cycle detection, runner-up score deduplication, Counter frequency analysis, and linked list node manipulation.</p>
+        <div class="stage-topics">
+          <span class="topic-pill">Two Pointers</span>
+          <span class="topic-pill">Fast & Slow Pointers</span>
+          <span class="topic-pill">Frequency Maps</span>
+          <span class="topic-pill">In-Place Reverse</span>
+        </div>
+        <div class="stage-links">
+          <span>4 Core Notes (LeetCode 7, HackerRank 13, Lecture Archive)</span>
+          <span>Explore ➔</span>
+        </div>
       </a>
     </div>
   </section>
@@ -121,7 +228,7 @@
       <div class="algo-sim-header">
         <div>
           <span class="eyebrow" style="margin-bottom: 0.2rem;">Live Visualizer</span>
-          <h3 style="margin: 0;">⚡ Adaptive vs Non-Adaptive Sorting in Action</h3>
+          <h3 style="margin: 0;">Adaptive vs Non-Adaptive Sorting: Algorithmic Intelligence</h3>
         </div>
         <div class="algo-sim-controls">
           <button class="sim-preset-btn active" id="homeSimNearly">Nearly Sorted [1, 2, 3, 5, 4]</button>
@@ -133,27 +240,27 @@
       <div class="sim-comparison-grid">
         <div class="sim-algo-panel adaptive">
           <div class="sim-panel-title">
-            <strong>✅ Adaptive (Insertion / Optimized Bubble)</strong>
+            <strong>Adaptive Algorithm (Insertion / Optimized Bubble)</strong>
             <span class="tag-badge beginner" style="background:#dcfce7; color:#15803d;">Best: O(n)</span>
           </div>
           <div class="sim-array-display" id="homeAdaptiveArr">
             <div class="sim-item">1</div><div class="sim-item">2</div><div class="sim-item">3</div><div class="sim-item">5</div><div class="sim-item">4</div>
           </div>
           <div class="sim-verdict win" id="homeAdVerdict">
-            ⚡ <strong>Detects Order:</strong> Terminates early after 1 pass on sorted data. Runtime scales linearly O(n).
+            <strong>Order-Aware:</strong> Terminates early after 1 pass on sorted data. Runtime scales linearly O(n).
           </div>
         </div>
 
         <div class="sim-algo-panel non-adaptive">
           <div class="sim-panel-title">
-            <strong>❌ Non-Adaptive (Selection Sort)</strong>
+            <strong>Non-Adaptive Algorithm (Selection Sort)</strong>
             <span class="tag-badge advanced" style="background:#fee2e2; color:#b91c1c;">Always: O(n²)</span>
           </div>
           <div class="sim-array-display" id="homeNonAdaptiveArr">
             <div class="sim-item">1</div><div class="sim-item">2</div><div class="sim-item">3</div><div class="sim-item">5</div><div class="sim-item">4</div>
           </div>
           <div class="sim-verdict rigid" id="homeNadVerdict">
-            ⚠️ <strong>Blind Scanning:</strong> Always executes all n(n-1)/2 comparisons regardless of initial ordering.
+            <strong>Order-Blind:</strong> Always executes all n(n-1)/2 comparisons regardless of initial ordering.
           </div>
         </div>
       </div>
@@ -171,7 +278,7 @@
       <div class="cheat-card" style="margin-bottom: 0;">
         <div class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">🧠</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg></span>
             <strong style="font-size: 0.95rem;">CPython Stack ➔ Heap Architecture</strong>
           </div>
           <span class="tag-badge core">Memory Model</span>
@@ -203,7 +310,7 @@
       <div class="cheat-card" style="margin-bottom: 0;">
         <div class="cheat-card-header">
           <div class="cheat-card-header-left">
-            <span class="topic-icon">🏛️</span>
+            <span class="topic-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg></span>
             <strong style="font-size: 0.95rem;">The 4 Pillars of OOP</strong>
           </div>
           <span class="tag-badge core">Architecture</span>
@@ -263,7 +370,7 @@
       <a href="https://www.youtube.com/watch?v=ERCMXc8x7mc" target="_blank" rel="noreferrer">OOP</a> ·
       <a href="https://www.youtube.com/watch?v=cKeKp17afZw" target="_blank" rel="noreferrer">OOP Playlist</a>
     </span>
-    <span>Created by: <strong>Priyanshu K. Sharma</strong></span>
+    <span>Curated & Engineered by: <strong>Priyanshu K. Sharma</strong> (Synthesized from YouTube masterclasses & technical documentation for self-paced mastery & revision)</span>
     <span>Repo: <a href="https://github.com/PriyanshuKSharma/Python_For_DS-BeginnersLevel" target="_blank" rel="noreferrer">Python_For_DS</a></span>
   </footer>
 

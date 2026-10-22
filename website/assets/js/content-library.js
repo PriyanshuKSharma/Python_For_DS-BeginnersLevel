@@ -55,218 +55,350 @@
   }
 
   // Generate Interactive Simulator & Visual Diagram for Adaptive vs Non-Adaptive
+  // Generate Modern Executive Tabbed Masterclass for Adaptive vs Non-Adaptive Sorting
   function getAdaptiveInteractiveWidget() {
     return `
-      <div class="algo-sim-container" id="adaptiveSimWidget">
-        <div class="algo-sim-header">
-          <h3>⚡ Interactive Comparator: Adaptive vs Non-Adaptive Sorting</h3>
-          <div class="algo-sim-controls">
-            <span style="font-size: 0.75rem; color: var(--ink-soft); font-weight: 600;">Choose Scenario:</span>
-            <button class="sim-preset-btn active" data-scenario="nearly">Nearly Sorted [1, 2, 3, 5, 4]</button>
-            <button class="sim-preset-btn" data-scenario="sorted">Already Sorted [1, 2, 3, 4, 5]</button>
-            <button class="sim-preset-btn" data-scenario="reverse">Reverse Sorted [5, 4, 3, 2, 1]</button>
-            <button class="sim-run-btn" id="runSimBtn">▶ Run Live Simulation</button>
+      <div class="adaptive-masterclass" id="adaptiveSimWidget">
+        <div class="masterclass-header">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
+            <span class="tag-badge core">Algorithm Architecture & Complexity</span>
+            <span style="font-family:var(--mono); font-size:0.72rem; color:var(--ink-soft);">Inversion Count & Asymptotics</span>
+          </div>
+          <h2>Adaptive vs. Non-Adaptive Sorting: Computational Intelligence</h2>
+          <p style="margin:0.35rem 0 0; color:var(--ink-soft); font-size:0.86rem; line-height:1.5;">
+            An algorithmic paradigm analysis examining how algorithms exploit pre-existing order in data sequences to minimize comparisons, swaps, and CPU cycles.
+          </p>
+        </div>
+
+        <!-- Interactive Concept Navigation Tabs -->
+        <div class="masterclass-tabs">
+          <button class="mc-tab-btn active" data-tab="theory">CS Theory & Inversion Count</button>
+          <button class="mc-tab-btn" data-tab="hinglish">Revision Notes (Hinglish)</button>
+          <button class="mc-tab-btn" data-tab="code">Implementation Differences</button>
+          <button class="mc-tab-btn" data-tab="matrix">Classification Matrix</button>
+          <button class="mc-tab-btn" data-tab="interview">Interview Master FAQs</button>
+        </div>
+
+        <!-- TAB 1: FORMAL CS THEORY -->
+        <div class="mc-pane active" id="pane-theory">
+          <div class="card-concept">
+            <h4 style="margin:0 0 0.5rem; font-size:1.05rem; color:var(--ink);">What Qualifies an Algorithm as Adaptive?</h4>
+            <p>
+              In computer science, a sorting algorithm is formally designated as <strong>adaptive</strong> if its execution runtime decreases proportionally as the sortedness of the input array increases. If the input list possesses few out-of-order pairs (low <em>inversion count</em>), an adaptive algorithm detects this state and terminates early, achieving an asymptotic lower bound of <strong>O(n)</strong> time.
+            </p>
+            <p>
+              Conversely, a <strong>non-adaptive</strong> sorting algorithm is <em>order-blind</em>: its control flow, loop invariants, and number of element comparisons remain invariant regardless of whether the input is randomly shuffled, reversed, or already perfectly sorted.
+            </p>
+          </div>
+
+          <div class="workflow-diagram" style="margin: 1.25rem 0;">
+            <div class="workflow-title">Asymptotic Divergence: Adaptive Early-Exit vs Non-Adaptive Invariant Loop</div>
+            <div class="flowchart-nodes">
+              <div class="fc-node">Input Array A[0...n-1]</div>
+              <span class="flow-arrow">➔</span>
+              <div class="fc-node diamond">Monitor Swaps in Pass i</div>
+              <span class="flow-arrow">➔</span>
+              <div class="fc-node fc-decision-yes">Swaps == 0 (Sorted)<br><strong style="color:#15803d;">Exit Immediately: O(n)</strong></div>
+              <span class="flow-arrow">➔</span>
+              <div class="fc-node fc-decision-no">Non-Adaptive (Selection Sort)<br><strong style="color:#b91c1c;">Must Execute all n(n-1)/2 Comps</strong></div>
+            </div>
+          </div>
+
+          <div style="background:var(--surface-soft); border:1px solid var(--line); border-radius:8px; padding:1rem; margin-top:1rem;">
+            <h5 style="margin:0 0 0.4rem; font-size:0.88rem; color:var(--ink);">Mathematical Inversion Count: Inv(A)</h5>
+            <p style="margin:0; font-size:0.8rem; color:var(--ink-soft); line-height:1.5;">
+              An inversion is defined as a pair of indices <code>(i, j)</code> such that <code>i &lt; j</code> and <code>A[i] &gt; A[j]</code>. A sorted array has <code>Inv(A) = 0</code>; a reverse-sorted array has <code>Inv(A) = n(n - 1) / 2</code>.
+              For <strong>Insertion Sort</strong>, the total runtime is precisely bounded by <strong>O(n + Inv(A))</strong>. When <code>Inv(A) = 0</code>, runtime reduces to linear time <strong>O(n)</strong>.
+            </p>
           </div>
         </div>
 
-        <div class="sim-comparison-grid">
-          <!-- Adaptive Panel -->
-          <div class="sim-algo-panel adaptive">
-            <div class="sim-panel-title">
-              <strong>✅ Adaptive Sort (Insertion / Optimized Bubble)</strong>
-              <span class="tag-badge beginner" style="background:#dcfce7; color:#15803d;">Best: O(n)</span>
-            </div>
-            <div class="sim-array-display" id="adaptiveArrayDisp">
-              <div class="sim-item">1</div>
-              <div class="sim-item">2</div>
-              <div class="sim-item">3</div>
-              <div class="sim-item">5</div>
-              <div class="sim-item">4</div>
-            </div>
-            <div class="sim-stats">
-              <div class="sim-stat-box"><span>Passes</span><strong id="adPasses">1</strong></div>
-              <div class="sim-stat-box"><span>Comparisons</span><strong id="adComps">4</strong></div>
-              <div class="sim-stat-box"><span>Swaps</span><strong id="adSwaps">1</strong></div>
-            </div>
-            <div class="sim-verdict win" id="adVerdict">
-              🎉 <strong>Adaptive Superpower:</strong> Detects existing order! Terminates after 1 pass on sorted data. Runtime scales linearly O(n).
-            </div>
+        <!-- TAB 2: HINGLISH REVISION NOTES -->
+        <div class="mc-pane" id="pane-hinglish">
+          <div class="card-concept" style="border-left: 3px solid var(--blue);">
+            <h4 style="margin:0 0 0.5rem; font-size:1.05rem; color:var(--ink);">Layman & Intuitive Understanding (Hinglish)</h4>
+            <p>
+              <strong>Adaptive Algorithm kya hota hai?</strong><br>
+              Ek algorithm ko <em>Adaptive</em> tab bolte hain jab woh array ke pehle se bane hue order ka faayda uthana jaanta ho. Agar hum use pehle se sorted ya lagbhag sorted list dete hain, toh woh faltu comparisons aur operations karne ke bajaye jaldi exit kar leta hai.
+            </p>
+            <p>
+              <em>Real-life Analogy:</em> Jaise ek smart student jo pehle se arrange ki gayi library books ko dekh kar samajh jata hai ki sab theek hai aur turant kaam khatam kar deta hai—yeh <strong>Insertion Sort</strong> ya <strong>Optimized Bubble Sort</strong> hai (Sirf O(n) time!).
+            </p>
+            <p>
+              <strong>Non-Adaptive Algorithm kya hota hai?</strong><br>
+              Non-Adaptive algorithm bilkul order-blind hota hai. Use isse koi farak nahi padta ki array pehle se sorted hai ya reverse. Woh har baar pure array mein jaakar har ek element ko bar-bar scan karega hi karega.
+            </p>
+            <p>
+              <em>Real-life Analogy:</em> Jaise ek robotic scanner jo sorted books ko bhi utna hi time lagakar ek-ek karke scan karega—yeh <strong>Selection Sort</strong> hai (Hamesha O(n²) time, chahe kuch bhi ho!).
+            </p>
           </div>
+        </div>
 
-          <!-- Non-Adaptive Panel -->
-          <div class="sim-algo-panel non-adaptive">
-            <div class="sim-panel-title">
-              <strong>❌ Non-Adaptive Sort (Selection Sort)</strong>
-              <span class="tag-badge advanced" style="background:#fee2e2; color:#b91c1c;">Always: O(n²)</span>
+        <!-- TAB 3: CODE DIFFERENCES -->
+        <div class="mc-pane" id="pane-code">
+          <div class="mc-code-compare">
+            <!-- Adaptive Implementation -->
+            <div class="mc-code-box">
+              <div class="mc-code-box-header">
+                <span>Adaptive Bubble Sort (With Flag)</span>
+                <span class="tag-badge beginner" style="background:rgba(34,197,94,0.2); color:#4ade80;">Best: O(n)</span>
+              </div>
+              <pre><code>def adaptive_bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        # Flag to detect any swaps in this pass
+        swapped = False
+        
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+                
+        # KEY ADAPTIVE TRIGGER:
+        # If no swaps occurred, array is already sorted!
+        if not swapped:
+            break  # Exits immediately in O(n)
+            
+    return arr</code></pre>
             </div>
-            <div class="sim-array-display" id="nonAdaptiveArrayDisp">
-              <div class="sim-item">1</div>
-              <div class="sim-item">2</div>
-              <div class="sim-item">3</div>
-              <div class="sim-item">5</div>
-              <div class="sim-item">4</div>
-            </div>
-            <div class="sim-stats">
-              <div class="sim-stat-box"><span>Passes</span><strong id="nadPasses">4</strong></div>
-              <div class="sim-stat-box"><span>Comparisons</span><strong id="nadComps">10</strong></div>
-              <div class="sim-stat-box"><span>Swaps</span><strong id="nadSwaps">1</strong></div>
-            </div>
-            <div class="sim-verdict rigid" id="nadVerdict">
-              ⚠️ <strong>Rigid / Blind:</strong> Scans remaining elements every single pass regardless of order. Always performs n(n-1)/2 comparisons.
+
+            <!-- Non-Adaptive Implementation -->
+            <div class="mc-code-box">
+              <div class="mc-code-box-header">
+                <span>Non-Adaptive Selection Sort</span>
+                <span class="tag-badge advanced" style="background:rgba(239,68,68,0.2); color:#f87171;">Always: O(n²)</span>
+              </div>
+              <pre><code>def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_idx = i
+        
+        # RIGID SCANNING:
+        # Always scans the entire unsorted partition
+        # regardless of whether it is already sorted!
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+                
+        # Swap minimum with first element
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+        
+    return arr  # Always n(n-1)/2 comparisons!</code></pre>
             </div>
           </div>
         </div>
 
-        <!-- Workflow Diagram -->
-        <div class="workflow-diagram">
-          <div class="workflow-title">Decision Workflow: How Adaptive Algorithms Save CPU Cycles</div>
-          <div class="flowchart-nodes">
-            <div class="fc-node">1. Input Array</div>
-            <span class="flow-arrow">➔</span>
-            <div class="fc-node diamond">Check element pairs in pass</div>
-            <span class="flow-arrow">➔</span>
-            <div class="fc-node fc-decision-yes">Did any swaps occur? ➔ <strong>NO</strong><br><span style="color:#15803d; font-weight:700;">EXIT EARLY (O(n))</span></div>
-            <span class="flow-arrow" style="color:var(--coral);">➔</span>
-            <div class="fc-node fc-decision-no">Non-Adaptive has NO early exit ➔ <span style="color:#b91c1c; font-weight:700;">Executes all O(n²)</span></div>
+        <!-- TAB 4: CLASSIFICATION MATRIX -->
+        <div class="mc-pane" id="pane-matrix">
+          <div style="overflow-x: auto; margin-top:0.5rem;">
+            <table style="width:100%; border-collapse:collapse; font-size:0.8rem; text-align:left;">
+              <thead>
+                <tr style="background:var(--bg-header); border-bottom:2px solid var(--line);">
+                  <th style="padding:0.6rem 0.8rem;">Algorithm</th>
+                  <th style="padding:0.6rem 0.8rem;">Adaptive?</th>
+                  <th style="padding:0.6rem 0.8rem;">Best Case</th>
+                  <th style="padding:0.6rem 0.8rem;">Worst Case</th>
+                  <th style="padding:0.6rem 0.8rem;">Mechanical Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--line);">
+                  <td style="padding:0.6rem 0.8rem;"><strong>Insertion Sort</strong></td>
+                  <td style="padding:0.6rem 0.8rem; color:#15803d; font-weight:700;">Yes (Naturally)</td>
+                  <td style="padding:0.6rem 0.8rem; font-family:var(--mono);">O(n)</td>
+                  <td style="padding:0.6rem 0.8rem; font-family:var(--mono);">O(n²)</td>
+                  <td style="padding:0.6rem 0.8rem;">Inner while-loop breaks immediately when adjacent element is smaller.</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--line);">
+                  <td style="padding:0.6rem 0.8rem;"><strong>Bubble Sort (Optimized)</strong></td>
+                  <td style="padding:0.6rem 0.8rem; color:#15803d; font-weight:700;">Yes (With Flag)</td>
+                  <td style="padding:0.6rem 0.8rem; font-family:var(--mono);">O(n)</td>
+                  <td style="padding:0.6rem 0.8rem; font-family:var(--mono);">O(n²)</td>
+                  <td style="padding:0.6rem 0.8rem;">Monitors boolean <code>swapped</code> flag; terminates after pass 1 if 0 swaps.</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--line);">
+                  <td style="padding:0.6rem 0.8rem;"><strong>Selection Sort</strong></td>
+                  <td style="padding:0.6rem 0.8rem; color:#b91c1c; font-weight:700;">No</td>
+                  <td style="padding:0.6rem 0.8rem; font-family:var(--mono);">O(n²)</td>
+                  <td style="padding:0.6rem 0.8rem; font-family:var(--mono);">O(n²)</td>
+                  <td style="padding:0.6rem 0.8rem;">Always scans unsorted subarray to find absolute minimum element.</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--line);">
+                  <td style="padding:0.6rem 0.8rem;"><strong>Merge Sort</strong></td>
+                  <td style="padding:0.6rem 0.8rem; color:#b91c1c; font-weight:700;">No</td>
+                  <td style="padding:0.6rem 0.8rem; font-family:var(--mono);">O(n log n)</td>
+                  <td style="padding:0.6rem 0.8rem; font-family:var(--mono);">O(n log n)</td>
+                  <td style="padding:0.6rem 0.8rem;">Always splits down to singletons and merges recursively.</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--line);">
+                  <td style="padding:0.6rem 0.8rem;"><strong>Quick Sort</strong></td>
+                  <td style="padding:0.6rem 0.8rem; color:#b91c1c; font-weight:700;">No</td>
+                  <td style="padding:0.6rem 0.8rem; font-family:var(--mono);">O(n log n)</td>
+                  <td style="padding:0.6rem 0.8rem; font-family:var(--mono);">O(n²)</td>
+                  <td style="padding:0.6rem 0.8rem;">Partitions regardless of order; degrades to O(n²) if pivot choice is naïve.</td>
+                </tr>
+                <tr>
+                  <td style="padding:0.6rem 0.8rem;"><strong>Timsort (Python Built-in)</strong></td>
+                  <td style="padding:0.6rem 0.8rem; color:#15803d; font-weight:700;">Yes (Highly Adaptive)</td>
+                  <td style="padding:0.6rem 0.8rem; font-family:var(--mono);">O(n)</td>
+                  <td style="padding:0.6rem 0.8rem; font-family:var(--mono);">O(n log n)</td>
+                  <td style="padding:0.6rem 0.8rem;">Detects natural ascending/descending runs; merges them with galloping mode.</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <!-- Master Classification Table -->
-        <div style="margin-top: 1.5rem; overflow-x: auto;">
-          <h4 style="margin: 0 0 0.8rem; font-size: 0.95rem; font-weight: 700;">Algorithm Classification Master Matrix</h4>
-          <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem; text-align: left;">
-            <thead>
-              <tr style="background: var(--bg-header); border-bottom: 2px solid var(--line);">
-                <th style="padding: 0.5rem 0.75rem;">Algorithm</th>
-                <th style="padding: 0.5rem 0.75rem;">Adaptive?</th>
-                <th style="padding: 0.5rem 0.75rem;">Best Case</th>
-                <th style="padding: 0.5rem 0.75rem;">Worst Case</th>
-                <th style="padding: 0.5rem 0.75rem;">Mechanism</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom: 1px solid var(--line);">
-                <td style="padding: 0.5rem 0.75rem;"><strong>Insertion Sort</strong></td>
-                <td style="padding: 0.5rem 0.75rem; color: #16a34a; font-weight: 700;">✅ Yes</td>
-                <td style="padding: 0.5rem 0.75rem; color: #16a34a;">O(n)</td>
-                <td style="padding: 0.5rem 0.75rem;">O(n²)</td>
-                <td style="padding: 0.5rem 0.75rem;">Inner while-loop breaks immediately if element is already >= previous.</td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--line);">
-                <td style="padding: 0.5rem 0.75rem;"><strong>Bubble Sort (Optimized)</strong></td>
-                <td style="padding: 0.5rem 0.75rem; color: #16a34a; font-weight: 700;">✅ Yes</td>
-                <td style="padding: 0.5rem 0.75rem; color: #16a34a;">O(n)</td>
-                <td style="padding: 0.5rem 0.75rem;">O(n²)</td>
-                <td style="padding: 0.5rem 0.75rem;">Monitors boolean <code>swapped</code> flag; stops when a pass makes zero swaps.</td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--line);">
-                <td style="padding: 0.5rem 0.75rem;"><strong>Selection Sort</strong></td>
-                <td style="padding: 0.5rem 0.75rem; color: #dc2626; font-weight: 700;">❌ No</td>
-                <td style="padding: 0.5rem 0.75rem;">O(n²)</td>
-                <td style="padding: 0.5rem 0.75rem;">O(n²)</td>
-                <td style="padding: 0.5rem 0.75rem;">Always scans unsorted subarray to find absolute minimum element.</td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--line);">
-                <td style="padding: 0.5rem 0.75rem;"><strong>Merge Sort</strong></td>
-                <td style="padding: 0.5rem 0.75rem; color: #dc2626; font-weight: 700;">❌ No</td>
-                <td style="padding: 0.5rem 0.75rem;">O(n log n)</td>
-                <td style="padding: 0.5rem 0.75rem;">O(n log n)</td>
-                <td style="padding: 0.5rem 0.75rem;">Always splits down to singletons and merges recursively.</td>
-              </tr>
-              <tr>
-                <td style="padding: 0.5rem 0.75rem;"><strong>Quick Sort</strong></td>
-                <td style="padding: 0.5rem 0.75rem; color: #dc2626; font-weight: 700;">❌ No</td>
-                <td style="padding: 0.5rem 0.75rem;">O(n log n)</td>
-                <td style="padding: 0.5rem 0.75rem;">O(n²)</td>
-                <td style="padding: 0.5rem 0.75rem;">Standard implementation partitions regardless; degrades if sorted with poor pivot.</td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- TAB 5: INTERVIEW FAQS -->
+        <div class="mc-pane" id="pane-interview">
+          <div class="card-notes" style="margin-top:0.5rem;">
+            <div class="notes-title">Interview Edge Cases & Technical FAQs</div>
+            <ul>
+              <li><strong>Why is Python's standard <code>list.sort()</code> (Timsort) adaptive?</strong><br>
+                Timsort was engineered by Tim Peters in 2002 specifically for real-world data, which frequently contains existing sorted chunks ("runs"). Timsort scans for these runs in linear O(n) time, avoiding unnecessary partitions.
+              </li>
+              <li><strong>Can QuickSort be made adaptive?</strong><br>
+                Standard QuickSort is not adaptive. However, 3-way Dijkstra Dutch National Flag partitioning makes it adaptive to duplicate elements, reducing runtime from O(n log n) to O(n) when all elements are identical.
+              </li>
+              <li><strong>Why do operating systems and DBMS query engines prefer adaptive sorting for streaming records?</strong><br>
+                Real-world database tables and time-series events often arrive nearly sorted (e.g. timestamp logs with minor latency jitters). Adaptive algorithms resolve near-sorted streams in near O(n) time, preventing CPU bottlenecks.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- LIVE INTERACTIVE COMPARATOR CONTROLS -->
+        <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line);">
+          <div class="algo-sim-header" style="border:0; padding:0; margin-bottom:1rem;">
+            <div>
+              <span class="tag-badge core" style="margin-bottom:0.25rem;">Interactive Simulator</span>
+              <h3 style="margin:0; font-size:1.1rem;">Live Array Comparison: Adaptive vs. Non-Adaptive</h3>
+            </div>
+            <div class="algo-sim-controls">
+              <span style="font-size: 0.75rem; color: var(--ink-soft); font-weight: 600;">Scenario:</span>
+              <button class="sim-preset-btn active" data-scenario="nearly">Nearly Sorted [1, 2, 3, 5, 4]</button>
+              <button class="sim-preset-btn" data-scenario="sorted">Already Sorted [1, 2, 3, 4, 5]</button>
+              <button class="sim-preset-btn" data-scenario="reverse">Reverse Sorted [5, 4, 3, 2, 1]</button>
+            </div>
+          </div>
+
+          <div class="sim-comparison-grid">
+            <!-- Adaptive Panel -->
+            <div class="sim-algo-panel adaptive">
+              <div class="sim-panel-title">
+                <strong>Adaptive Sort (Optimized Bubble / Insertion)</strong>
+                <span class="tag-badge beginner">Best: O(n)</span>
+              </div>
+              <div class="sim-array-display" id="adaptiveArrayDisp">
+                <div class="sim-item">1</div><div class="sim-item">2</div><div class="sim-item">3</div><div class="sim-item">5</div><div class="sim-item">4</div>
+              </div>
+              <div class="sim-stats">
+                <div class="sim-stat-box"><span>Passes</span><strong id="adPasses">1</strong></div>
+                <div class="sim-stat-box"><span>Comparisons</span><strong id="adComps">4</strong></div>
+                <div class="sim-stat-box"><span>Swaps</span><strong id="adSwaps">1</strong></div>
+              </div>
+              <div class="sim-verdict win" id="adVerdict">
+                <strong>Order-Aware:</strong> Detects pre-existing order and halts early!
+              </div>
+            </div>
+
+            <!-- Non-Adaptive Panel -->
+            <div class="sim-algo-panel non-adaptive">
+              <div class="sim-panel-title">
+                <strong>Non-Adaptive Sort (Selection Sort)</strong>
+                <span class="tag-badge advanced">Always: O(n²)</span>
+              </div>
+              <div class="sim-array-display" id="nonAdaptiveArrayDisp">
+                <div class="sim-item">1</div><div class="sim-item">2</div><div class="sim-item">3</div><div class="sim-item">5</div><div class="sim-item">4</div>
+              </div>
+              <div class="sim-stats">
+                <div class="sim-stat-box"><span>Passes</span><strong id="nadPasses">4</strong></div>
+                <div class="sim-stat-box"><span>Comparisons</span><strong id="nadComps">10</strong></div>
+                <div class="sim-stat-box"><span>Swaps</span><strong id="nadSwaps">1</strong></div>
+              </div>
+              <div class="sim-verdict rigid" id="nadVerdict">
+                <strong>Order-Blind:</strong> Always executes all n(n-1)/2 comparisons regardless of initial ordering.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     `;
   }
 
+
   // Attach interactive simulation event handlers
+  // Attach interactive simulation & tab handlers
   function initAdaptiveSimulator() {
     const widget = document.getElementById('adaptiveSimWidget');
     if (!widget) return;
 
-    const presetButtons = widget.querySelectorAll('.sim-preset-btn');
-    const runBtn = document.getElementById('runSimBtn');
+    // Tab switching logic
+    const tabBtns = widget.querySelectorAll('.mc-tab-btn');
+    const panes = widget.querySelectorAll('.mc-pane');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        panes.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const targetPane = widget.querySelector('#pane-' + btn.dataset.tab);
+        if (targetPane) targetPane.classList.add('active');
+      });
+    });
 
+    const presetButtons = widget.querySelectorAll('.sim-preset-btn');
     const presets = {
       nearly: [1, 2, 3, 5, 4],
       sorted: [1, 2, 3, 4, 5],
       reverse: [5, 4, 3, 2, 1]
     };
 
-    let activeScenario = 'nearly';
-
     function updateScenario(scenario) {
-      activeScenario = scenario;
       const arr = presets[scenario];
-
       presetButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.scenario === scenario));
 
       const adDisp = document.getElementById('adaptiveArrayDisp');
       const nadDisp = document.getElementById('nonAdaptiveArrayDisp');
-
-      adDisp.innerHTML = arr.map(n => `<div class="sim-item">${n}</div>`).join('');
-      nadDisp.innerHTML = arr.map(n => `<div class="sim-item">${n}</div>`).join('');
+      if (adDisp) adDisp.innerHTML = arr.map(n => `<div class="sim-item">${n}</div>`).join('');
+      if (nadDisp) nadDisp.innerHTML = arr.map(n => `<div class="sim-item">${n}</div>`).join('');
 
       const n = arr.length;
       if (scenario === 'sorted') {
         document.getElementById('adPasses').textContent = '1';
-        document.getElementById('adComps').textContent = String(n - 1);
+        document.getElementById('adComps').textContent = (n - 1).toString();
         document.getElementById('adSwaps').textContent = '0';
-        document.getElementById('adVerdict').innerHTML = '🏆 <strong>Best Case Triggered:</strong> Already sorted! Exactly 0 swaps in pass 1 ➔ Exited in <strong>O(n) time!</strong>';
+        document.getElementById('adVerdict').innerHTML = '<strong>Order Detected:</strong> 0 swaps occurred in pass 1! Early exit trigger fired: runs in <strong>O(n) linear time</strong>.';
 
-        document.getElementById('nadPasses').textContent = String(n - 1);
-        document.getElementById('nadComps').textContent = String((n * (n - 1)) / 2);
+        document.getElementById('nadPasses').textContent = (n - 1).toString();
+        document.getElementById('nadComps').textContent = ((n * (n - 1)) / 2).toString();
         document.getElementById('nadSwaps').textContent = '0';
-        document.getElementById('nadVerdict').innerHTML = '⚠️ <strong>Non-Adaptive:</strong> Even though sorted, it still ran all 10 comparisons!';
-      } else if (scenario === 'nearly') {
-        document.getElementById('adPasses').textContent = '2';
-        document.getElementById('adComps').textContent = '7';
-        document.getElementById('adSwaps').textContent = '1';
-        document.getElementById('adVerdict').innerHTML = '⚡ <strong>Adaptive Win:</strong> Only 1 swap needed (5 and 4). Stopped on pass 2 with minimal comparisons.';
+        document.getElementById('nadVerdict').innerHTML = '<strong>Order-Blind:</strong> Array was already sorted, yet Selection Sort executed all 10 comparisons across 4 passes.';
+      } else if (scenario === 'reverse') {
+        document.getElementById('adPasses').textContent = (n - 1).toString();
+        document.getElementById('adComps').textContent = ((n * (n - 1)) / 2).toString();
+        document.getElementById('adSwaps').textContent = ((n * (n - 1)) / 2).toString();
+        document.getElementById('adVerdict').innerHTML = '<strong>Reverse Sorted:</strong> Maximum inversion count Inv(A). Swaps required on every pair, executing worst-case O(n²).';
 
-        document.getElementById('nadPasses').textContent = String(n - 1);
-        document.getElementById('nadComps').textContent = '10';
-        document.getElementById('nadSwaps').textContent = '1';
-        document.getElementById('nadVerdict').innerHTML = '⚠️ <strong>Non-Adaptive:</strong> Ran all 10 comparisons across all 4 passes.';
+        document.getElementById('nadPasses').textContent = (n - 1).toString();
+        document.getElementById('nadComps').textContent = ((n * (n - 1)) / 2).toString();
+        document.getElementById('nadSwaps').textContent = Math.floor(n / 2).toString();
+        document.getElementById('nadVerdict').innerHTML = '<strong>Rigid Behavior:</strong> Selection Sort performs the exact same 10 comparisons as it did on the sorted array.';
       } else {
-        document.getElementById('adPasses').textContent = String(n - 1);
-        document.getElementById('adComps').textContent = '10';
-        document.getElementById('adSwaps').textContent = '10';
-        document.getElementById('adVerdict').innerHTML = '📊 <strong>Worst Case:</strong> Reverse sorted requires maximum comparisons and swaps.';
+        document.getElementById('adPasses').textContent = '2';
+        document.getElementById('adComps').textContent = (n - 1 + n - 2).toString();
+        document.getElementById('adSwaps').textContent = '1';
+        document.getElementById('adVerdict').innerHTML = '<strong>Nearly Sorted:</strong> Only elements 5 and 4 were out of place. Resolved on pass 1; pass 2 verified order and exited early!';
 
-        document.getElementById('nadPasses').textContent = String(n - 1);
-        document.getElementById('nadComps').textContent = '10';
-        document.getElementById('nadSwaps').textContent = '2';
-        document.getElementById('nadVerdict').innerHTML = '📊 <strong>Selection Sort:</strong> Same 10 comparisons performed as always.';
+        document.getElementById('nadPasses').textContent = (n - 1).toString();
+        document.getElementById('nadComps').textContent = ((n * (n - 1)) / 2).toString();
+        document.getElementById('nadSwaps').textContent = '1';
+        document.getElementById('nadVerdict').innerHTML = '<strong>Order-Blind:</strong> Selection Sort performed all 10 comparisons across 4 passes despite 80% initial sortedness.';
       }
     }
 
     presetButtons.forEach(btn => {
       btn.addEventListener('click', () => updateScenario(btn.dataset.scenario));
     });
-
-    if (runBtn) {
-      runBtn.addEventListener('click', () => {
-        const adItems = widget.querySelectorAll('#adaptiveArrayDisp .sim-item');
-        adItems.forEach((item, idx) => {
-          setTimeout(() => {
-            item.classList.add('checking');
-            setTimeout(() => {
-              item.classList.remove('checking');
-              item.classList.add('sorted');
-            }, 300);
-          }, idx * 180);
-        });
-      });
-    }
 
     updateScenario('nearly');
   }
@@ -313,10 +445,10 @@
 
       // If document is Adaptive vs Non-Adaptive, inject interactive simulation widget!
       if (item.id.includes('adaptive') || item.path.includes('Adaptive_vs_NonAdaptive')) {
-        contentHtml += getAdaptiveInteractiveWidget();
+        contentHtml = getAdaptiveInteractiveWidget();
+      } else {
+        contentHtml += renderMarkdownWithEngine(item.content);
       }
-
-      contentHtml += renderMarkdownWithEngine(item.content);
       readerContent.innerHTML = contentHtml;
 
       if (item.id.includes('adaptive') || item.path.includes('Adaptive_vs_NonAdaptive')) {
