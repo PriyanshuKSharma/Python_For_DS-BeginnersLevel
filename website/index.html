@@ -67,19 +67,161 @@
     </div>
   </section>
 
+  <!-- ── Interactive Curriculum Roadmap ── -->
   <section class="study-path" aria-labelledby="pathTitle">
     <div class="section-heading">
-      <p class="eyebrow">Recommended order</p>
-      <h2 id="pathTitle">A clear path through the course</h2>
-      <p>Start with the eight lecture PDFs, deepen each topic with the repository notes, then practise with real Python files.</p>
+      <p class="eyebrow">Curriculum Roadmap</p>
+      <h2 id="pathTitle">Structured Step-by-Step Learning Path</h2>
+      <p>A continuous mastery journey spanning core language mechanics, computer science data structures, object-oriented design, algorithmic complexity, and real-world data science.</p>
     </div>
     <div class="path-grid">
-      <a class="path-step" href="note.html?id=intro"><span>01</span><strong>Python foundations</strong><small>Syntax, variables, strings and conditions</small></a>
-      <a class="path-step" href="note.html?id=lists"><span>02</span><strong>Collections</strong><small>Lists, tuples, dictionaries and sets</small></a>
-      <a class="path-step" href="note.html?id=control-flow"><span>03</span><strong>Program flow</strong><small>Loops, functions, recursion and files</small></a>
-      <a class="path-step" href="note.html?id=oops-notes-pdf"><span>04</span><strong>OOP mastery</strong><small>Four pillars plus 30 interview questions</small></a>
-      <a class="path-step" href="note.html?id=sorting-overview"><span>05</span><strong>DSA practice</strong><small>Data structures, searching and sorting</small></a>
-      <a class="path-step" href="note.html?id=numpy"><span>06</span><strong>Data science</strong><small>NumPy, Pandas, notebooks and regression</small></a>
+      <a class="path-step" href="note.html?id=intro">
+        <span>STAGE 01 · FOUNDATIONS</span>
+        <strong>Python Foundations & Memory</strong>
+        <small>Syntax, variables, CPython heap memory pointers, dynamic typing, strings, and conditions.</small>
+      </a>
+      <a class="path-step" href="note.html?id=lists">
+        <span>STAGE 02 · DATA STRUCTURES</span>
+        <strong>Collections & Data Structures</strong>
+        <small>Dynamic arrays, tuples, hash map dictionaries, hash sets, stacks, and linked lists.</small>
+      </a>
+      <a class="path-step" href="note.html?id=control-flow">
+        <span>STAGE 03 · PROGRAM FLOW</span>
+        <strong>Execution & Functional Logic</strong>
+        <small>Decision trees, loops, call stack frames, LEGB scopes, and lambda expressions.</small>
+      </a>
+      <a class="path-step" href="note.html?id=classes-objects">
+        <span>STAGE 04 · OOP ARCHITECTURE</span>
+        <strong>Object-Oriented Design (4 Pillars)</strong>
+        <small>Encapsulation, abstraction (ABC), inheritance with MRO, polymorphism, and dunder methods.</small>
+      </a>
+      <a class="path-step" href="note.html?id=sorting-overview">
+        <span>STAGE 05 · ALGORITHMS</span>
+        <strong>Algorithms & Big-O Complexity</strong>
+        <small>6 sorting algorithms, binary search space halving, adaptive vs non-adaptive, and stability.</small>
+      </a>
+      <a class="path-step" href="note.html?id=numpy">
+        <span>STAGE 06 · DATA SCIENCE</span>
+        <strong>NumPy, Pandas & ML Regression</strong>
+        <small>SIMD contiguous C-arrays, 2D tabular wrangling, Jupyter notebooks, and supervised ML.</small>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Featured Interactive Workflows & Concept Visualizers ── -->
+  <section class="study-path" style="margin-top: 1rem; margin-bottom: 2rem;">
+    <div class="section-heading">
+      <p class="eyebrow">Visual Engineering</p>
+      <h2>Featured Interactive Workflows & Diagrams</h2>
+      <p>Visualizing how Python programs and data structures execute in memory and runtime.</p>
+    </div>
+
+    <!-- Adaptive vs Non-Adaptive Interactive Simulator Preview -->
+    <div class="algo-sim-container" style="margin-bottom: 1.5rem;">
+      <div class="algo-sim-header">
+        <div>
+          <span class="eyebrow" style="margin-bottom: 0.2rem;">Live Visualizer</span>
+          <h3 style="margin: 0;">⚡ Adaptive vs Non-Adaptive Sorting in Action</h3>
+        </div>
+        <div class="algo-sim-controls">
+          <button class="sim-preset-btn active" id="homeSimNearly">Nearly Sorted [1, 2, 3, 5, 4]</button>
+          <button class="sim-preset-btn" id="homeSimSorted">Already Sorted [1, 2, 3, 4, 5]</button>
+          <button class="sim-preset-btn" id="homeSimReverse">Reverse [5, 4, 3, 2, 1]</button>
+        </div>
+      </div>
+
+      <div class="sim-comparison-grid">
+        <div class="sim-algo-panel adaptive">
+          <div class="sim-panel-title">
+            <strong>✅ Adaptive (Insertion / Optimized Bubble)</strong>
+            <span class="tag-badge beginner" style="background:#dcfce7; color:#15803d;">Best: O(n)</span>
+          </div>
+          <div class="sim-array-display" id="homeAdaptiveArr">
+            <div class="sim-item">1</div><div class="sim-item">2</div><div class="sim-item">3</div><div class="sim-item">5</div><div class="sim-item">4</div>
+          </div>
+          <div class="sim-verdict win" id="homeAdVerdict">
+            ⚡ <strong>Detects Order:</strong> Terminates early after 1 pass on sorted data. Runtime scales linearly O(n).
+          </div>
+        </div>
+
+        <div class="sim-algo-panel non-adaptive">
+          <div class="sim-panel-title">
+            <strong>❌ Non-Adaptive (Selection Sort)</strong>
+            <span class="tag-badge advanced" style="background:#fee2e2; color:#b91c1c;">Always: O(n²)</span>
+          </div>
+          <div class="sim-array-display" id="homeNonAdaptiveArr">
+            <div class="sim-item">1</div><div class="sim-item">2</div><div class="sim-item">3</div><div class="sim-item">5</div><div class="sim-item">4</div>
+          </div>
+          <div class="sim-verdict rigid" id="homeNadVerdict">
+            ⚠️ <strong>Blind Scanning:</strong> Always executes all n(n-1)/2 comparisons regardless of initial ordering.
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: right;">
+        <a href="library.html#md-datastructures-documentation-adaptive-vs-nonadaptive-md" class="btn" style="font-size: 0.8rem; padding: 0.4rem 0.9rem;">
+          Deep Dive: Full Adaptive vs Non-Adaptive Guide ➔
+        </a>
+      </div>
+    </div>
+
+    <!-- Architecture & Memory Cards Row -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.5rem;">
+      <!-- Memory Card -->
+      <div class="cheat-card" style="margin-bottom: 0;">
+        <div class="cheat-card-header">
+          <div class="cheat-card-header-left">
+            <span class="topic-icon">🧠</span>
+            <strong style="font-size: 0.95rem;">CPython Stack ➔ Heap Architecture</strong>
+          </div>
+          <span class="tag-badge core">Memory Model</span>
+        </div>
+        <div class="cheat-card-body" style="padding: 1rem;">
+          <div class="mem-diagram">
+            <div class="mem-stack">
+              <div class="mem-label">Stack Names</div>
+              <div class="mem-var"><span>x = 42</span> <span>ptr ➔</span></div>
+              <div class="mem-var"><span>y = x</span> <span>ptr ➔</span></div>
+              <div class="mem-var"><span>lst = [1,2]</span> <span>ptr ➔</span></div>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="mem-heap">
+              <div class="mem-label">Heap Objects</div>
+              <div class="mem-obj"><span>int: 42 (Immutable)</span><small style="display:block; opacity:0.8;">Shared reference</small></div>
+              <div class="mem-obj" style="background: rgba(37, 132, 91, 0.15); border-color:#86efac; color:#166534;">
+                <span>list: [1, 2] (Mutable)</span><small style="display:block; opacity:0.8;">In-place mutation</small>
+              </div>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--ink-soft); margin: 0.5rem 0 0;">
+            Python variables are references (pointers) to heap objects. Immutability forces new object allocations, while mutables change in-place.
+          </p>
+        </div>
+      </div>
+
+      <!-- OOP 4 Pillars Card -->
+      <div class="cheat-card" style="margin-bottom: 0;">
+        <div class="cheat-card-header">
+          <div class="cheat-card-header-left">
+            <span class="topic-icon">🏛️</span>
+            <strong style="font-size: 0.95rem;">The 4 Pillars of OOP</strong>
+          </div>
+          <span class="tag-badge core">Architecture</span>
+        </div>
+        <div class="cheat-card-body" style="padding: 1rem;">
+          <div class="workflow-row" style="justify-content: space-between; gap: 0.4rem; margin-bottom: 0.75rem;">
+            <span class="flow-step" style="font-size: 0.7rem; border-color: #3b82f6;">1. Encapsulation (__private)</span>
+            <span class="flow-step" style="font-size: 0.7rem; border-color: #eab308;">2. Abstraction (ABC)</span>
+          </div>
+          <div class="workflow-row" style="justify-content: space-between; gap: 0.4rem;">
+            <span class="flow-step" style="font-size: 0.7rem; border-color: #10b981;">3. Inheritance (super)</span>
+            <span class="flow-step" style="font-size: 0.7rem; border-color: #8b5cf6;">4. Polymorphism (Override)</span>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--ink-soft); margin: 0.75rem 0 0;">
+            Classes act as architectural blueprints. Encapsulation guards state, Abstraction defines contracts, Inheritance reuses logic, and Polymorphism enables dynamic dispatch.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 

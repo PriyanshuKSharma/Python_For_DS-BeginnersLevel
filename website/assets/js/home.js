@@ -95,6 +95,43 @@
     render();
   });
 
+  // ── Homepage Visualizer Interactivity ──
+  const nearlyBtn = document.getElementById('homeSimNearly');
+  const sortedBtn = document.getElementById('homeSimSorted');
+  const reverseBtn = document.getElementById('homeSimReverse');
+  const adArr = document.getElementById('homeAdaptiveArr');
+  const nadArr = document.getElementById('homeNonAdaptiveArr');
+  const adVer = document.getElementById('homeAdVerdict');
+  const nadVer = document.getElementById('homeNadVerdict');
+
+  function updateHomeSim(type) {
+    [nearlyBtn, sortedBtn, reverseBtn].forEach(b => b && b.classList.remove('active'));
+    let arr = [1, 2, 3, 5, 4];
+    if (type === 'sorted') {
+      arr = [1, 2, 3, 4, 5];
+      if (sortedBtn) sortedBtn.classList.add('active');
+      if (adVer) adVer.innerHTML = '🏆 <strong>Order Detected:</strong> 0 swaps! Terminates immediately in <strong>O(n) best-case time!</strong>';
+      if (nadVer) nadVer.innerHTML = '⚠️ <strong>Non-Adaptive:</strong> Even though sorted, it still performed all 10 comparisons across 4 passes.';
+    } else if (type === 'reverse') {
+      arr = [5, 4, 3, 2, 1];
+      if (reverseBtn) reverseBtn.classList.add('active');
+      if (adVer) adVer.innerHTML = '📊 <strong>Reverse Sorted:</strong> Executes full comparisons and swaps for worst-case O(n²).';
+      if (nadVer) nadVer.innerHTML = '📊 <strong>Selection Sort:</strong> Same 10 comparisons executed as always.';
+    } else {
+      arr = [1, 2, 3, 5, 4];
+      if (nearlyBtn) nearlyBtn.classList.add('active');
+      if (adVer) adVer.innerHTML = '⚡ <strong>Adaptive Win:</strong> Only 1 swap needed (5 and 4). Exits early on pass 2.';
+      if (nadVer) nadVer.innerHTML = '⚠️ <strong>Blind Scanning:</strong> Always executes all n(n-1)/2 comparisons regardless of initial ordering.';
+    }
+
+    if (adArr) adArr.innerHTML = arr.map(n => `<div class="sim-item">${n}</div>`).join('');
+    if (nadArr) nadArr.innerHTML = arr.map(n => `<div class="sim-item">${n}</div>`).join('');
+  }
+
+  if (nearlyBtn) nearlyBtn.addEventListener('click', () => updateHomeSim('nearly'));
+  if (sortedBtn) sortedBtn.addEventListener('click', () => updateHomeSim('sorted'));
+  if (reverseBtn) reverseBtn.addEventListener('click', () => updateHomeSim('reverse'));
+
   // Init
   render();
 })();

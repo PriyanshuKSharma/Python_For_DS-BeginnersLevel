@@ -1,1545 +1,319 @@
 // ─────────────────────────────────────────────────
-//  Note content — all note HTML bodies
+//  Note content — comprehensive, diagram-rich bodies
 // ─────────────────────────────────────────────────
 
 const NOTE_CONTENT = {
-
-  // ── INTRO ──────────────────────────────────────
-  'intro': {
-    title: 'Introduction to Python',
-    subtitle: 'Why Python for Data Science?',
-    tags: ['foundation', 'beginner'],
-    video: 'https://www.youtube.com/embed/-hh6raHUUvk?start=101',
-    body: `
-<h2>What is Python?</h2>
-<p>Python is a high-level, interpreted, dynamically typed programming language created by <strong>Guido van Rossum</strong> in 1991. It emphasizes code readability and simplicity.</p>
-
-<h2>Why Python for Data Science?</h2>
-<ul>
-  <li><strong>Rich ecosystem</strong> — NumPy, Pandas, Matplotlib, scikit-learn, TensorFlow</li>
-  <li><strong>Readable syntax</strong> — code looks almost like English pseudocode</li>
-  <li><strong>Interpreted</strong> — no compilation step, fast prototyping</li>
-  <li><strong>Community</strong> — massive open-source community and documentation</li>
-  <li><strong>Versatile</strong> — Web, ML, Automation, Scripting, Data Analysis</li>
-</ul>
-
-<h2>Setting Up</h2>
-<pre># Check Python version
-python --version        # Python 3.x.x
-
-# Install dependencies
-pip install numpy pandas matplotlib jupyter scikit-learn
-
-# Launch Jupyter Notebook
-jupyter notebook</pre>
-
-<h2>First Python Program</h2>
-<pre># Hello, Python!
-print("Hello, World!")
-
-# Variables (no type declaration needed)
-name = "Priyanshu"
-age  = 20
-gpa  = 9.2
-print(f"Name: {name}, Age: {age}, GPA: {gpa}")</pre>
-
-<h2>Python Interpreter Modes</h2>
-<ul>
-  <li><strong>Interactive mode</strong> — run <code>python</code> in terminal, line by line</li>
-  <li><strong>Script mode</strong> — write <code>.py</code> file, run with <code>python filename.py</code></li>
-  <li><strong>Jupyter notebooks</strong> — mix code + markdown + output cells</li>
-</ul>
-
-<h2>Key Characteristics</h2>
-<ul>
-  <li>Indentation-based block structure (no braces)</li>
-  <li>Everything is an object</li>
-  <li>Duck typing — type determined at runtime</li>
-  <li>Garbage collected — automatic memory management</li>
-</ul>
-`
+  "intro": {
+    "title": "Introduction to Python & Data Science",
+    "subtitle": "Philosophy · CPython Architecture · Execution Pipeline · Ecosystem",
+    "tags": [
+      "foundation",
+      "beginner",
+      "architecture"
+    ],
+    "video": "https://www.youtube.com/embed/-hh6raHUUvk?start=101",
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Visual Workflow: CPython Source ➔ Bytecode ➔ Machine Instructions</span><span class=\"tag-badge core\">Execution Pipeline</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-around;\">\n    <span class=\"flow-step\">1. Source Code (<code>.py</code>)</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step active\">2. Bytecode (<code>.pyc</code> in __pycache__)</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step warn\">3. Python Virtual Machine (PVM)</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step success\">4. CPU Execution</span>\n  </div>\n</div>\n\n<h2>What is Python?</h2>\n<p>Python is a multi-paradigm, dynamically typed, garbage-collected programming language created by <strong>Guido van Rossum</strong> in 1991. It emphasizes human readability and developer velocity, following the guiding tenets of the <em>Zen of Python</em> (<code>import this</code>).</p>\n\n<h2>Why Python Dominates Data Science & AI</h2>\n<ul>\n  <li><strong>First-Class Scientific Stack:</strong> Unified ecosystem featuring NumPy (linear algebra, SIMD vectorization), Pandas (2D tabular analysis), Matplotlib/Seaborn (visualization), scikit-learn (machine learning), and PyTorch/TensorFlow (deep learning).</li>\n  <li><strong>C-Extension Performance:</strong> While Python is dynamically interpreted, intensive mathematical operations are executed by underlying compiled C and Fortran libraries, granting bare-metal speeds with high-level Python ergonomics.</li>\n  <li><strong>Interactive REPL & Notebooks:</strong> Jupyter Notebooks bridge live code execution, tabular visualization, LaTeX mathematical formulas, and narrative text.</li>\n</ul>\n\n<h2>Under The Hood: How CPython Executes Code</h2>\n<p>CPython compiles your human-readable source code into platform-independent intermediate instructions called <strong>bytecode</strong>. The <strong>Python Virtual Machine (PVM)</strong> is an evaluation loop in C that steps through these bytecode opcodes (e.g. <code>LOAD_NAME</code>, <code>BINARY_OP</code>, <code>RETURN_VALUE</code>) and translates them into machine operations.</p>\n\n<h2>Language Core Pillars</h2>\n<ul>\n  <li><strong>Dynamic Typing:</strong> Types belong to <em>objects in heap memory</em>, never to variable labels. Variable names simply point to objects.</li>\n  <li><strong>Automatic Garbage Collection:</strong> Primary reference counting supplemented by a cyclic generational garbage collector (Generations 0, 1, 2).</li>\n  <li><strong>Strong Typing:</strong> Python will never implicitly coerce incompatible types (e.g. <code>\"5\" + 5</code> raises <code>TypeError</code>).</li>\n</ul>\n\n<h2>First Program & Verification</h2>\n<pre><code>import sys\n\n# Environment metadata\nprint(\"Python Version:\", sys.version.split()[0])\nprint(\"Platform:\", sys.platform)\n\n# Dynamic assignment without declaration\ncourse = \"Python for Data Science\"\nsemester = 3\nactive = True\nprint(f\"Enrolled in {course} (Semester {semester}) - Status: {active}\")</code></pre>\n\n<div class=\"card-notes\">\n  <div class=\"notes-title\">📌 Revision Notes & Interview Insights</div>\n  <ul>\n    <li><strong>Is Python interpreted or compiled?</strong> Both: compiled into bytecode (<code>.pyc</code>) first, then executed by the virtual machine interpreter.</li>\n    <li><strong>What is the GIL?</strong> The Global Interpreter Lock is a CPython mutex that restricts bytecode execution to one native thread at a time, ensuring thread-safe reference counting.</li>\n  </ul>\n</div>\n"
   },
-
-  // ── VARIABLES ──────────────────────────────────
-  'variables': {
-    title: 'Variables & Data Types',
-    subtitle: 'int, float, str, bool, complex — Number Systems',
-    tags: ['foundation', 'types'],
-    body: `
-<h2>Python Data Types</h2>
-<ul>
-  <li><strong>int</strong> — whole numbers: <code>42</code>, <code>-7</code>, <code>0</code></li>
-  <li><strong>float</strong> — decimals: <code>3.14</code>, <code>-0.5</code>, <code>1e10</code></li>
-  <li><strong>str</strong> — text: <code>"hello"</code>, <code>'world'</code></li>
-  <li><strong>bool</strong> — <code>True</code> / <code>False</code></li>
-  <li><strong>complex</strong> — <code>3+4j</code></li>
-</ul>
-
-<h2>Variable Assignment</h2>
-<pre>x = 10           # int
-pi = 3.14159     # float
-msg = "Python"   # str
-flag = True      # bool
-z = 2 + 3j       # complex
-
-# Multiple assignment
-a, b, c = 1, 2, 3
-x = y = z = 0    # same value</pre>
-
-<h2>Number Systems</h2>
-<pre># Binary (base 2)
-bin_val = 0b1010          # = 10 in decimal
-print(bin(10))            # 0b1010
-
-# Octal (base 8)
-oct_val = 0o17            # = 15 in decimal
-print(oct(15))            # 0o17
-
-# Hexadecimal (base 16)
-hex_val = 0xFF            # = 255 in decimal
-print(hex(255))           # 0xff</pre>
-
-<h2>Type Conversion</h2>
-<pre>int("42")        # 42
-float(10)        # 10.0
-str(3.14)        # "3.14"
-bool(0)          # False
-bool("hello")    # True</pre>
-
-<h2>Checking Types</h2>
-<pre>type(42)         # &lt;class 'int'&gt;
-type(3.14)       # &lt;class 'float'&gt;
-isinstance(42, int)   # True</pre>
-
-<h2>Two's Complement</h2>
-<pre># Python handles 2's complement internally
-n = -5
-print(bin(n))          # -0b101
-# Bitwise NOT: ~n = -(n+1)
-print(~5)              # -6</pre>
-`
+  "variables": {
+    "title": "Variables, Data Types & Memory Model",
+    "subtitle": "Dynamic Typing · Stack vs Heap · Two's Complement · Interning",
+    "tags": [
+      "foundation",
+      "types",
+      "memory"
+    ],
+    "video": "https://www.youtube.com/embed/-hh6raHUUvk?start=450",
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Visual Memory Architecture: Stack Variable Names ➔ Heap PyObjects</span><span class=\"tag-badge core\">CPython Memory</span></div>\n  <div class=\"mem-diagram\">\n    <div class=\"mem-stack\">\n      <div class=\"mem-label\">Stack (Names)</div>\n      <div class=\"mem-var\"><span>x</span> <span>ptr ➔</span></div>\n      <div class=\"mem-var\"><span>y = x</span> <span>ptr ➔</span></div>\n      <div class=\"mem-var\"><span>nums</span> <span>ptr ➔</span></div>\n    </div>\n    <div class=\"flow-arrow\">➔</div>\n    <div class=\"mem-heap\">\n      <div class=\"mem-label\">Heap (PyObject Structures)</div>\n      <div class=\"mem-obj\"><span>int: 100</span><small style=\"display:block; opacity:0.8;\">id: 0x7fa2 · refcount: 2 · Immutable</small></div>\n      <div class=\"mem-obj\" style=\"background: rgba(37, 132, 91, 0.15); border-color:#86efac; color:#166534;\">\n        <span>list: [1, 2, 3]</span><small style=\"display:block; opacity:0.8;\">Mutable dynamic array of pointers</small>\n      </div>\n    </div>\n  </div>\n</div>\n\n<h2>The Python Memory Model: Variables Are Pointers</h2>\n<p>In Python, variables are not typed memory cells; they are <strong>references (pointers)</strong> bound to dynamic objects in heap memory. Every Python object (<code>PyObject</code>) encapsulates:</p>\n<ul>\n  <li><code>ob_refcnt</code>: The reference count tracking how many variables point to this memory address.</li>\n  <li><code>ob_type</code>: Pointer to the type object (e.g. <code>PyLong_Type</code>, <code>PyList_Type</code>).</li>\n  <li>Object value data.</li>\n</ul>\n\n<h2>Core Built-in Types & Mutability</h2>\n<div style=\"overflow-x:auto;\">\n  <table style=\"width:100%; border-collapse:collapse; font-size:0.82rem; margin:1rem 0;\">\n    <thead>\n      <tr style=\"background:var(--bg-header); border-bottom:2px solid var(--line);\">\n        <th style=\"padding:0.5rem;\">Type</th>\n        <th>Mutability</th>\n        <th>Example</th>\n        <th>Key Behavior</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td style=\"padding:0.5rem;\"><code>int</code></td><td>Immutable</td><td><code>42, -999999999999</code></td><td>Arbitrary precision (no overflow)</td></tr>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td style=\"padding:0.5rem;\"><code>float</code></td><td>Immutable</td><td><code>3.14159, 1e-4</code></td><td>IEEE 754 64-bit double precision</td></tr>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td style=\"padding:0.5rem;\"><code>bool</code></td><td>Immutable</td><td><code>True, False</code></td><td>Subclass of int (<code>True == 1</code>)</td></tr>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td style=\"padding:0.5rem;\"><code>complex</code></td><td>Immutable</td><td><code>3 + 4j</code></td><td>Two 64-bit floats (real and imag)</td></tr>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td style=\"padding:0.5rem;\"><code>str</code></td><td>Immutable</td><td><code>\"Python\"</code></td><td>Unicode sequence (PEP 393)</td></tr>\n      <tr><td style=\"padding:0.5rem;\"><code>list</code></td><td>Mutable</td><td><code>[1, 2, 3]</code></td><td>Dynamic array of object pointers</td></tr>\n    </tbody>\n  </table>\n</div>\n\n<h2>Number Systems & Two's Complement</h2>\n<p>Negative integers are stored in <strong>Two's Complement</strong> format. The bitwise NOT operator <code>~x</code> satisfies: <code>~x = -(x + 1)</code>.</p>\n<pre><code># Base Representations\nval = 42\nprint(bin(val))  # '0b101010' (Binary, Base 2)\nprint(oct(val))  # '0o52'     (Octal, Base 8)\nprint(hex(val))  # '0x2a'     (Hexadecimal, Base 16)\n\n# Bitwise Operations\na, b = 5, 3      # 0b101, 0b011\nprint(a & b)     # 1 (AND)\nprint(a | b)     # 7 (OR)\nprint(a ^ b)     # 6 (XOR)\nprint(~a)        # -6 (Bitwise NOT: -(5+1))\nprint(a << 1)    # 10 (Left Shift: multiply by 2)</code></pre>\n\n<h2>Identity (<code>is</code>) vs Equality (<code>==</code>)</h2>\n<pre><code># Value vs Memory Address\na = [1, 2, 3]\nb = [1, 2, 3]\nprint(a == b)    # True (content is identical)\nprint(a is b)    # False (two distinct heap allocations: id(a) != id(b))\n\n# Small Integer Interning Cache (-5 to 256)\nx = 250\ny = 250\nprint(x is y)    # True (points to the same pre-allocated singleton)</code></pre>\n\n<div class=\"card-notes\">\n  <div class=\"notes-title\">📌 Revision Notes & Interview Insights</div>\n  <ul>\n    <li><strong>Aliasing Trap:</strong> Writing <code>b = a</code> on a mutable list creates another reference to the <em>same</em> heap object. Use <code>b = a.copy()</code> or <code>copy.deepcopy(a)</code> to avoid accidental side-effects.</li>\n    <li><strong>Float Rounding:</strong> <code>0.1 + 0.2 != 0.3</code> in binary floats. Always use <code>math.isclose(a, b)</code> for testing float equality.</li>\n  </ul>\n</div>\n"
   },
-
-  // ── CONTROL FLOW ─────────────────────────────────
-  'control-flow': {
-    title: 'Control Flow',
-    subtitle: 'if/elif/else · for/while loops · break/continue',
-    tags: ['foundation', 'loops'],
-    body: `
-<h2>if / elif / else</h2>
-<pre>score = 85
-
-if score >= 90:
-    print("A grade")
-elif score >= 80:
-    print("B grade")   # ← this runs
-elif score >= 70:
-    print("C grade")
-else:
-    print("Fail")</pre>
-
-<h2>for Loop</h2>
-<pre># Iterate over range
-for i in range(5):      # 0, 1, 2, 3, 4
-    print(i)
-
-# Iterate over list
-fruits = ["apple", "banana", "mango"]
-for fruit in fruits:
-    print(fruit)
-
-# Enumerate (index + value)
-for i, fruit in enumerate(fruits):
-    print(f"{i}: {fruit}")</pre>
-
-<h2>while Loop</h2>
-<pre>count = 0
-while count < 5:
-    print(count)
-    count += 1</pre>
-
-<h2>break, continue, pass</h2>
-<pre># break — exit loop entirely
-for i in range(10):
-    if i == 5:
-        break       # stops at 5
-    print(i)
-
-# continue — skip current iteration
-for i in range(10):
-    if i % 2 == 0:
-        continue    # skip evens
-    print(i)        # only odds
-
-# pass — placeholder (do nothing)
-if True:
-    pass            # valid but empty</pre>
-
-<h2>Nested Loops</h2>
-<pre>for i in range(3):
-    for j in range(3):
-        print(f"({i},{j})", end=" ")
-    print()     # newline after each row</pre>
-
-<h2>List Comprehensions</h2>
-<pre># [expression for item in iterable if condition]
-squares  = [x**2 for x in range(10)]
-evens    = [x for x in range(20) if x % 2 == 0]
-matrix   = [[i*j for j in range(4)] for i in range(4)]</pre>
-`
+  "control-flow": {
+    "title": "Control Flow & Decision Logic",
+    "subtitle": "if/elif/else · for/while loops · break · continue · for-else",
+    "tags": [
+      "foundation",
+      "loops",
+      "branching"
+    ],
+    "video": "https://www.youtube.com/embed/-hh6raHUUvk?start=1800",
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Execution Decision Workflow: Loops with Break vs Continue vs Else</span><span class=\"tag-badge core\">Branching</span></div>\n  <div class=\"workflow-diagram\">\n    <div class=\"flowchart-nodes\">\n      <div class=\"fc-node\">1. Enter Loop</div>\n      <span class=\"flow-arrow\">➔</span>\n      <div class=\"fc-node diamond\">Condition Met?</div>\n      <span class=\"flow-arrow\">➔</span>\n      <div class=\"fc-node fc-decision-yes\">YES ➔ Run Body</div>\n      <span class=\"flow-arrow\">➔</span>\n      <div class=\"fc-node fc-decision-no\"><code>break</code> ➔ Abort Loop</div>\n    </div>\n    <div style=\"text-align:center; margin-top:0.75rem; font-size:0.8rem; color:var(--ink-soft);\">\n      If loop completes without encountering a <code>break</code>, the <code>else:</code> block fires automatically!\n    </div>\n  </div>\n</div>\n\n<h2>Conditional Branching: <code>if / elif / else</code></h2>\n<p>Python evaluates conditions sequentially. Standard falsy values are: <code>0, 0.0, \"\", [], {}, set(), None, False</code>. All other values evaluate to <code>True</code>.</p>\n<pre><code>score = 85\n\nif score >= 90:\n    grade = \"A+\"\nelif score >= 80:\n    grade = \"A\"     # ← This branch executes\nelif score >= 70:\n    grade = \"B\"\nelse:\n    grade = \"C\"\n\n# One-line Ternary Expression\nstatus = \"Passed\" if score >= 40 else \"Retake Required\"</code></pre>\n\n<h2>Looping: <code>for</code> and <code>while</code></h2>\n<p>Python's <code>for</code> loop is an iterator loop that repeatedly requests the next item from an iterable until <code>StopIteration</code> is raised.</p>\n<pre><code># range(start, stop, step)\nfor i in range(1, 10, 2):\n    print(i, end=\" \")   # 1 3 5 7 9\nprint()\n\n# Enumerate: gives (index, value) tuples\nlanguages = [\"Python\", \"C++\", \"SQL\"]\nfor idx, lang in enumerate(languages, start=1):\n    print(f\"{idx}: {lang}\")</code></pre>\n\n<h2>The <code>for...else</code> Search Pattern</h2>\n<p>The <code>else</code> block attached to a loop executes <em>only if the loop finishes naturally without breaking</em>.</p>\n<pre><code># Prime search without flags\ntarget = 29\n\nfor factor in range(2, int(target**0.5) + 1):\n    if target % factor == 0:\n        print(f\"{target} is composite (divisible by {factor})\")\n        break\nelse:\n    # Runs ONLY if no factor was found!\n    print(f\"{target} is a PRIME number!\")</code></pre>\n\n<div class=\"card-notes\">\n  <div class=\"notes-title\">📌 Revision Notes & Interview Insights</div>\n  <ul>\n    <li><strong>Short-Circuiting:</strong> In <code>A and B</code>, if <code>A</code> is false, <code>B</code> is never computed. In <code>A or B</code>, if <code>A</code> is true, <code>B</code> is never computed.</li>\n    <li><strong><code>pass</code> vs <code>...</code>:</strong> <code>pass</code> is a no-op statement. You can also use the Ellipsis literal <code>...</code> as an empty function placeholder.</li>\n  </ul>\n</div>\n"
   },
-
-  // ── FUNCTIONS ─────────────────────────────────────
-  'functions': {
-    title: 'Functions & Lambda',
-    subtitle: 'def · *args · **kwargs · lambda expressions',
-    tags: ['foundation', 'functions'],
-    body: `
-<h2>Defining Functions</h2>
-<pre>def greet(name):
-    return f"Hello, {name}!"
-
-result = greet("Priyanshu")
-print(result)   # Hello, Priyanshu!</pre>
-
-<h2>Default Parameters</h2>
-<pre>def power(base, exp=2):
-    return base ** exp
-
-print(power(3))     # 9  (exp defaults to 2)
-print(power(3, 3))  # 27</pre>
-
-<h2>Multiple Return Values</h2>
-<pre>def min_max(lst):
-    return min(lst), max(lst)
-
-lo, hi = min_max([4, 1, 9, 2, 7])
-print(lo, hi)   # 1 9</pre>
-
-<h2>*args — Variable Positional Arguments</h2>
-<pre>def add(*nums):
-    total = 0
-    for n in nums:
-        total += n
-    return total
-
-print(add(1, 2, 3, 4))   # 10
-print(add(10, 20))        # 30</pre>
-
-<h2>**kwargs — Variable Keyword Arguments</h2>
-<pre>def profile(**info):
-    for key, val in info.items():
-        print(f"{key}: {val}")
-
-profile(name="Priyanshu", age=20, city="Delhi")</pre>
-
-<h2>Lambda Expressions</h2>
-<pre># lambda args: expression
-square = lambda x: x ** 2
-add    = lambda a, b: a + b
-
-print(square(5))   # 25
-print(add(3, 4))   # 7
-
-# Used with map, filter, sorted
-nums = [4, 1, 9, 3, 7]
-print(sorted(nums, key=lambda x: -x))   # descending
-evens = list(filter(lambda x: x % 2 == 0, range(10)))</pre>
-`
+  "functions": {
+    "title": "Functions, Scopes & Lambda Expressions",
+    "subtitle": "LEGB Scope Rule · Call Stack · *args & **kwargs · Closures",
+    "tags": [
+      "foundation",
+      "functions",
+      "lambda"
+    ],
+    "video": "https://www.youtube.com/embed/-hh6raHUUvk?start=3200",
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Scope Resolution Architecture: The LEGB Rule</span><span class=\"tag-badge core\">Name Resolution</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: center; gap: 0.5rem;\">\n    <span class=\"flow-step active\">1. Local (def body)</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step\">2. Enclosing (Closure)</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step\">3. Global (Module)</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step warn\">4. Built-in (len, print)</span>\n  </div>\n</div>\n\n<h2>First-Class Functions & Scopes</h2>\n<p>Functions are first-class objects. Python resolves variable names using the <strong>LEGB Rule</strong> (Local ➔ Enclosing ➔ Global ➔ Built-in). If an identifier is not found in any of these four tiers, a <code>NameError</code> is raised.</p>\n\n<h2>Variable Argument Packing: <code>*args</code> & <code>**kwargs</code></h2>\n<ul>\n  <li><code>*args</code>: Gathers surplus positional arguments into an immutable <code>tuple</code>.</li>\n  <li><code>**kwargs</code>: Gathers surplus keyword arguments into a mutable <code>dict</code>.</li>\n</ul>\n<pre><code>def pipeline_step(step_name, *inputs, **configs):\n    print(f\"Step: {step_name}\")\n    print(\"Inputs (tuple):\", inputs)\n    print(\"Configs (dict):\", configs)\n\npipeline_step(\"Normalize\", \"X_train\", \"X_test\", method=\"MinMax\", clip=True)</code></pre>\n\n<h2>The Default Mutable Argument Trap (Interview Classic)</h2>\n<p>Default argument values are created <strong>once at function definition time</strong>, NOT on every call! If a mutable object is passed as default, state persists across invocations.</p>\n<pre><code># ❌ BUG: Same list persists across function calls!\ndef collect_bad(val, items=[]):\n    items.append(val)\n    return items\n\nprint(collect_bad(1))  # [1]\nprint(collect_bad(2))  # [1, 2] -> BUG!\n\n# ✅ CORRECT: Use None as default sentinel\ndef collect_safe(val, items=None):\n    if items is None:\n        items = []\n    items.append(val)\n    return items</code></pre>\n\n<h2>Lambda Expressions & Functional Programming</h2>\n<pre><code># Inline Anonymous Functions\ncube = lambda x: x ** 3\n\n# Using lambda with map, filter, and sorted\ndata = [(\"Data Sci\", 92), (\"Web Dev\", 85), (\"Algorithms\", 98)]\nsorted_by_marks = sorted(data, key=lambda item: item[1], reverse=True)\nprint(sorted_by_marks) # [('Algorithms', 98), ('Data Sci', 92), ('Web Dev', 85)]</code></pre>\n\n<div class=\"card-notes\">\n  <div class=\"notes-title\">📌 Revision Notes & Interview Insights</div>\n  <ul>\n    <li><strong><code>global</code> vs <code>nonlocal</code>:</strong> <code>global</code> rebinds a module-level variable; <code>nonlocal</code> rebinds a variable in the nearest enclosing non-global scope (closure).</li>\n    <li><strong>Positional-Only & Keyword-Only:</strong> <code>def f(pos_only, /, standard, *, kw_only):</code> enforces parameter passing contracts.</li>\n  </ul>\n</div>\n"
   },
-
-  // ── STRINGS ───────────────────────────────────────
-  'strings': {
-    title: 'String Manipulation',
-    subtitle: 'Methods · f-strings · slicing · comprehensions',
-    tags: ['foundation', 'strings'],
-    body: `
-<h2>String Basics</h2>
-<pre>s = "Hello, Python!"
-print(len(s))        # 14
-print(s[0])          # H
-print(s[-1])         # !
-print(s[7:13])       # Python</pre>
-
-<h2>Slicing</h2>
-<pre>s = "ABCDEFGH"
-s[2:6]       # CDEF
-s[::2]       # ACEG  (step)
-s[::-1]      # HGFEDCBA  (reverse)</pre>
-
-<h2>String Methods</h2>
-<pre>s = "  hello world  "
-s.strip()         # "hello world"
-s.upper()         # "  HELLO WORLD  "
-s.lower()         # unchanged
-s.replace("o","0")# "  hell0 w0rld  "
-s.split(" ")      # ['', '', 'hello', 'world', '', '']
-
-" ".join(["a","b","c"])   # "a b c"
-"Python".startswith("Py") # True
-"Python".find("th")       # 2</pre>
-
-<h2>f-Strings (Python 3.6+)</h2>
-<pre>name = "Priyanshu"
-gpa  = 9.2
-print(f"Name: {name}, GPA: {gpa:.1f}")
-# Name: Priyanshu, GPA: 9.2
-
-# Expressions in f-strings
-print(f"2^10 = {2**10}")  # 2^10 = 1024</pre>
-
-<h2>String Comprehensions</h2>
-<pre>vowels = [c for c in "Hello World" if c in "aeiouAEIOU"]
-caps   = [c.upper() for c in "hello"]</pre>
-`
+  "strings": {
+    "title": "String Manipulation & Slicing",
+    "subtitle": "Immutable Unicode · Slicing Tape · f-Strings · Methods",
+    "tags": [
+      "foundation",
+      "strings",
+      "slicing"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Visual Slicing Tape: Dual-Index Coordinate System</span><span class=\"tag-badge core\">Indexing</span></div>\n  <div class=\"slicing-tape\">\n    <div class=\"tape-indices\"><span class=\"tape-index\">+0</span><span class=\"tape-index\">+1</span><span class=\"tape-index\">+2</span><span class=\"tape-index\">+3</span><span class=\"tape-index\">+4</span><span class=\"tape-index\">+5</span></div>\n    <div class=\"tape-cells\">\n      <div class=\"tape-cell slice-highlight\">P</div><div class=\"tape-cell slice-highlight\">Y</div><div class=\"tape-cell slice-highlight\">T</div>\n      <div class=\"tape-cell\">H</div><div class=\"tape-cell\">O</div><div class=\"tape-cell\">N</div>\n    </div>\n    <div class=\"tape-indices negative\"><span class=\"tape-index\">-6</span><span class=\"tape-index\">-5</span><span class=\"tape-index\">-4</span><span class=\"tape-index\">-3</span><span class=\"tape-index\">-2</span><span class=\"tape-index\">-1</span></div>\n  </div>\n  <p style=\"font-size:0.75rem; color:var(--ink-soft); margin:0.3rem 0 0; text-align:center;\">\n    Slice formula: <code>s[start:stop:step]</code> extracts elements from start up to (excluding) stop.\n  </p>\n</div>\n\n<h2>String Immutability & Performance</h2>\n<p>Strings are immutable Unicode sequences. Reassigning or appending with <code>+=</code> inside a loop allocates a brand-new string on each iteration, causing $O(n^2)$ time and memory overhead. Always collect chunks into a list and call <code>\"\".join(chunks)</code> for linear $O(n)$ speed.</p>\n\n<h2>Slicing Mechanics</h2>\n<pre><code>s = \"PythonDataScience\"\n\n# Slicing [start:stop:step]\nprint(s[0:6])     # \"Python\"\nprint(s[-7:])     # \"Science\"\nprint(s[::2])     # \"PtoDtSine\" (step = 2)\nprint(s[::-1])    # \"ecneicSataDnohtyP\" (Reverse string)\n\n# Modern f-String Formatting\npi, count = 3.1415926, 42\nprint(f\"PI: {pi:.2f} | Padded Count: {count:05d}\") # \"PI: 3.14 | Padded Count: 00042\"</code></pre>\n\n<h2>Essential Built-in Methods</h2>\n<pre><code>text = \"  python,data,science  \"\ncleaned = text.strip()               # Removes leading/trailing whitespace\nparts = cleaned.split(\",\")           # ['python', 'data', 'science']\nrejoined = \" -> \".join(parts)        # \"python -> data -> science\"\nprint(cleaned.startswith(\"py\"))      # True\nprint(cleaned.replace(\"data\", \"AI\")) # \"python,AI,science\"</code></pre>\n\n<div class=\"card-notes\">\n  <div class=\"notes-title\">📌 Revision Notes & Interview Insights</div>\n  <ul>\n    <li><strong>Palindrome Checker:</strong> <code>is_palindrome = lambda s: s == s[::-1]</code> runs in $O(n)$ time.</li>\n    <li><strong>Unicode Normalization:</strong> Use <code>unicodedata.normalize()</code> when comparing user-input Unicode strings with accents or special characters.</li>\n  </ul>\n</div>\n"
   },
-
-  // ── CLASSES & OBJECTS ─────────────────────────────
-  'classes-objects': {
-    title: 'Classes & Objects',
-    subtitle: '__init__ · self · instance vs class attributes',
-    tags: ['oop', 'classes'],
-    video: 'https://www.youtube.com/embed/ERCMXc8x7mc',
-    body: `
-<h2>What is OOP?</h2>
-<p>Object-Oriented Programming models real-world entities as <strong>objects</strong> that combine <strong>data (attributes)</strong> and <strong>behavior (methods)</strong>.</p>
-
-<h2>Defining a Class</h2>
-<pre>class Student:
-    # Class attribute (shared by ALL objects)
-    school = "Delhi University"
-
-    def __init__(self, name, marks):
-        # Instance attributes (unique per object)
-        self.name  = name
-        self.marks = marks
-
-    def get_grade(self):
-        avg = sum(self.marks) / len(self.marks)
-        if avg >= 90: return "A"
-        elif avg >= 80: return "B"
-        else: return "C"
-
-    def __str__(self):
-        return f"Student({self.name}, Grade={self.get_grade()})"</pre>
-
-<h2>Creating Objects</h2>
-<pre>s1 = Student("Priyanshu", [90, 85, 92])
-s2 = Student("Anushka",   [78, 82, 80])
-
-print(s1.name)        # Priyanshu
-print(s1.get_grade()) # A
-print(Student.school) # Delhi University
-print(s1)             # Student(Priyanshu, Grade=A)</pre>
-
-<h2>Class vs Instance Attributes</h2>
-<pre># Class attribute — same for all instances
-Student.school = "IIT Delhi"   # changes for all
-
-# Instance attribute — unique to one object
-s1.name = "PK Sharma"          # only changes s1</pre>
-
-<h2>Key OOP Terms</h2>
-<ul>
-  <li><strong>self</strong> — reference to the current object</li>
-  <li><strong>__init__</strong> — constructor, runs when object is created</li>
-  <li><strong>Class attribute</strong> — shared across all instances</li>
-  <li><strong>Instance attribute</strong> — unique to each object</li>
-  <li><strong>Method</strong> — function defined inside a class</li>
-</ul>
-`
+  "classes-objects": {
+    "title": "Classes & Objects Architecture",
+    "subtitle": "Blueprints · __init__ · self · Instance vs Class Attributes",
+    "tags": [
+      "oop",
+      "intermediate",
+      "classes"
+    ],
+    "video": "https://www.youtube.com/embed/ERCMXc8x7mc",
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Object Architecture: Class Namespace vs Instance __dict__</span><span class=\"tag-badge core\">OOP Memory</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-around;\">\n    <div class=\"flow-step\" style=\"flex-direction:column; align-items:flex-start;\">\n      <strong>Class Student (Heap)</strong>\n      <small style=\"color:var(--ink-soft);\">Shared: school=\"NIT\", study()</small>\n    </div>\n    <div class=\"flow-arrow\">➔ instantiates ➔</div>\n    <div class=\"flow-step success\" style=\"flex-direction:column; align-items:flex-start;\">\n      <strong>Instance s1 (Heap)</strong>\n      <small style=\"color:#15803d;\">__dict__: {name: \"Alice\", roll: 101}</small>\n    </div>\n  </div>\n</div>\n\n<h2>Classes as Architectural Blueprints</h2>\n<p>A class defines the blueprint for creating user-defined objects. It encapsulates state (data stored in attributes) and behavior (functions defined within the class known as methods).</p>\n\n<h2>The Role of <code>self</code></h2>\n<p><code>self</code> is an explicit reference to the current instance of the class. When calling <code>obj.method(arg)</code>, Python automatically transforms the call into <code>Class.method(obj, arg)</code>.</p>\n\n<h2>Instance vs Class Attributes</h2>\n<ul>\n  <li><strong>Instance Attributes:</strong> Belong specifically to a single object; initialized inside <code>__init__</code> via <code>self.attr = val</code>.</li>\n  <li><strong>Class Attributes:</strong> Shared across all instances of the class; defined at the class root.</li>\n</ul>\n<pre><code>class Student:\n    # Class attribute (shared by all students)\n    university = \"State Tech University\"\n    student_count = 0\n\n    def __init__(self, name: str, gpa: float):\n        # Instance attributes (unique to each student)\n        self.name = name\n        self.gpa = gpa\n        Student.student_count += 1\n\n    def display(self):\n        return f\"{self.name} | GPA: {self.gpa} | {self.university}\"\n\ns1 = Student(\"Alice\", 3.9)\ns2 = Student(\"Bob\", 3.7)\n\nprint(s1.display())\nprint(\"Total Students Created:\", Student.student_count) # 2</code></pre>\n\n<div class=\"card-notes\">\n  <div class=\"notes-title\">📌 Revision Notes & Interview Insights</div>\n  <ul>\n    <li><strong><code>__new__</code> vs <code>__init__</code>:</strong> <code>__new__</code> is the actual object allocator returning a new instance; <code>__init__</code> is the initializer configuring the already-created instance.</li>\n    <li><strong>Memory Optimization with <code>__slots__</code>:</strong> Defining <code>__slots__ = ('name', 'gpa')</code> prevents the creation of the dynamic <code>__dict__</code>, saving substantial memory in large-scale datasets.</li>\n  </ul>\n</div>\n"
   },
-
-  // ── INHERITANCE ───────────────────────────────────
-  'inheritance': {
-    title: 'Inheritance',
-    subtitle: 'Single · Multi-level · Multiple · super() · MRO',
-    tags: ['oop', 'inheritance'],
-    body: `
-<h2>Single Inheritance</h2>
-<pre>class Animal:
-    def __init__(self, name):
-        self.name = name
-
-    def speak(self):
-        return f"{self.name} makes a sound"
-
-class Dog(Animal):            # Dog inherits from Animal
-    def speak(self):          # override
-        return f"{self.name} says Woof!"
-
-d = Dog("Rex")
-print(d.speak())    # Rex says Woof!
-print(d.name)       # Rex  ← inherited attribute</pre>
-
-<h2>Multi-level Inheritance</h2>
-<pre>class A:
-    def method_a(self): return "A"
-
-class B(A):
-    def method_b(self): return "B"
-
-class C(B):       # C → B → A
-    def method_c(self): return "C"
-
-c = C()
-print(c.method_a())   # A  (inherited through B)
-print(c.method_b())   # B
-print(c.method_c())   # C</pre>
-
-<h2>Multiple Inheritance</h2>
-<pre>class Father:
-    def skills(self): return "Coding"
-
-class Mother:
-    def skills(self): return "Cooking"
-
-class Child(Father, Mother):
-    pass
-
-c = Child()
-print(c.skills())   # Coding  ← MRO picks Father first</pre>
-
-<h2>super() — Call Parent Method</h2>
-<pre>class GamingPhone(Smartphone):
-    def __init__(self, brand, model, price, gpu):
-        super().__init__(brand, model, price)  # call Smartphone.__init__
-        self.gpu = gpu</pre>
-
-<h2>Method Resolution Order (MRO)</h2>
-<pre>print(Child.__mro__)
-# (&lt;class 'Child'&gt;, &lt;class 'Father'&gt;, &lt;class 'Mother'&gt;, &lt;class 'object'&gt;)</pre>
-`
+  "inheritance": {
+    "title": "Inheritance & Method Resolution Order",
+    "subtitle": "Code Reuse · super() · C3 Linearization MRO · Diamond Problem",
+    "tags": [
+      "oop",
+      "advanced",
+      "inheritance"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Visual Architecture: Multiple Inheritance Diamond Resolution</span><span class=\"tag-badge core\">C3 MRO</span></div>\n  <div class=\"workflow-diagram\">\n    <div class=\"flowchart-nodes\">\n      <div class=\"fc-node\">Base A</div>\n      <span class=\"flow-arrow\">➔</span>\n      <div class=\"fc-node\">Child B(A) & Child C(A)</div>\n      <span class=\"flow-arrow\">➔</span>\n      <div class=\"fc-node success\">Leaf D(B, C) ➔ MRO: [D, B, C, A, object]</div>\n    </div>\n  </div>\n</div>\n\n<h2>What is Inheritance?</h2>\n<p>Inheritance enables a child class to inherit attributes and methods from one or more parent classes, promoting code reusability and establishing hierarchical relationships (Is-A relationship).</p>\n\n<h2>Types of Inheritance in Python</h2>\n<ul>\n  <li><strong>Single Inheritance:</strong> Child inherits from one Parent.</li>\n  <li><strong>Multilevel Inheritance:</strong> Grandparent ➔ Parent ➔ Child.</li>\n  <li><strong>Multiple Inheritance:</strong> Child inherits directly from multiple parents (e.g. <code>class D(B, C):</code>).</li>\n</ul>\n\n<h2>Cooperative Multiple Inheritance with <code>super()</code></h2>\n<p><code>super()</code> delegates method calls to the next class in the <strong>Method Resolution Order (MRO)</strong>, determined via Python's <strong>C3 Linearization Algorithm</strong>.</p>\n<pre><code>class Device:\n    def __init__(self, brand):\n        self.brand = brand\n        print(f\"Device initialized: {brand}\")\n\nclass BatteryPowered(Device):\n    def __init__(self, brand, battery_mah):\n        super().__init__(brand)\n        self.battery_mah = battery_mah\n        print(f\"Battery configured: {battery_mah}mAh\")\n\nclass Smartphone(BatteryPowered):\n    def __init__(self, brand, battery_mah, os):\n        super().__init__(brand, battery_mah)\n        self.os = os\n        print(f\"OS installed: {os}\")\n\nphone = Smartphone(\"Pixel\", 5000, \"Android 14\")\n# Inspect MRO resolution chain\nprint(Smartphone.__mro__)</code></pre>\n\n<div class=\"card-notes\">\n  <div class=\"notes-title\">📌 Revision Notes & Interview Insights</div>\n  <ul>\n    <li><strong>The Diamond Problem:</strong> When two superclasses share a common ancestor, Python's C3 Linearization guarantees every class is visited exactly once in a monotonic order.</li>\n    <li><strong>Inheritance vs Composition:</strong> Prefer composition (\"Has-A\") over inheritance (\"Is-A\") when code reuse does not represent a true hierarchical type relationship.</li>\n  </ul>\n</div>\n"
   },
-
-  // ── ENCAPSULATION ─────────────────────────────────
-  'encapsulation': {
-    title: 'Encapsulation',
-    subtitle: 'Access modifiers · @property · getters & setters',
-    tags: ['oop', 'encapsulation'],
-    video: 'https://www.youtube.com/embed/cKeKp17afZw',
-    body: `
-<h2>Access Modifiers</h2>
-<ul>
-  <li><strong>Public</strong> — <code>self.name</code> — accessible everywhere</li>
-  <li><strong>Protected</strong> — <code>self._name</code> — convention, accessible but "don't touch"</li>
-  <li><strong>Private</strong> — <code>self.__name</code> — name-mangled, truly restricted</li>
-</ul>
-
-<h2>Example: BankAccount</h2>
-<pre>class BankAccount:
-    def __init__(self, owner, balance):
-        self.owner    = owner            # public
-        self._bank    = "State Bank"     # protected
-        self.__balance = balance         # private
-
-    def deposit(self, amount):
-        if amount > 0:
-            self.__balance += amount
-
-    def withdraw(self, amount):
-        if 0 < amount <= self.__balance:
-            self.__balance -= amount
-        else:
-            print("Insufficient funds")
-
-    def get_balance(self):
-        return self.__balance
-
-acc = BankAccount("Priyanshu", 1000)
-acc.deposit(500)
-print(acc.get_balance())    # 1500
-# print(acc.__balance)      # AttributeError!</pre>
-
-<h2>@property Decorator</h2>
-<pre>class Temperature:
-    def __init__(self, celsius=0):
-        self.__celsius = celsius
-
-    @property
-    def celsius(self):          # getter
-        return self.__celsius
-
-    @celsius.setter
-    def celsius(self, value):   # setter
-        if value < -273.15:
-            raise ValueError("Below absolute zero!")
-        self.__celsius = value
-
-    @property
-    def fahrenheit(self):       # computed property
-        return self.__celsius * 9/5 + 32
-
-t = Temperature(25)
-print(t.celsius)       # 25
-print(t.fahrenheit)    # 77.0
-t.celsius = 100        # uses setter
-print(t.fahrenheit)    # 212.0</pre>
-`
+  "encapsulation": {
+    "title": "Encapsulation & Access Modifiers",
+    "subtitle": "Data Hiding · Public · Protected · Private · @property Decorator",
+    "tags": [
+      "oop",
+      "intermediate",
+      "encapsulation"
+    ],
+    "video": "https://www.youtube.com/embed/cKeKp17afZw",
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Access Protection: Name Mangling Architecture</span><span class=\"tag-badge core\">Data Hiding</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-around;\">\n    <span class=\"flow-step\"><code>self.public</code> (Accessible everywhere)</span>\n    <span class=\"flow-step warn\"><code>self._protected</code> (Convention: internal)</span>\n    <span class=\"flow-step\" style=\"border-color:#ef4444; color:#ef4444;\"><code>self.__private</code> ➔ <code>_Class__private</code></span>\n  </div>\n</div>\n\n<h2>The Purpose of Encapsulation</h2>\n<p>Encapsulation bundles data and the methods that manipulate that data into a single unit, while restricting direct external access to internal state to maintain data integrity and prevent unintended mutations.</p>\n\n<h2>Python Access Conventions</h2>\n<ul>\n  <li><code>name</code> (Public): Accessible freely from outside.</li>\n  <li><code>_name</code> (Protected): By developer convention, signals internal use within the class and subclasses.</li>\n  <li><code>__name</code> (Private): Triggers <strong>Name Mangling</strong>—Python automatically rewrites the attribute name to <code>_ClassName__name</code> to prevent namespace collisions.</li>\n</ul>\n\n<h2>The Pythonic Way: <code>@property</code> Getters & Setters</h2>\n<pre><code>class BankAccount:\n    def __init__(self, owner: str, initial_balance: float):\n        self.owner = owner\n        self.__balance = initial_balance # Private attribute\n\n    @property\n    def balance(self) -> float: # Getter\n        return self.__balance\n\n    @balance.setter\n    def balance(self, value: float): # Setter with validation\n        if value < 0:\n            raise ValueError(\"Balance cannot be negative!\")\n        self.__balance = value\n\n    def deposit(self, amount: float):\n        if amount <= 0:\n            raise ValueError(\"Deposit must be positive\")\n        self.__balance += amount\n\naccount = BankAccount(\"Priyanshu\", 1000.0)\naccount.deposit(500)\nprint(account.balance) # 1500.0 (accessed as a clean attribute)\n\n# account.balance = -50 raises ValueError!</code></pre>\n\n<div class=\"card-notes\">\n  <div class=\"notes-title\">📌 Revision Notes & Interview Insights</div>\n  <ul>\n    <li><strong>Is Python private truly private?</strong> No, private attributes can still be accessed via <code>account._BankAccount__balance</code>. Python assumes \"We are all consenting adults here\".</li>\n    <li><strong>Why <code>@property</code>?</strong> It allows you to expose public attributes and later add validation logic without breaking backwards compatibility for client code.</li>\n  </ul>\n</div>\n"
   },
-
-  // ── POLYMORPHISM ──────────────────────────────────
-  'polymorphism': {
-    title: 'Polymorphism',
-    subtitle: 'Method overriding · duck typing · operator overloading',
-    tags: ['oop', 'polymorphism'],
-    body: `
-<h2>Method Overriding</h2>
-<pre>class Shape:
-    def area(self):
-        return 0
-
-class Circle(Shape):
-    def __init__(self, r): self.r = r
-    def area(self): return 3.14159 * self.r ** 2
-
-class Rectangle(Shape):
-    def __init__(self, w, h): self.w, self.h = w, h
-    def area(self): return self.w * self.h
-
-# Polymorphism — same interface, different behaviour
-shapes = [Circle(5), Rectangle(4, 6)]
-for s in shapes:
-    print(f"Area: {s.area():.2f}")</pre>
-
-<h2>Duck Typing</h2>
-<pre># "If it quacks like a duck, it's a duck"
-class Dog:
-    def speak(self): return "Woof"
-
-class Cat:
-    def speak(self): return "Meow"
-
-class Robot:
-    def speak(self): return "Beep boop"
-
-# No inheritance needed — just needs .speak()
-for entity in [Dog(), Cat(), Robot()]:
-    print(entity.speak())</pre>
-
-<h2>Operator Overloading (Dunder Methods)</h2>
-<pre>class Vector:
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-
-    def __add__(self, other):
-        return Vector(self.x + other.x, self.y + other.y)
-
-    def __str__(self):
-        return f"Vector({self.x}, {self.y})"
-
-v1 = Vector(1, 2)
-v2 = Vector(3, 4)
-print(v1 + v2)   # Vector(4, 6)</pre>
-`
+  "polymorphism": {
+    "title": "Polymorphism & Duck Typing",
+    "subtitle": "Dynamic Dispatch · Duck Typing · Method Overriding · Operator Overload",
+    "tags": [
+      "oop",
+      "intermediate",
+      "polymorphism"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Dynamic Polymorphic Dispatch: Same Interface, Distinct Behaviors</span><span class=\"tag-badge core\">Polymorphism</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: center; gap: 0.8rem;\">\n    <span class=\"flow-step\">Client: <code>entity.execute()</code></span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step success\">SQLQuery.execute()</span>\n    <span class=\"flow-step warn\">APIRequest.execute()</span>\n    <span class=\"flow-step active\">BatchJob.execute()</span>\n  </div>\n</div>\n\n<h2>What is Polymorphism?</h2>\n<p>Polymorphism allows different classes to implement methods with the same name, enabling a single interface to control diverse underlying types.</p>\n\n<h2>Duck Typing in Python</h2>\n<p>Python relies heavily on <strong>Duck Typing</strong>: <em>\"If it walks like a duck and quacks like a duck, it's a duck.\"</em> Python does not check explicit inheritance or interface conformance; as long as an object implements the required method, it can be utilized.</p>\n\n<pre><code>class PDFExporter:\n    def export(self, data):\n        return f\"Rendering PDF report with {len(data)} rows\"\n\nclass CSVExporter:\n    def export(self, data):\n        return f\"Generating CSV spreadsheet with {len(data)} rows\"\n\n# Polymorphic processor (Duck Typing)\ndef export_dataset(exporter, data):\n    # Doesn't care about class type; only cares about .export() method!\n    print(exporter.export(data))\n\nexport_dataset(PDFExporter(), [1, 2, 3])\nexport_dataset(CSVExporter(), [1, 2, 3])</code></pre>\n\n<div class=\"card-notes\">\n  <div class=\"notes-title\">📌 Revision Notes & Interview Insights</div>\n  <ul>\n    <li><strong>Method Overloading:</strong> Python does NOT support compile-time method overloading with multiple signatures. Defining multiple methods with the same name overrides the previous one. Use default arguments or <code>*args</code> instead.</li>\n  </ul>\n</div>\n"
   },
-
-  // ── ABSTRACTION ───────────────────────────────────
-  'abstraction': {
-    title: 'Abstraction & ABC',
-    subtitle: 'Abstract Base Classes · @abstractmethod · interface patterns',
-    tags: ['oop', 'abstraction'],
-    body: `
-<h2>What is Abstraction?</h2>
-<p>Abstraction hides implementation details and shows only the essential interface. In Python, it's achieved using the <strong>ABC</strong> (Abstract Base Class) module.</p>
-
-<h2>Abstract Base Class</h2>
-<pre>from abc import ABC, abstractmethod
-
-class Shape(ABC):
-    @abstractmethod
-    def area(self):
-        pass
-
-    @abstractmethod
-    def perimeter(self):
-        pass
-
-    def describe(self):          # concrete method (optional)
-        print(f"Area={self.area():.2f}, P={self.perimeter():.2f}")
-
-# Cannot instantiate abstract class
-# s = Shape()   # TypeError!
-
-class Circle(Shape):
-    def __init__(self, r): self.r = r
-    def area(self):      return 3.14159 * self.r ** 2
-    def perimeter(self): return 2 * 3.14159 * self.r
-
-class Square(Shape):
-    def __init__(self, s): self.s = s
-    def area(self):      return self.s ** 2
-    def perimeter(self): return 4 * self.s
-
-c = Circle(5)
-c.describe()     # Area=78.54, P=31.42</pre>
-
-<h2>Real-world Example — Payment System</h2>
-<pre>class PaymentGateway(ABC):
-    @abstractmethod
-    def pay(self, amount): pass
-
-    @abstractmethod
-    def refund(self, amount): pass
-
-class UPI(PaymentGateway):
-    def pay(self, amount):    print(f"Paid ₹{amount} via UPI")
-    def refund(self, amount): print(f"Refunded ₹{amount} via UPI")
-
-class Card(PaymentGateway):
-    def pay(self, amount):    print(f"Charged ₹{amount} to Card")
-    def refund(self, amount): print(f"Credited ₹{amount} to Card")</pre>
-`
+  "abstraction": {
+    "title": "Abstraction & Abstract Base Classes (ABC)",
+    "subtitle": "Interface Contracts · abc module · @abstractmethod · Enforced Blueprints",
+    "tags": [
+      "oop",
+      "advanced",
+      "abstraction"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Interface Contract: Abstract Class Enforcing Subclass Implementation</span><span class=\"tag-badge core\">ABC Contract</span></div>\n  <div class=\"workflow-diagram\">\n    <div class=\"flowchart-nodes\">\n      <div class=\"fc-node diamond\">Abstract Base: ModelTrainer(ABC)</div>\n      <span class=\"flow-arrow\">➔</span>\n      <div class=\"fc-node fc-decision-yes\">RandomForest: Implements train() & predict() ✅</div>\n      <span class=\"flow-arrow\" style=\"color:var(--coral);\">➔</span>\n      <div class=\"fc-node fc-decision-no\">Incomplete Subclass: TypeError on instantiate ❌</div>\n    </div>\n  </div>\n</div>\n\n<h2>What is Abstraction?</h2>\n<p>Abstraction hides internal implementation complexity while exposing a clean, standardized interface. In Python, formal interfaces are implemented using the <code>abc</code> (Abstract Base Classes) module.</p>\n\n<h2>Enforcing Contracts with <code>@abstractmethod</code></h2>\n<p>A class that inherits from <code>ABC</code> and contains at least one <code>@abstractmethod</code> cannot be instantiated directly. Subclasses <strong>must override all abstract methods</strong> before an instance can be created.</p>\n\n<pre><code>from abc import ABC, abstractmethod\n\nclass DataStore(ABC):\n    @abstractmethod\n    def read(self, key: str):\n        pass\n\n    @abstractmethod\n    def write(self, key: str, value: str):\n        pass\n\n# Concrete implementation\nclass RedisStore(DataStore):\n    def __init__(self):\n        self.cache = {}\n\n    def read(self, key: str):\n        return self.cache.get(key)\n\n    def write(self, key: str, value: str):\n        self.cache[key] = value\n\nstore = RedisStore()\nstore.write(\"user:101\", \"Priyanshu\")\nprint(store.read(\"user:101\")) # \"Priyanshu\"</code></pre>\n\n<div class=\"card-notes\">\n  <div class=\"notes-title\">📌 Revision Notes & Interview Insights</div>\n  <ul>\n    <li><strong>Can abstract classes have concrete methods?</strong> Yes! An abstract class can provide default concrete methods alongside abstract methods for code reuse.</li>\n  </ul>\n</div>\n"
   },
-
-  // ── CLASS & STATIC METHODS ────────────────────────
-  'class-static-methods': {
-    title: 'Class & Static Methods',
-    subtitle: '@classmethod · @staticmethod · factory constructors',
-    tags: ['oop', 'methods'],
-    body: `
-<h2>@classmethod</h2>
-<p>Bound to the <strong>class</strong>, not the instance. Receives <code>cls</code> as first argument. Can access and modify class attributes.</p>
-
-<pre>class Student:
-    school = "Delhi University"
-
-    def __init__(self, name, marks):
-        self.name  = name
-        self.marks = marks
-
-    @classmethod
-    def get_school(cls):
-        return cls.school
-
-    @classmethod
-    def change_school(cls, new_name):
-        cls.school = new_name    # affects ALL instances
-
-    @classmethod
-    def from_string(cls, data):  # factory constructor
-        name, raw = data.split(":")
-        marks = list(map(int, raw.split(",")))
-        return cls(name, marks)
-
-s1 = Student.from_string("Priyanshu:90,85,92")
-print(Student.get_school())   # Delhi University
-Student.change_school("IIT")
-print(s1.school)              # IIT</pre>
-
-<h2>@staticmethod</h2>
-<p>Belongs to the class namespace but receives <strong>no</strong> implicit argument (no self, no cls). Pure utility function.</p>
-
-<pre>class MathUtils:
-    @staticmethod
-    def is_prime(n):
-        if n < 2: return False
-        for i in range(2, int(n**0.5)+1):
-            if n % i == 0: return False
-        return True
-
-    @staticmethod
-    def factorial(n):
-        if n == 0: return 1
-        return n * MathUtils.factorial(n-1)
-
-print(MathUtils.is_prime(17))    # True
-print(MathUtils.factorial(5))    # 120</pre>
-
-<h2>Comparison</h2>
-<ul>
-  <li><strong>Instance method</strong> — <code>def m(self)</code> — needs object, accesses instance data</li>
-  <li><strong>Class method</strong> — <code>@classmethod def m(cls)</code> — accesses class data</li>
-  <li><strong>Static method</strong> — <code>@staticmethod def m()</code> — utility, no implicit args</li>
-</ul>
-`
+  "class-static-methods": {
+    "title": "Class Methods & Static Methods",
+    "subtitle": "@classmethod · @staticmethod · cls vs self · Factory Constructors",
+    "tags": [
+      "oop",
+      "intermediate",
+      "methods"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Method Binding Matrix: self vs cls vs Static</span><span class=\"tag-badge core\">Method Types</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-around;\">\n    <span class=\"flow-step\">Instance: <code>def foo(self)</code></span>\n    <span class=\"flow-step active\">Class: <code>@classmethod def foo(cls)</code></span>\n    <span class=\"flow-step warn\">Static: <code>@staticmethod def foo()</code></span>\n  </div>\n</div>\n\n<h2>Method Types Compared</h2>\n<ul>\n  <li><strong>Instance Method:</strong> Takes <code>self</code> as first argument; can access and modify both instance and class state.</li>\n  <li><strong>Class Method (<code>@classmethod</code>):</strong> Takes <code>cls</code> as first argument; bound to the class itself. Commonly used as <strong>alternative factory constructors</strong>.</li>\n  <li><strong>Static Method (<code>@staticmethod</code>):</strong> Takes neither <code>self</code> nor <code>cls</code>; acts as a plain function scoped inside the class namespace for logical grouping.</li>\n</ul>\n\n<pre><code>class Timestamp:\n    def __init__(self, year, month, day):\n        self.year = year\n        self.month = month\n        self.day = day\n\n    # Alternative Factory Constructor\n    @classmethod\n    def from_iso_string(cls, date_str: str):\n        year, month, day = map(int, date_str.split(\"-\"))\n        return cls(year, month, day) # Inherits class type dynamically\n\n    # Pure Utility Helper\n    @staticmethod\n    def is_leap_year(year: int) -> bool:\n        return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)\n\n# Calling Factory\nt = Timestamp.from_iso_string(\"2026-10-22\")\nprint(f\"Date: {t.year}/{t.month}/{t.day}\")\nprint(\"Is Leap Year:\", Timestamp.is_leap_year(2026)) # False</code></pre>\n\n<div class=\"card-notes\">\n  <div class=\"notes-title\">📌 Revision Notes & Interview Insights</div>\n  <ul>\n    <li><strong>Why not call <code>Timestamp(...)</code> inside class method?</strong> Using <code>cls(...)</code> ensures that if a subclass inherits the factory method, it constructs an instance of the <em>subclass</em>, not the parent class!</li>\n  </ul>\n</div>\n"
   },
-
-  // ── DUNDER METHODS ────────────────────────────────
-  'dunder-magic': {
-    title: 'Dunder / Magic Methods',
-    subtitle: '__str__ · __repr__ · __len__ · __add__ · operator overloading',
-    tags: ['oop', 'dunder'],
-    body: `
-<h2>Common Dunder Methods</h2>
-<ul>
-  <li><code>__init__</code> — constructor</li>
-  <li><code>__str__</code> — human-readable string (print)</li>
-  <li><code>__repr__</code> — developer string (repr)</li>
-  <li><code>__len__</code> — len() support</li>
-  <li><code>__add__</code> — + operator</li>
-  <li><code>__eq__</code> — == operator</li>
-  <li><code>__lt__</code> — &lt; operator</li>
-  <li><code>__getitem__</code> — [] indexing</li>
-</ul>
-
-<pre>class Book:
-    def __init__(self, title, pages, price):
-        self.title = title
-        self.pages = pages
-        self.price = price
-
-    def __str__(self):     return f"'{self.title}' ({self.pages}pp)"
-    def __repr__(self):    return f"Book('{self.title}', {self.pages}, {self.price})"
-    def __len__(self):     return self.pages
-    def __add__(self, other):
-        return Book(f"{self.title}+{other.title}", self.pages + other.pages, 0)
-    def __eq__(self, other):   return self.title == other.title
-    def __lt__(self, other):   return self.price < other.price
-
-b1 = Book("Python 101", 300, 500)
-b2 = Book("NumPy Guide", 200, 400)
-
-print(b1)            # 'Python 101' (300pp)
-print(repr(b1))      # Book('Python 101', 300, 500)
-print(len(b1))       # 300
-combined = b1 + b2   # Book with 500 pages
-print(b1 == b2)      # False
-print(sorted([b1, b2]))  # sorted by price via __lt__</pre>
-`
+  "dunder-magic": {
+    "title": "Dunder (Magic) Methods & Operator Overloading",
+    "subtitle": "Special Methods · __str__ vs __repr__ · Context Managers · Protocols",
+    "tags": [
+      "oop",
+      "advanced",
+      "dunder"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Syntax to Dunder Method Dispatch Pipeline</span><span class=\"tag-badge core\">Python Protocols</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-around;\">\n    <span class=\"flow-step\"><code>len(x)</code> ➔ <code>__len__</code></span>\n    <span class=\"flow-step\"><code>a + b</code> ➔ <code>__add__</code></span>\n    <span class=\"flow-step\"><code>a == b</code> ➔ <code>__eq__</code></span>\n    <span class=\"flow-step\"><code>with x:</code> ➔ <code>__enter__</code></span>\n  </div>\n</div>\n\n<h2>The Python Data Model Protocols</h2>\n<p>Dunder (Double Underscore) methods allow your custom classes to integrate seamlessly with Python syntax, operators, built-in functions, and context managers.</p>\n\n<pre><code>class Vector2D:\n    def __init__(self, x: float, y: float):\n        self.x, self.y = x, y\n\n    # Developer-facing string (unambiguous, should recreate object)\n    def __repr__(self):\n        return f\"Vector2D({self.x}, {self.y})\"\n\n    # User-facing string (clean, human-readable)\n    def __str__(self):\n        return f\"({self.x}, {self.y})\"\n\n    # Overload '+' operator\n    def __add__(self, other):\n        return Vector2D(self.x + other.x, self.y + other.y)\n\n    # Overload '==' equality\n    def __eq__(self, other):\n        return self.x == other.x and self.y == other.y\n\n    # Overload 'abs()' (magnitude)\n    def __abs__(self):\n        return (self.x**2 + self.y**2) ** 0.5\n\nv1 = Vector2D(3, 4)\nv2 = Vector2D(1, 2)\nprint(\"Add:\", v1 + v2)      # (4, 6)\nprint(\"Magnitude:\", abs(v1)) # 5.0</code></pre>\n\n<div class=\"card-notes\">\n  <div class=\"notes-title\">📌 Revision Notes & Interview Insights</div>\n  <ul>\n    <li><strong><code>__repr__</code> fallback:</strong> If <code>__str__</code> is absent, Python falls back to <code>__repr__</code> automatically.</li>\n    <li><strong>Context Manager Protocol:</strong> Implementing <code>__enter__</code> and <code>__exit__</code> enables safe resource management via <code>with MyResource():</code>.</li>\n  </ul>\n</div>\n"
   },
-
-  // ── OOP PDF ───────────────────────────────────────
-  'oops-notes-pdf': {
-    title: 'OOPs Notes — Full PDF',
-    subtitle: '34-page beginner-to-interview-ready OOP guide',
-    tags: ['oop', 'pdf', 'notes'],
-    body: `
-<h2>About this PDF</h2>
-<p>The <strong>34-page OOPs_Notes.md.pdf</strong> moves from beginner concepts to interview preparation. It explains every idea with real-life analogies, code, comparison tables, and interview questions. Many examples use Java syntax, while the concepts apply directly to Python.</p>
-
-<h2>Topics Covered in PDF</h2>
-<ul>
-  <li>Classes & Objects fundamentals</li>
-  <li>Constructors (__init__) and self</li>
-  <li>All 4 OOP Pillars — Inheritance, Encapsulation, Polymorphism, Abstraction</li>
-  <li>Constructors: default, parameterized, copy concepts, and constructor chaining</li>
-  <li>Association, aggregation, composition, IS-A and HAS-A relationships</li>
-  <li>Static and final concepts, Object methods, equals and hash code contracts</li>
-  <li>Comparison tables plus a final list of 30 common OOP interview questions</li>
-</ul>
-
-<h2>Open PDF</h2>
-<p>
-  <a href="../Python_Course/OOPs_Notes.md.pdf" target="_blank" class="btn primary" style="display:inline-flex; margin-top:.5rem;">
-    📄 Open OOPs_Notes.md.pdf
-  </a>
-</p>
-
-<h2>Lecture PDFs (Lecture 1–8)</h2>
-<ul>
-  <li><a href="../Python_Course/Lecture1_py.pdf" target="_blank">Lecture 1 — Python Basics</a></li>
-  <li><a href="../Python_Course/Lecture2_py.pdf" target="_blank">Lecture 2 — Strings & Conditional Statements</a></li>
-  <li><a href="../Python_Course/Lecture3_py.pdf" target="_blank">Lecture 3 — Lists & Tuples</a></li>
-  <li><a href="../Python_Course/Lecture4_py.pdf" target="_blank">Lecture 4 — Dictionaries & Sets</a></li>
-  <li><a href="../Python_Course/Lecture5_py.pdf" target="_blank">Lecture 5 — Loops</a></li>
-  <li><a href="../Python_Course/Lecture6_py.pdf" target="_blank">Lecture 6 — Functions & Recursion</a></li>
-  <li><a href="../Python_Course/Lecture7_py.pdf" target="_blank">Lecture 7 — File I/O</a></li>
-  <li><a href="../Python_Course/Lecture8_py.pdf" target="_blank">Lecture 8 — OOP in Python</a></li>
-</ul>
-`
+  "oops-notes-pdf": {
+    "title": "Complete OOPs Mastery & Interview Guide",
+    "subtitle": "Four Pillars · 30 Interview Questions · SOLID Principles · Real-World Architecture",
+    "tags": [
+      "oop",
+      "mastery",
+      "interview"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Master Architecture: The 4 Pillars of OOP Combined</span><span class=\"tag-badge core\">OOP System</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-around; gap:0.4rem;\">\n    <span class=\"flow-step\" style=\"border-color:#3b82f6;\">Encapsulation (__private, @property)</span>\n    <span class=\"flow-step\" style=\"border-color:#eab308;\">Abstraction (ABC, interfaces)</span>\n    <span class=\"flow-step\" style=\"border-color:#10b981;\">Inheritance (MRO, super)</span>\n    <span class=\"flow-step\" style=\"border-color:#8b5cf6;\">Polymorphism (Duck typing, overrides)</span>\n  </div>\n</div>\n\n<h2>Top 5 High-Yield OOP Interview Questions</h2>\n<ol>\n  <li><strong>How does Python resolve multiple inheritance?</strong><br>\n  Python computes a monotonic Method Resolution Order (MRO) using the C3 Linearization algorithm. You can inspect any class's MRO using <code>ClassName.__mro__</code>.</li>\n  <li><strong>What is the difference between shallow copy and deep copy?</strong><br>\n  A shallow copy (<code>copy.copy()</code>) creates a new container but inserts references to the original child objects. A deep copy (<code>copy.deepcopy()</code>) recursively copies all nested child objects.</li>\n  <li><strong>What are <code>__slots__</code> and why are they used?</strong><br>\n  By default, Python stores instance attributes in a dynamic dictionary <code>__dict__</code>. Declaring <code>__slots__ = ('attr1', 'attr2')</code> replaces the dictionary with a fixed-size array of pointers, slashing memory consumption by ~40-50% in millions of objects.</li>\n  <li><strong>Explain Duck Typing:</strong><br>\n  Python inspects an object's capabilities (methods/attributes) at runtime rather than verifying its nominal type or inheritance tree.</li>\n  <li><strong>What are Abstract Base Classes (ABCs)?</strong><br>\n  Classes derived from <code>abc.ABC</code> containing <code>@abstractmethod</code> decorators that enforce required method signatures on all concrete subclasses.</li>\n</ol>\n"
   },
-
-  // ── LISTS ─────────────────────────────────────────
-  'lists': {
-    title: 'Lists',
-    subtitle: 'Slicing · methods · comprehensions · 2D lists',
-    tags: ['data-structures', 'lists'],
-    body: `
-<h2>Creating Lists</h2>
-<pre>nums   = [1, 2, 3, 4, 5]
-mixed  = [1, "hello", 3.14, True]
-nested = [[1,2],[3,4],[5,6]]
-empty  = []
-from_range = list(range(10))    # [0..9]</pre>
-
-<h2>Slicing</h2>
-<pre>lst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-lst[2:6]     # [2, 3, 4, 5]
-lst[:4]      # [0, 1, 2, 3]
-lst[7:]      # [7, 8, 9]
-lst[::2]     # [0, 2, 4, 6, 8]  (every 2nd)
-lst[::-1]    # [9..0]  (reversed)</pre>
-
-<h2>Common Methods</h2>
-<pre>lst = [3, 1, 4, 1, 5, 9, 2]
-lst.append(6)        # add at end
-lst.insert(0, 0)     # insert at index
-lst.remove(1)        # remove first 1
-lst.pop()            # remove & return last
-lst.pop(2)           # remove & return at index 2
-lst.sort()           # sort in-place
-lst.reverse()        # reverse in-place
-lst.index(9)         # find index of 9
-lst.count(1)         # count occurrences of 1
-lst.extend([10,11])  # add multiple
-lst.clear()          # empty the list</pre>
-
-<h2>List Comprehensions</h2>
-<pre>squares = [x**2 for x in range(10)]
-evens   = [x for x in range(20) if x%2==0]
-flat    = [num for row in nested for num in row]</pre>
-`
+  "lists": {
+    "title": "Lists: Dynamic Arrays & Operations",
+    "subtitle": "Dynamic Array · Over-Allocation · Slicing · Comprehensions · Timsort",
+    "tags": [
+      "ds",
+      "intermediate",
+      "lists"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Dynamic Array Memory Allocation: Size vs Allocated Capacity</span><span class=\"tag-badge core\">Dynamic Array</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: center; gap: 0.35rem;\">\n    <span class=\"flow-step\">[0] ptr ➔ \"Val\"</span>\n    <span class=\"flow-step\">[1] ptr ➔ 42</span>\n    <span class=\"flow-step\">[2] ptr ➔ 3.14</span>\n    <span class=\"flow-step\" style=\"border-style:dashed; opacity:0.5;\">[3] Spare Capacity</span>\n  </div>\n</div>\n\n<h2>Under The Hood: Dynamic Array Resizing</h2>\n<p>Python lists are implemented as <strong>contiguous dynamic arrays of 64-bit pointers</strong> to heap objects. They support $O(1)$ random indexing. When full, CPython allocates extra spare capacity using an over-allocation growth sequence: <code>0, 4, 8, 16, 25, 35, 46...</code> to ensure <strong>amortized $O(1)$ append</strong>.</p>\n\n<h2>Time Complexity Matrix for List Operations</h2>\n<div style=\"overflow-x:auto;\">\n  <table style=\"width:100%; border-collapse:collapse; font-size:0.8rem; margin:1rem 0;\">\n    <thead><tr style=\"background:var(--bg-header); border-bottom:2px solid var(--line);\"><th>Operation</th><th>Time Complexity</th><th>Reason</th></tr></thead>\n    <tbody>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td><code>lst.append(x)</code></td><td style=\"color:#16a34a; font-weight:700;\">O(1) Amortized</td><td>Pre-allocated spare capacity buffer</td></tr>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td><code>lst.pop()</code> (end)</td><td style=\"color:#16a34a; font-weight:700;\">O(1)</td><td>Removes last element pointer without shifting</td></tr>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td><code>lst.insert(0, x)</code></td><td style=\"color:#dc2626; font-weight:700;\">O(n)</td><td>Must shift all n existing element pointers right!</td></tr>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td><code>lst.pop(0)</code> (front)</td><td style=\"color:#dc2626; font-weight:700;\">O(n)</td><td>Must shift all n remaining element pointers left!</td></tr>\n      <tr><td><code>lst[i]</code> (lookup)</td><td style=\"color:#16a34a; font-weight:700;\">O(1)</td><td>Direct pointer arithmetic (base_addr + i * 8)</td></tr>\n    </tbody>\n  </table>\n</div>\n\n<pre><code># List Comprehension vs For Loop\nmatrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nflattened = [val for row in matrix for val in row]\nprint(\"Flattened:\", flattened) # [1, 2, 3, 4, 5, 6, 7, 8, 9]\n\n# Sorting: In-place vs New List\nnums = [4, 1, 8, 3]\nnums.sort()                      # In-place Timsort (O(n log n))\nsorted_copy = sorted(nums, reverse=True)</code></pre>\n"
   },
-
-  // ── TUPLES ────────────────────────────────────────
-  'tuples': {
-    title: 'Tuples',
-    subtitle: 'Immutability · packing/unpacking · named tuples',
-    tags: ['data-structures', 'tuples'],
-    body: `
-<h2>Creating Tuples</h2>
-<pre>t1 = (1, 2, 3)
-t2 = 1, 2, 3        # parentheses optional
-t3 = (42,)           # single-element needs trailing comma
-t4 = tuple([1,2,3]) # from list</pre>
-
-<h2>Immutability</h2>
-<pre>t = (1, 2, 3)
-# t[0] = 99     # TypeError — tuples are immutable!
-# But mutable objects inside can change:
-t = ([1,2], [3,4])
-t[0].append(99)    # [1,2,99] — the list inside can change</pre>
-
-<h2>Packing & Unpacking</h2>
-<pre>point = (3, 4)          # packing
-x, y = point            # unpacking
-
-# Extended unpacking
-first, *rest = (1, 2, 3, 4, 5)
-# first=1, rest=[2,3,4,5]
-
-# Swap variables
-a, b = 10, 20
-a, b = b, a    # a=20, b=10</pre>
-
-<h2>Tuple Methods</h2>
-<pre>t = (3, 1, 4, 1, 5, 9, 2, 6, 5)
-t.count(1)    # 2
-t.index(5)    # 4 (first occurrence)</pre>
-
-<h2>When to use Tuples</h2>
-<ul>
-  <li>Data that shouldn't change (coordinates, RGB colors)</li>
-  <li>As dictionary keys (lists can't be keys — not hashable)</li>
-  <li>Faster than lists for iteration</li>
-  <li>Multiple return values from functions</li>
-</ul>
-`
+  "tuples": {
+    "title": "Tuples: Immutability & Safety",
+    "subtitle": "Memory Efficiency · Hashable Keys · Tuple Packing & Unpacking",
+    "tags": [
+      "ds",
+      "beginner",
+      "tuples"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Memory Footprint Comparison: List vs Tuple</span><span class=\"tag-badge core\">Memory Efficiency</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-around;\">\n    <div class=\"flow-step\" style=\"flex-direction:column; align-items:flex-start;\">\n      <strong>list [1, 2, 3]</strong>\n      <small style=\"color:var(--ink-soft);\">88 bytes (header + spare buffer)</small>\n    </div>\n    <div class=\"flow-step success\" style=\"flex-direction:column; align-items:flex-start;\">\n      <strong>tuple (1, 2, 3)</strong>\n      <small style=\"color:#15803d;\">64 bytes (exact allocation, read-only)</small>\n    </div>\n  </div>\n</div>\n\n<h2>Why Use Tuples Over Lists?</h2>\n<ul>\n  <li><strong>Immutable Safety:</strong> Tuples protect constant configuration values and multi-return parameters from unintentional runtime mutations.</li>\n  <li><strong>Dictionary Keys:</strong> Because immutable tuples are hashable, they can serve as composite dictionary keys (e.g. <code>(latitude, longitude)</code>).</li>\n  <li><strong>Memory & Speed:</strong> Tuples allocate exact memory with zero over-allocation overhead and participate in CPython's small-tuple recycling cache.</li>\n</ul>\n\n<pre><code># Destructuring & Unpacking\nrecord = (\"Priyanshu\", \"Data Science\", 2026, 9.4)\nname, field, year, gpa = record\n\n# Rest unpacking with asterisk\nfirst, *middle, last = (10, 20, 30, 40, 50)\nprint(\"Middle slice:\", middle) # [20, 30, 40]\n\n# NamedTuple for self-documenting data\nfrom collections import namedtuple\nPoint = namedtuple(\"Point\", [\"x\", \"y\"])\np = Point(10.5, 20.8)\nprint(f\"Point coordinates: x={p.x}, y={p.y}\")</code></pre>\n"
   },
-
-  // ── SETS ──────────────────────────────────────────
-  'sets': {
-    title: 'Sets',
-    subtitle: 'Union · intersection · difference · frozensets',
-    tags: ['data-structures', 'sets'],
-    body: `
-<h2>Creating Sets</h2>
-<pre>s1 = {1, 2, 3, 4}
-s2 = set([3, 4, 5, 6])
-empty = set()         # NOT {} — that's a dict!</pre>
-
-<h2>Set Properties</h2>
-<ul>
-  <li>No duplicates — automatically removes them</li>
-  <li>Unordered — no indexing</li>
-  <li>Elements must be hashable (no lists inside sets)</li>
-</ul>
-
-<h2>Set Operations</h2>
-<pre>A = {1, 2, 3, 4, 5}
-B = {4, 5, 6, 7, 8}
-
-A | B          # Union: {1..8}
-A & B          # Intersection: {4, 5}
-A - B          # Difference: {1, 2, 3}
-B - A          # {6, 7, 8}
-A ^ B          # Symmetric diff: {1,2,3,6,7,8}</pre>
-
-<h2>Set Methods</h2>
-<pre>s = {1, 2, 3}
-s.add(4)
-s.remove(2)        # KeyError if missing
-s.discard(99)      # safe remove (no error)
-s.pop()            # remove & return arbitrary
-s.clear()          # empty set
-
-A.issubset(B)       # A ⊆ B
-A.issuperset(B)     # A ⊇ B
-A.isdisjoint(B)     # no common elements</pre>
-
-<h2>frozenset (immutable set)</h2>
-<pre>fs = frozenset([1, 2, 3])
-# fs.add(4)   # AttributeError — immutable
-# Can be used as dict key or inside another set</pre>
-`
+  "sets": {
+    "title": "Sets: Hash Sets & Mathematical Operations",
+    "subtitle": "Venn Operations · O(1) Membership · Uniqueness · Frozenset",
+    "tags": [
+      "ds",
+      "intermediate",
+      "sets"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Set Venn Diagram Operations</span><span class=\"tag-badge core\">Venn Algebra</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-around;\">\n    <span class=\"flow-step\" style=\"border-color:#3b82f6;\">A | B (Union: All)</span>\n    <span class=\"flow-step success\">A & B (Intersection: Common)</span>\n    <span class=\"flow-step warn\">A - B (Difference: In A only)</span>\n    <span class=\"flow-step\" style=\"border-color:#8b5cf6;\">A ^ B (Symmetric: Unique to each)</span>\n  </div>\n</div>\n\n<h2>Hash Set Architecture</h2>\n<p>Sets are unordered collections of unique, hashable objects implemented as open-addressed hash tables with dummy values. This guarantees average <strong>$O(1)$ constant time complexity</strong> for membership checks (<code>x in my_set</code>), compared to $O(n)$ in lists.</p>\n\n<pre><code>A = {1, 2, 3, 4, 5}\nB = {4, 5, 6, 7, 8}\n\nprint(\"Union:\", A | B)                # {1, 2, 3, 4, 5, 6, 7, 8}\nprint(\"Intersection:\", A & B)         # {4, 5}\nprint(\"Difference:\", A - B)           # {1, 2, 3}\nprint(\"Symmetric Difference:\", A ^ B) # {1, 2, 3, 6, 7, 8}\n\n# Deduplicating list while preserving speed\nraw_logins = [\"alice\", \"bob\", \"alice\", \"charlie\", \"bob\"]\nunique_logins = set(raw_logins) # {'alice', 'bob', 'charlie'}</code></pre>\n"
   },
-
-  // ── DICTIONARIES ─────────────────────────────────
-  'dictionaries': {
-    title: 'Dictionaries',
-    subtitle: 'Key-value pairs · comprehensions · defaultdict',
-    tags: ['data-structures', 'dicts'],
-    body: `
-<h2>Creating Dictionaries</h2>
-<pre>student = {"name": "Priyanshu", "age": 20, "gpa": 9.2}
-d = dict(name="Anushka", age=19)
-empty = {}</pre>
-
-<h2>Accessing & Modifying</h2>
-<pre>student["name"]           # Priyanshu
-student.get("phone", "N/A")  # N/A (default if missing)
-student["email"] = "p@uni.edu"  # add key
-student["age"] = 21             # update key
-del student["gpa"]              # delete key</pre>
-
-<h2>Dictionary Methods</h2>
-<pre>d.keys()     # dict_keys
-d.values()   # dict_values
-d.items()    # dict_items (key, value tuples)
-d.update({"x": 1, "y": 2})  # merge
-d.pop("x")                   # remove & return
-d.setdefault("z", 0)         # add if missing</pre>
-
-<h2>Iteration</h2>
-<pre>for key in d:
-    print(key, d[key])
-
-for key, val in d.items():
-    print(f"{key}: {val}")</pre>
-
-<h2>Dict Comprehensions</h2>
-<pre>squares = {x: x**2 for x in range(6)}
-# {0:0, 1:1, 2:4, 3:9, 4:16, 5:25}
-
-filtered = {k: v for k, v in squares.items() if v > 5}</pre>
-
-<h2>defaultdict</h2>
-<pre>from collections import defaultdict
-word_count = defaultdict(int)
-for word in "the quick brown fox the fox".split():
-    word_count[word] += 1   # no KeyError for missing keys</pre>
-`
+  "dictionaries": {
+    "title": "Dictionaries: Hash Map Mechanics",
+    "subtitle": "Key-Value Mapping · Hash Buckets · O(1) Lookup · Dict Comprehensions",
+    "tags": [
+      "ds",
+      "intermediate",
+      "dicts"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Hash Table Bucket Indexing Pipeline</span><span class=\"tag-badge core\">Hash Map</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-between;\">\n    <span class=\"flow-step\">\"Alice\"</span>\n    <span class=\"flow-arrow\">➔ hash(\"Alice\") ➔</span>\n    <span class=\"flow-step warn\">Bucket [3]</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step success\">('Alice', 95)</span>\n  </div>\n</div>\n\n<h2>High-Performance Hash Maps</h2>\n<p>Python dictionaries offer average <strong>$O(1)$ constant time</strong> for insertions, lookups, and deletions. CPython 3.7+ uses a compact hash table layout that strictly preserves insertion order while reducing RAM consumption.</p>\n\n<pre><code># Safe access & modifications\nuser = {\"name\": \"Alice\", \"role\": \"Engineer\"}\n\n# Safe retrieval with fallback (avoids KeyError)\nemail = user.get(\"email\", \"support@company.com\")\n\n# setdefault: inserts default ONLY if key is absent\nuser.setdefault(\"status\", \"Active\")\n\n# Merging dictionaries (Python 3.9+)\nbase_config = {\"debug\": False, \"timeout\": 30}\nuser_config = {\"timeout\": 60, \"log\": \"verbose\"}\nmerged = base_config | user_config # user_config overrides\nprint(merged) # {'debug': False, 'timeout': 60, 'log': 'verbose'}</code></pre>\n"
   },
-
-  // ── STACKS ────────────────────────────────────────
-  'stacks': {
-    title: 'Stacks',
-    subtitle: 'LIFO · array-based · linked-list-based · applications',
-    tags: ['data-structures', 'stacks'],
-    body: `
-<h2>Stack Concept</h2>
-<p>A stack is a <strong>LIFO</strong> (Last In, First Out) data structure. Think of a stack of plates — you add and remove from the top.</p>
-
-<h2>Array-Based Stack</h2>
-<pre>class Stack:
-    def __init__(self):
-        self._data = []
-
-    def push(self, item):
-        self._data.append(item)
-
-    def pop(self):
-        if self.is_empty():
-            raise IndexError("Stack underflow")
-        return self._data.pop()
-
-    def peek(self):
-        if self.is_empty():
-            raise IndexError("Stack is empty")
-        return self._data[-1]
-
-    def is_empty(self):
-        return len(self._data) == 0
-
-    def size(self):
-        return len(self._data)
-
-s = Stack()
-s.push(10)
-s.push(20)
-s.push(30)
-print(s.pop())    # 30
-print(s.peek())   # 20</pre>
-
-<h2>Applications</h2>
-<ul>
-  <li>Undo/Redo in text editors</li>
-  <li>Browser back button (history)</li>
-  <li>Function call stack (recursion)</li>
-  <li>Balancing parentheses/brackets</li>
-  <li>DFS (Depth-First Search)</li>
-</ul>
-`
+  "stacks": {
+    "title": "Stacks: LIFO Data Structure",
+    "subtitle": "LIFO · Push / Pop · Call Stack · Balanced Parentheses Checker",
+    "tags": [
+      "ds",
+      "dsa",
+      "stacks"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>LIFO Architecture: Last-In, First-Out Push and Pop</span><span class=\"tag-badge core\">Stack Mechanics</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: center; gap: 0.6rem;\">\n    <span class=\"flow-step success\">Push ➔ [Top: Item 3]</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step\">[Item 2]</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step\">[Base: Item 1]</span>\n  </div>\n</div>\n\n<h2>Stack Mechanics</h2>\n<p>A stack is a linear collection adhering to <strong>Last-In, First-Out (LIFO)</strong> order. Elements are added and removed strictly from the top. Using <code>collections.deque</code> guarantees true $O(1)$ push and pop operations.</p>\n\n<pre><code>from collections import deque\n\nclass Stack:\n    def __init__(self):\n        self._items = deque()\n\n    def push(self, val):\n        self._items.append(val) # O(1)\n\n    def pop(self):\n        if not self._items:\n            raise IndexError(\"pop from empty stack\")\n        return self._items.pop() # O(1)\n\n    def peek(self):\n        return self._items[-1] if self._items else None\n\n    def is_empty(self):\n        return len(self._items) == 0\n\n# Classic Problem: Balanced Parentheses Validation\ndef is_balanced(expression: str) -> bool:\n    stack = []\n    mapping = {\")\": \"(\", \"}\": \"{\", \"]\": \"[\"}\n    for char in expression:\n        if char in mapping.values():\n            stack.append(char)\n        elif char in mapping:\n            if not stack or stack.pop() != mapping[char]:\n                return False\n    return len(stack) == 0\n\nprint(\"Balanced {[()]}?\", is_balanced(\"{[()]}\")) # True\nprint(\"Balanced {[(])}?\", is_balanced(\"{[(])}\")) # False</code></pre>\n"
   },
-
-  // ── LINKED LISTS ──────────────────────────────────
-  'linked-lists': {
-    title: 'Linked Lists',
-    subtitle: 'Singly · doubly · circular · traversal',
-    tags: ['data-structures', 'linked-list'],
-    body: `
-<h2>Node Structure</h2>
-<pre>class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None  # for singly LL
-
-class DNode:  # doubly linked
-    def __init__(self, data):
-        self.data = data
-        self.prev = None
-        self.next = None</pre>
-
-<h2>Singly Linked List — Operations</h2>
-<pre>class LinkedList:
-    def __init__(self):
-        self.head = None
-
-    def append(self, data):
-        new = Node(data)
-        if not self.head:
-            self.head = new; return
-        cur = self.head
-        while cur.next:
-            cur = cur.next
-        cur.next = new
-
-    def prepend(self, data):
-        new = Node(data)
-        new.next = self.head
-        self.head = new
-
-    def delete(self, data):
-        if not self.head: return
-        if self.head.data == data:
-            self.head = self.head.next; return
-        cur = self.head
-        while cur.next:
-            if cur.next.data == data:
-                cur.next = cur.next.next; return
-            cur = cur.next
-
-    def traverse(self):
-        cur = self.head
-        while cur:
-            print(cur.data, end=" → ")
-            cur = cur.next
-        print("None")</pre>
-
-<h2>Types of Linked Lists</h2>
-<ul>
-  <li><strong>Singly</strong> — each node points to next only</li>
-  <li><strong>Doubly</strong> — each node points to next AND prev</li>
-  <li><strong>Circular</strong> — last node points back to head</li>
-</ul>
-`
+  "linked-lists": {
+    "title": "Linked Lists: Node Pointers & Traversal",
+    "subtitle": "Nodes · Singly · Doubly · Circular · O(1) Head Insertions",
+    "tags": [
+      "ds",
+      "dsa",
+      "linked-list"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Node Pointer Architecture: Singly Linked List Chain</span><span class=\"tag-badge core\">Pointers</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: center; gap: 0.35rem;\">\n    <span class=\"flow-step active\">[Head]</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step\">[10 | next]</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step\">[20 | next]</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step\">[30 | NULL]</span>\n  </div>\n</div>\n\n<h2>Array vs Linked List Comparison</h2>\n<p>While dynamic arrays require shifting all elements upon inserting at index 0 ($O(n)$), Linked Lists achieve <strong>$O(1)$ constant time insertion and deletion at the head</strong> by simply updating node memory pointers.</p>\n\n<pre><code>class Node:\n    def __init__(self, data):\n        self.data = data\n        self.next = None\n\nclass LinkedList:\n    def __init__(self):\n        self.head = None\n\n    def insert_head(self, data): # O(1)\n        new_node = Node(data)\n        new_node.next = self.head\n        self.head = new_node\n\n    def reverse(self): # O(n) Time, O(1) Space\n        prev, curr = None, self.head\n        while curr:\n            nxt = curr.next\n            curr.next = prev\n            prev = curr\n            curr = nxt\n        self.head = prev</code></pre>\n"
   },
-
-  // ── SORTING OVERVIEW ──────────────────────────────
-  'sorting-overview': {
-    title: 'Sorting Algorithms Overview',
-    subtitle: 'Bubble · Selection · Insertion · Merge · Quick · Counting',
-    tags: ['algorithms', 'sorting'],
-    body: `
-<h2>Complexity Summary</h2>
-<pre>Algorithm       Best      Average   Worst     Space   Stable?
-─────────────────────────────────────────────────────────────
-Bubble Sort     O(n)      O(n²)     O(n²)     O(1)    ✅
-Selection Sort  O(n²)     O(n²)     O(n²)     O(1)    ❌
-Insertion Sort  O(n)      O(n²)     O(n²)     O(1)    ✅
-Merge Sort      O(n logn) O(n logn) O(n logn) O(n)    ✅
-Quick Sort      O(n logn) O(n logn) O(n²)     O(logn) ❌
-Counting Sort   O(n+k)    O(n+k)    O(n+k)    O(k)    ✅</pre>
-
-<h2>Bubble Sort</h2>
-<pre>def bubble_sort(arr):
-    n = len(arr)
-    for i in range(n):
-        swapped = False
-        for j in range(0, n-i-1):
-            if arr[j] > arr[j+1]:
-                arr[j], arr[j+1] = arr[j+1], arr[j]
-                swapped = True
-        if not swapped:
-            break   # already sorted — O(n) best case
-    return arr</pre>
-
-<h2>Insertion Sort</h2>
-<pre>def insertion_sort(arr):
-    for i in range(1, len(arr)):
-        key = arr[i]
-        j = i - 1
-        while j >= 0 and arr[j] > key:
-            arr[j+1] = arr[j]
-            j -= 1
-        arr[j+1] = key
-    return arr</pre>
-
-<h2>When to use which?</h2>
-<ul>
-  <li><strong>Nearly sorted</strong> → Insertion Sort / Bubble Sort (O(n) best case)</li>
-  <li><strong>Large datasets</strong> → Merge Sort or Quick Sort</li>
-  <li><strong>Integer range known</strong> → Counting Sort (linear!)</li>
-  <li><strong>Stability required</strong> → Merge Sort / Insertion Sort</li>
-</ul>
-`
+  "sorting-overview": {
+    "title": "Sorting Algorithms & Adaptive Behavior",
+    "subtitle": "Adaptive vs Non-Adaptive · Stability · Complexity Comparison",
+    "tags": [
+      "algo",
+      "sorting",
+      "adaptive"
+    ],
+    "body": "\n<div class=\"algo-sim-container\" style=\"margin-bottom: 2rem;\">\n  <div class=\"algo-sim-header\">\n    <h3>⚡ Interactive Comparator: Adaptive vs Non-Adaptive Sorting</h3>\n    <div class=\"algo-sim-controls\">\n      <span style=\"font-size: 0.75rem; color: var(--ink-soft); font-weight: 600;\">Scenario:</span>\n      <button class=\"sim-preset-btn active\" id=\"noteSimNearly\">Nearly Sorted [1, 2, 3, 5, 4]</button>\n      <button class=\"sim-preset-btn\" id=\"noteSimSorted\">Already Sorted [1, 2, 3, 4, 5]</button>\n      <button class=\"sim-preset-btn\" id=\"noteSimReverse\">Reverse [5, 4, 3, 2, 1]</button>\n    </div>\n  </div>\n\n  <div class=\"sim-comparison-grid\">\n    <div class=\"sim-algo-panel adaptive\">\n      <div class=\"sim-panel-title\">\n        <strong>✅ Adaptive (Insertion / Optimized Bubble)</strong>\n        <span class=\"tag-badge beginner\" style=\"background:#dcfce7; color:#15803d;\">Best: O(n)</span>\n      </div>\n      <div class=\"sim-array-display\" id=\"noteAdaptiveArr\">\n        <div class=\"sim-item\">1</div><div class=\"sim-item\">2</div><div class=\"sim-item\">3</div><div class=\"sim-item\">5</div><div class=\"sim-item\">4</div>\n      </div>\n      <div class=\"sim-verdict win\" id=\"noteAdVer\">\n        ⚡ <strong>Order Detected:</strong> Early exit after pass 1 on sorted arrays. Scales linearly O(n).\n      </div>\n    </div>\n\n    <div class=\"sim-algo-panel non-adaptive\">\n      <div class=\"sim-panel-title\">\n        <strong>❌ Non-Adaptive (Selection Sort)</strong>\n        <span class=\"tag-badge advanced\" style=\"background:#fee2e2; color:#b91c1c;\">Always: O(n²)</span>\n      </div>\n      <div class=\"sim-array-display\" id=\"noteNonAdaptiveArr\">\n        <div class=\"sim-item\">1</div><div class=\"sim-item\">2</div><div class=\"sim-item\">3</div><div class=\"sim-item\">5</div><div class=\"sim-item\">4</div>\n      </div>\n      <div class=\"sim-verdict rigid\" id=\"noteNadVer\">\n        ⚠️ <strong>Blind Scanning:</strong> Always performs all n(n-1)/2 comparisons regardless of initial order.\n      </div>\n    </div>\n  </div>\n</div>\n\n<h2>What is Adaptive Sorting?</h2>\n<p>An algorithm is <strong>adaptive</strong> if it takes advantage of existing order in the input data, completing execution faster on partially or fully sorted sequences. <strong>Insertion Sort</strong> and <strong>Optimized Bubble Sort</strong> are adaptive; their best-case time complexity is linear <strong>$O(n)$</strong>.</p>\n<p>A <strong>non-adaptive</strong> algorithm (such as <strong>Selection Sort</strong>) performs the exact same sequence of comparisons regardless of initial data order, remaining quadratic <strong>$O(n^2)$</strong> always.</p>\n"
   },
-
-  // ── MERGE & QUICK SORT ────────────────────────────
-  'merge-quick-sort': {
-    title: 'Merge Sort & Quick Sort',
-    subtitle: 'Divide and conquer — O(n log n) sorting',
-    tags: ['algorithms', 'sorting'],
-    body: `
-<h2>Merge Sort</h2>
-<pre>def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
-
-    mid = len(arr) // 2
-    left  = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
-    return merge(left, right)
-
-def merge(left, right):
-    result = []
-    i = j = 0
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            result.append(left[i]); i += 1
-        else:
-            result.append(right[j]); j += 1
-    result.extend(left[i:])
-    result.extend(right[j:])
-    return result
-
-arr = [38, 27, 43, 3, 9, 82, 10]
-print(merge_sort(arr))   # [3, 9, 10, 27, 38, 43, 82]</pre>
-
-<h2>Quick Sort</h2>
-<pre>def quick_sort(arr):
-    if len(arr) <= 1:
-        return arr
-
-    pivot = arr[len(arr) // 2]   # middle as pivot
-    left  = [x for x in arr if x < pivot]
-    mid   = [x for x in arr if x == pivot]
-    right = [x for x in arr if x > pivot]
-    return quick_sort(left) + mid + quick_sort(right)
-
-arr = [3, 6, 8, 10, 1, 2, 1]
-print(quick_sort(arr))   # [1, 1, 2, 3, 6, 8, 10]</pre>
-`
+  "merge-quick-sort": {
+    "title": "Merge Sort & Quick Sort",
+    "subtitle": "Divide and Conquer · Lomuto Partitioning · O(n log n) Guaranteed",
+    "tags": [
+      "algo",
+      "sorting",
+      "divide-conquer"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Divide and Conquer Tree: Recursive Halving & Linear Merge</span><span class=\"tag-badge core\">Divide & Conquer</span></div>\n  <div class=\"workflow-diagram\">\n    <div class=\"flowchart-nodes\">\n      <div class=\"fc-node\">1. Array [38, 27, 43, 3, 9, 82, 10]</div>\n      <span class=\"flow-arrow\">➔</span>\n      <div class=\"fc-node diamond\">Divide into Halves (L & R)</div>\n      <span class=\"flow-arrow\">➔</span>\n      <div class=\"fc-node success\">Two-Pointer Linear Merge (O(n))</div>\n    </div>\n  </div>\n</div>\n\n<h2>Divide and Conquer Paradigm</h2>\n<p>Both Merge Sort and Quick Sort divide the initial problem into smaller subproblems, conquer them recursively, and combine the solutions.</p>\n\n<pre><code># Merge Sort (O(n log n) Guaranteed, Stable)\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i]); i += 1\n        else:\n            result.append(right[j]); j += 1\n    result.extend(left[i:]); result.extend(right[j:])\n    return result</code></pre>\n"
   },
-
-  // ── SEARCHING ─────────────────────────────────────
-  'searching': {
-    title: 'Searching Algorithms',
-    subtitle: 'Linear Search O(n) · Binary Search O(log n)',
-    tags: ['algorithms', 'searching'],
-    body: `
-<h2>Linear Search</h2>
-<pre>def linear_search(arr, target):
-    for i, val in enumerate(arr):
-        if val == target:
-            return i    # found at index i
-    return -1           # not found
-
-arr = [4, 2, 7, 1, 9, 3]
-print(linear_search(arr, 7))   # 2
-print(linear_search(arr, 5))   # -1</pre>
-
-<h2>Binary Search (requires sorted array)</h2>
-<pre>def binary_search(arr, target):
-    lo, hi = 0, len(arr) - 1
-
-    while lo <= hi:
-        mid = (lo + hi) // 2
-        if arr[mid] == target:
-            return mid
-        elif arr[mid] < target:
-            lo = mid + 1   # search right half
-        else:
-            hi = mid - 1   # search left half
-    return -1
-
-arr = [1, 3, 5, 7, 9, 11, 13]
-print(binary_search(arr, 7))    # 3
-print(binary_search(arr, 6))    # -1</pre>
-
-<h2>Comparison</h2>
-<ul>
-  <li><strong>Linear</strong> — O(n) | works on unsorted | simple</li>
-  <li><strong>Binary</strong> — O(log n) | requires sorted array | very fast for large datasets</li>
-</ul>
-`
+  "searching": {
+    "title": "Searching: Binary Search vs Linear Search",
+    "subtitle": "Search Space Halving · O(log n) · bisect Module · Sorted Arrays",
+    "tags": [
+      "algo",
+      "searching",
+      "binary-search"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Binary Search Space Halving: N ➔ N/2 ➔ 1</span><span class=\"tag-badge core\">Logarithmic Growth</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: center; gap: 0.5rem;\">\n    <span class=\"flow-step\">1,000,000 Items</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step\">500,000</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step\">250,000</span>\n    <span class=\"flow-arrow\">➔ ... ➔</span>\n    <span class=\"flow-step success\">Found in ≤ 20 Checks!</span>\n  </div>\n</div>\n\n<h2>The Power of Logarithmic Search</h2>\n<p>In an array of 1,000,000 items, Linear Search requires up to 1,000,000 checks ($O(n)$). Binary Search operates on sorted lists by evaluating the midpoint and cutting the remaining search range in half on every step ($O(\\log n)$), finding the target in at most 20 checks.</p>\n\n<pre><code>def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = low + (high - low) // 2 # Prevents potential overflow\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1</code></pre>\n"
   },
-
-  // ── TIME COMPLEXITY ───────────────────────────────
-  'time-complexity': {
-    title: 'Time & Space Complexity',
-    subtitle: 'Big-O Analysis — best, average, worst case',
-    tags: ['algorithms', 'complexity'],
-    body: `
-<h2>Big-O Notation</h2>
-<p>Big-O describes how an algorithm's runtime grows relative to input size <code>n</code>.</p>
-
-<h2>Common Complexities</h2>
-<pre>O(1)       — Constant  — array index, dict lookup
-O(log n)   — Logarithmic — binary search
-O(n)       — Linear   — single loop, linear search
-O(n log n) — Linearithmic — merge sort, quick sort avg
-O(n²)      — Quadratic — nested loops, bubble sort
-O(2^n)     — Exponential — recursive fib (naive)
-O(n!)      — Factorial — permutations</pre>
-
-<h2>Sorting Big-O Table</h2>
-<pre>Sort           Best      Average   Worst     Space
-───────────────────────────────────────────────────
-Bubble         O(n)      O(n²)     O(n²)     O(1)
-Selection      O(n²)     O(n²)     O(n²)     O(1)
-Insertion      O(n)      O(n²)     O(n²)     O(1)
-Merge          O(n lgn)  O(n lgn)  O(n lgn)  O(n)
-Quick          O(n lgn)  O(n lgn)  O(n²)     O(lgn)
-Counting       O(n+k)    O(n+k)    O(n+k)    O(k)</pre>
-
-<h2>Stable vs Unstable</h2>
-<ul>
-  <li><strong>Stable</strong> — equal elements keep original order: Bubble, Insertion, Merge</li>
-  <li><strong>Unstable</strong> — may reorder equals: Selection, Quick</li>
-</ul>
-
-<h2>Adaptive vs Non-Adaptive</h2>
-<ul>
-  <li><strong>Adaptive</strong> — performs better on partially sorted: Bubble, Insertion</li>
-  <li><strong>Non-Adaptive</strong> — same time regardless: Selection, Merge</li>
-</ul>
-`
+  "time-complexity": {
+    "title": "Time & Space Complexity: Big-O Reference",
+    "subtitle": "Asymptotic Growth · Worst / Average / Best Case · Master Matrix",
+    "tags": [
+      "algo",
+      "complexity",
+      "big-o"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Big-O Asymptotic Growth Scale</span><span class=\"tag-badge core\">Complexity</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: center; gap: 0.4rem;\">\n    <span class=\"flow-step success\">O(1) Constant</span>\n    <span class=\"flow-arrow\">&lt;</span>\n    <span class=\"flow-step success\">O(log n) Logarithmic</span>\n    <span class=\"flow-arrow\">&lt;</span>\n    <span class=\"flow-step active\">O(n) Linear</span>\n    <span class=\"flow-arrow\">&lt;</span>\n    <span class=\"flow-step warn\">O(n log n)</span>\n    <span class=\"flow-arrow\">&lt;</span>\n    <span class=\"flow-step\" style=\"border-color:#ef4444; color:#ef4444;\">O(n²) Quadratic</span>\n  </div>\n</div>\n\n<h2>Master Algorithm Complexity Table</h2>\n<div style=\"overflow-x:auto;\">\n  <table style=\"width:100%; border-collapse:collapse; font-size:0.8rem; margin:1rem 0;\">\n    <thead><tr style=\"background:var(--bg-header); border-bottom:2px solid var(--line);\"><th>Algorithm</th><th>Best Time</th><th>Average Time</th><th>Worst Time</th><th>Space</th><th>Stable?</th></tr></thead>\n    <tbody>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td><strong>Bubble Sort</strong></td><td style=\"color:#16a34a;\">O(n)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>✅ Yes</td></tr>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td><strong>Insertion Sort</strong></td><td style=\"color:#16a34a;\">O(n)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>✅ Yes</td></tr>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td><strong>Selection Sort</strong></td><td>O(n²)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>❌ No</td></tr>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td><strong>Merge Sort</strong></td><td style=\"color:#2563eb;\">O(n log n)</td><td style=\"color:#2563eb;\">O(n log n)</td><td style=\"color:#2563eb;\">O(n log n)</td><td>O(n)</td><td>✅ Yes</td></tr>\n      <tr style=\"border-bottom:1px solid var(--line);\"><td><strong>Quick Sort</strong></td><td style=\"color:#2563eb;\">O(n log n)</td><td style=\"color:#2563eb;\">O(n log n)</td><td>O(n²)</td><td>O(log n)</td><td>❌ No</td></tr>\n      <tr><td><strong>Binary Search</strong></td><td style=\"color:#16a34a;\">O(1)</td><td style=\"color:#2563eb;\">O(log n)</td><td style=\"color:#2563eb;\">O(log n)</td><td>O(1)</td><td>N/A</td></tr>\n    </tbody>\n  </table>\n</div>\n"
   },
-
-  // ── NUMPY ─────────────────────────────────────────
-  'numpy': {
-    title: 'NumPy — Arrays & Computing',
-    subtitle: 'Vectorized operations · broadcasting · linear algebra',
-    tags: ['data-science', 'numpy'],
-    body: `
-<h2>Import & Array Creation</h2>
-<pre>import numpy as np
-
-# From lists
-a = np.array([1, 2, 3, 4, 5])
-m = np.array([[1,2,3],[4,5,6]])    # 2D
-
-# Special arrays
-np.zeros((3, 4))          # all zeros
-np.ones((2, 5))           # all ones
-np.eye(3)                 # identity matrix
-np.arange(0, 10, 2)       # [0, 2, 4, 6, 8]
-np.linspace(0, 1, 5)      # 5 evenly spaced 0..1
-np.random.rand(3, 3)      # random 0-1 matrix</pre>
-
-<h2>Array Properties</h2>
-<pre>a.shape      # (5,)
-m.shape      # (2, 3)
-a.dtype      # float64 / int64
-a.ndim       # 1 or 2 or ...
-a.size       # total elements
-m.reshape(3, 2)   # reshape (same elements)</pre>
-
-<h2>Vectorized Operations</h2>
-<pre>a = np.array([1, 2, 3])
-b = np.array([4, 5, 6])
-
-a + b          # [5, 7, 9]
-a * b          # [4, 10, 18]
-a ** 2         # [1, 4, 9]
-np.sin(a)      # element-wise sin
-np.exp(a)      # element-wise e^x</pre>
-
-<h2>Aggregations</h2>
-<pre>m = np.array([[1,2,3],[4,5,6]])
-np.sum(m)           # 21
-np.mean(m, axis=0)  # [2.5, 3.5, 4.5]  column means
-np.max(m, axis=1)   # [3, 6]  row maxes
-np.std(m)           # standard deviation</pre>
-
-<h2>Broadcasting</h2>
-<pre>a = np.array([[1,2,3],[4,5,6]])
-a + 10          # adds 10 to every element
-a * np.array([1, 2, 3])   # multiplies each col</pre>
-`
+  "numpy": {
+    "title": "NumPy: Vectorization & Numerical Computing",
+    "subtitle": "ndarrays · SIMD Hardware Acceleration · Broadcasting · Linear Algebra",
+    "tags": [
+      "science",
+      "numpy",
+      "vectorization"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Memory Layout: Python Pointer List vs NumPy Contiguous C-Array</span><span class=\"tag-badge core\">SIMD Vectorization</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-around;\">\n    <div class=\"flow-step\" style=\"flex-direction:column; align-items:flex-start;\">\n      <strong>Python List</strong>\n      <small style=\"color:var(--ink-soft);\">Scattered pointers in heap with pointer overhead</small>\n    </div>\n    <div class=\"flow-step success\" style=\"flex-direction:column; align-items:flex-start;\">\n      <strong>NumPy ndarray</strong>\n      <small style=\"color:#15803d;\">Contiguous C-buffer processed by SIMD registers</small>\n    </div>\n  </div>\n</div>\n\n<h2>Why NumPy is 50-100x Faster</h2>\n<p>NumPy arrays store elements of homogeneous data types in contiguous blocks of memory, allowing modern CPU registers to execute vectorized SIMD (Single Instruction, Multiple Data) operations without interpreter loop overhead.</p>\n\n<pre><code>import numpy as np\n\n# Creation & Vectorization\narr = np.array([[1, 2, 3], [4, 5, 6]])\nprint(\"Shape:\", arr.shape) # (2, 3)\n\n# Vectorized Math (No loops!)\nsquared = arr ** 2\ncol_means = np.mean(arr, axis=0) # Column-wise means\n\n# Broadcasting: 1D array added to 2D matrix\nbias = np.array([10, 20, 30])\nresult = arr + bias # Broadcasts across rows automatically!</code></pre>\n"
   },
-
-  // ── PANDAS ────────────────────────────────────────
-  'pandas': {
-    title: 'Pandas — DataFrames',
-    subtitle: 'DataFrame · Series · groupby · data cleaning',
-    tags: ['data-science', 'pandas'],
-    body: `
-<h2>Import & Create</h2>
-<pre>import pandas as pd
-
-# From dict
-df = pd.DataFrame({
-    "name": ["Alice", "Bob", "Priyanshu"],
-    "age":  [20, 22, 20],
-    "gpa":  [9.0, 8.5, 9.2]
-})
-
-# From CSV
-df = pd.read_csv("data.csv")
-df.to_csv("output.csv", index=False)</pre>
-
-<h2>Exploration</h2>
-<pre>df.head(5)         # first 5 rows
-df.tail(3)         # last 3 rows
-df.shape           # (rows, cols)
-df.dtypes          # data types
-df.describe()      # statistical summary
-df.info()          # non-null counts + dtypes
-df.isnull().sum()  # missing values per column</pre>
-
-<h2>Selection</h2>
-<pre>df["name"]              # Series
-df[["name", "gpa"]]     # DataFrame
-df.iloc[0]              # first row by position
-df.loc[0, "name"]       # by label
-df[df["gpa"] > 9.0]     # boolean filter</pre>
-
-<h2>Data Cleaning</h2>
-<pre>df.dropna()                         # drop rows with NaN
-df.fillna(0)                        # fill NaN with 0
-df.drop_duplicates()                # remove duplicates
-df.rename(columns={"name": "Name"}) # rename column
-df["gpa"] = df["gpa"].astype(float) # cast type</pre>
-
-<h2>groupby & Aggregation</h2>
-<pre>df.groupby("age")["gpa"].mean()
-df.groupby("age").agg({"gpa": ["mean","max","min"]})</pre>
-
-<h2>Sorting & Merging</h2>
-<pre>df.sort_values("gpa", ascending=False)
-pd.merge(df1, df2, on="id", how="inner")</pre>
-`
+  "pandas": {
+    "title": "Pandas: DataFrames & Data Wrangling",
+    "subtitle": "Series · DataFrames · loc vs iloc · GroupBy · Cleaning & Merging",
+    "tags": [
+      "science",
+      "pandas",
+      "dataframes"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>2D Tabular Anatomy: Rows (Axis 0) & Columns (Axis 1)</span><span class=\"tag-badge core\">Tabular Data</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: center; gap: 0.5rem;\">\n    <span class=\"flow-step\">[Index / Rows (Axis 0)]</span>\n    <span class=\"flow-arrow\">✕</span>\n    <span class=\"flow-step success\">[Columns / Series (Axis 1)]</span>\n  </div>\n</div>\n\n<h2>Series vs DataFrames</h2>\n<p>A <strong>Series</strong> is a 1D labeled array capable of holding any data type. A <strong>DataFrame</strong> is a 2D labeled tabular data structure composed of multiple Series aligned along a shared index.</p>\n\n<pre><code>import pandas as pd\n\n# Load & Inspect Dataset\ndf = pd.read_csv(\"data.csv\")\nprint(\"Top 5 Rows:\n\", df.head())\nprint(\"Statistical Summary:\n\", df.describe())\n\n# loc (label-based) vs iloc (integer position)\nsubset = df.loc[df[\"score\"] > 85, [\"name\", \"score\"]]\nfirst_cell = df.iloc[0, 1]\n\n# GroupBy Aggregation (Split-Apply-Combine)\ndept_salary = df.groupby(\"department\")[\"salary\"].mean()</code></pre>\n"
   },
-
-  // ── REGRESSION ────────────────────────────────────
-  'regression': {
-    title: 'Regression Analysis',
-    subtitle: 'Linear regression · feature engineering · model evaluation',
-    tags: ['data-science', 'ml', 'regression'],
-    body: `
-<h2>What is Regression?</h2>
-<p>Regression predicts a <strong>continuous numerical value</strong> from input features. It's <em>supervised learning</em> — we train on labeled data.</p>
-
-<h2>Linear Regression</h2>
-<pre>from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score
-import numpy as np
-
-# Prepare data
-X = df[["feature1", "feature2"]]
-y = df["target"]
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-
-# Train
-model = LinearRegression()
-model.fit(X_train, y_train)
-
-# Predict
-y_pred = model.predict(X_test)
-
-# Evaluate
-print(f"MSE: {mean_squared_error(y_test, y_pred):.4f}")
-print(f"R²:  {r2_score(y_test, y_pred):.4f}")</pre>
-
-<h2>Key Concepts</h2>
-<ul>
-  <li><strong>y = mx + b</strong> — linear equation (1 feature)</li>
-  <li><strong>Coefficients</strong> — <code>model.coef_</code></li>
-  <li><strong>Intercept</strong> — <code>model.intercept_</code></li>
-  <li><strong>R² score</strong> — 1.0 = perfect, 0 = no fit</li>
-  <li><strong>MSE</strong> — mean squared error (lower = better)</li>
-</ul>
-
-<h2>Data Preprocessing</h2>
-<pre>from sklearn.preprocessing import StandardScaler
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)</pre>
-`
+  "regression": {
+    "title": "Regression Analysis in Python (Machine Learning)",
+    "subtitle": "Supervised ML · Ordinary Least Squares · Train/Test Split · MSE & R²",
+    "tags": [
+      "science",
+      "ml",
+      "regression"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Supervised Machine Learning Regression Pipeline</span><span class=\"tag-badge core\">ML Pipeline</span></div>\n  <div class=\"workflow-diagram\">\n    <div class=\"flowchart-nodes\">\n      <div class=\"fc-node\">1. Data Ingestion & Cleaning</div>\n      <span class=\"flow-arrow\">➔</span>\n      <div class=\"fc-node\">2. Feature Scaling & Split</div>\n      <span class=\"flow-arrow\">➔</span>\n      <div class=\"fc-node active\">3. Model Fit (OLS: y = Xw)</div>\n      <span class=\"flow-arrow\">➔</span>\n      <div class=\"fc-node success\">4. Evaluate (R² & MSE)</div>\n    </div>\n  </div>\n</div>\n\n<h2>The Mathematical Foundation</h2>\n<p>Linear Regression models the relationship between dependent target variable $y$ and independent features $X$ by minimizing the Ordinary Least Squares (OLS) residual sum of squares: $\\min \\sum (y_i - \\hat{y}_i)^2$.</p>\n\n<pre><code>from sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.metrics import mean_squared_error, r2_score\n\n# 80/20 Train-Test Partitioning\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\n\n# Evaluation\npredictions = model.predict(X_test)\nprint(f\"R² Score: {r2_score(y_test, predictions):.3f}\")\nprint(f\"MSE Loss: {mean_squared_error(y_test, predictions):.3f}\")</code></pre>\n"
   },
-
-  // ── JUPYTER ───────────────────────────────────────
-  'jupyter': {
-    title: 'Jupyter Notebooks',
-    subtitle: 'Interactive computing · data exploration · visualization',
-    tags: ['data-science', 'jupyter'],
-    body: `
-<h2>Notebooks in this repo</h2>
-<ul>
-  <li><strong>Prac.ipynb</strong> — General Python + Data Exploration (DataFrames, CSV I/O, filtering)</li>
-  <li><strong>PracNp.ipynb</strong> — NumPy Deep Dive (Arrays, vectorization, broadcasting, linear algebra)</li>
-  <li><strong>PracPand.ipynb</strong> — Pandas Mastery (groupby, merge, pivot, data cleaning)</li>
-  <li><strong>Sept03_24.ipynb</strong> — In-Class Session (end-to-end data science examples)</li>
-</ul>
-
-<h2>Launching Jupyter</h2>
-<pre>pip install jupyter
-jupyter notebook    # opens browser at localhost:8888</pre>
-
-<h2>Useful Notebook Shortcuts</h2>
-<pre>Shift+Enter   — run cell, move to next
-Ctrl+Enter    — run cell, stay
-A             — insert cell above
-B             — insert cell below
-D+D           — delete cell
-M             — switch to Markdown
-Y             — switch to Code
-Tab           — autocomplete</pre>
-
-<h2>Matplotlib in Notebooks</h2>
-<pre>import matplotlib.pyplot as plt
-%matplotlib inline
-
-plt.figure(figsize=(10, 5))
-plt.plot(x, y, label="Data")
-plt.scatter(x, y, color="red")
-plt.title("Plot Title")
-plt.xlabel("X"); plt.ylabel("Y")
-plt.legend()
-plt.show()</pre>
-`
+  "jupyter": {
+    "title": "Jupyter Notebooks for Data Science",
+    "subtitle": "Interactive Computing · ZeroMQ REPL · Magic Commands · Exporting",
+    "tags": [
+      "science",
+      "notebooks",
+      "jupyter"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Jupyter Architecture: Web UI ➔ ZeroMQ ➔ IPython Kernel</span><span class=\"tag-badge core\">Kernel Architecture</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-around;\">\n    <span class=\"flow-step\">Browser UI (React/HTML)</span>\n    <span class=\"flow-arrow\">➔ WebSocket ➔</span>\n    <span class=\"flow-step warn\">Tornado Server</span>\n    <span class=\"flow-arrow\">➔ ZeroMQ ➔</span>\n    <span class=\"flow-step success\">IPython Kernel</span>\n  </div>\n</div>\n\n<h2>Essential Magic Commands</h2>\n<pre><code># Benchmark execution speed\n%timeit [x**2 for x in range(1000)]\n\n# Run shell commands\n!pip install numpy pandas\n\n# Interactive inline plots\n%matplotlib inline</code></pre>\n"
   },
-
-  // ── LEETCODE ──────────────────────────────────────
-  'leetcode': {
-    title: 'LeetCode Solutions',
-    subtitle: '7 solved problems — Linked Lists, Arrays, Pointers',
-    tags: ['competitive', 'leetcode'],
-    body: `
-<h2>Problem List</h2>
-<ul>
-  <li><strong>#19</strong> — Remove Nth Node From End of List 🟡 Medium — Two Pointers</li>
-  <li><strong>#83</strong> — Remove Duplicates from Sorted List 🟢 Easy — Linked Lists</li>
-  <li><strong>#206</strong> — Reverse Linked List 🟢 Easy — Linked Lists</li>
-  <li><strong>#344</strong> — Reverse String 🟢 Easy — Two Pointers</li>
-  <li><strong>#876</strong> — Middle of the Linked List 🟢 Easy — Fast & Slow Pointer</li>
-  <li><strong>#912</strong> — Sort an Array 🟡 Medium — Sorting (Merge Sort)</li>
-  <li><strong>#2095</strong> — Delete Middle Node of LL 🟡 Medium — Linked Lists</li>
-</ul>
-
-<h2>#206 — Reverse Linked List</h2>
-<pre>class Solution:
-    def reverseList(self, head):
-        prev, curr = None, head
-        while curr:
-            nxt = curr.next    # save next
-            curr.next = prev   # reverse link
-            prev = curr        # move prev forward
-            curr = nxt         # move curr forward
-        return prev</pre>
-
-<h2>#876 — Middle of Linked List (Fast & Slow Pointer)</h2>
-<pre>class Solution:
-    def middleNode(self, head):
-        slow = fast = head
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-        return slow  # slow is at middle</pre>
-
-<h2>#344 — Reverse String</h2>
-<pre>class Solution:
-    def reverseString(self, s):
-        l, r = 0, len(s) - 1
-        while l < r:
-            s[l], s[r] = s[r], s[l]
-            l += 1; r -= 1</pre>
-`
+  "leetcode": {
+    "title": "LeetCode Solutions & Algorithmic Patterns",
+    "subtitle": "Two Pointers · Fast & Slow · Dummy Head · 7 Solved Interview Problems",
+    "tags": [
+      "cp",
+      "leetcode",
+      "patterns"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Two-Pointer Technique: Fast & Slow Floyd's Cycle Detection</span><span class=\"tag-badge core\">LeetCode Patterns</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: center; gap: 0.5rem;\">\n    <span class=\"flow-step\">Slow (1 step/iter)</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step active\">Fast (2 steps/iter)</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step success\">Meets at Middle / Loop Detected!</span>\n  </div>\n</div>\n\n<h2>Repository LeetCode Solved Index</h2>\n<ul>\n  <li><strong>LC 19: Remove Nth Node From End</strong> — Two pointers with offset $n$.</li>\n  <li><strong>LC 83: Remove Duplicates from Sorted List</strong> — Single pass traversal.</li>\n  <li><strong>LC 206: Reverse Linked List</strong> — 3-pointer iterative reversal ($O(n)$ time, $O(1)$ space).</li>\n  <li><strong>LC 344: Reverse String</strong> — In-place two pointers from opposing ends.</li>\n  <li><strong>LC 876: Middle of the Linked List</strong> — Fast and slow runner technique.</li>\n  <li><strong>LC 912: Sort an Array</strong> — Divide and conquer sorting.</li>\n  <li><strong>LC 2095: Delete the Middle Node of a Linked List</strong> — Fast and slow runner with prev pointer.</li>\n</ul>\n"
   },
-
-  // ── HACKERRANK ────────────────────────────────────
-  'hackerrank': {
-    title: 'HackerRank Challenges',
-    subtitle: '13 solved challenges — if-else, lists, sets, strings',
-    tags: ['competitive', 'hackerrank'],
-    body: `
-<h2>Challenge List</h2>
-<ul>
-  <li>If-Else — Control flow logic</li>
-  <li>Lists — Built-in list methods</li>
-  <li>List Comprehensions — Nested comprehensions</li>
-  <li>Nested Lists — Finding second minimum grade</li>
-  <li>Tuples (Hash) — Hash of a tuple</li>
-  <li>Sets: .add() — Set operations</li>
-  <li>Sets: .remove() — Set mutation methods</li>
-  <li>Capitalize — String word capitalization</li>
-  <li>Swap Case — String case flipping</li>
-  <li>Split & Join — String manipulation</li>
-  <li>What's Your Name? — String formatting</li>
-  <li>Company Logo — Character frequency</li>
-  <li>Runner-Up Score — Second max in list</li>
-</ul>
-
-<h2>Nested Lists — Find Second Min Grade</h2>
-<pre>if __name__ == '__main__':
-    records = []
-    for _ in range(int(input())):
-        name = input()
-        score = float(input())
-        records.append([name, score])
-
-    scores = sorted(set([r[1] for r in records]))
-    second_lowest = scores[1]
-
-    result = sorted([r[0] for r in records if r[1] == second_lowest])
-    print('\n'.join(result))</pre>
-
-<h2>Company Logo — Top 3 Characters</h2>
-<pre>from collections import Counter
-s = input()
-counts = Counter(s)
-for char, freq in sorted(counts.items(), key=lambda x: (-x[1], x[0]))[:3]:
-    print(char, freq)</pre>
-`
+  "hackerrank": {
+    "title": "HackerRank Challenges: 13 Solved Solutions",
+    "subtitle": "Control Flow · Built-in Methods · Hash Tuples · String Frequencies",
+    "tags": [
+      "cp",
+      "hackerrank",
+      "solutions"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Competitive Programming Pipeline: I/O ➔ Transformation ➔ Stdout</span><span class=\"tag-badge core\">Competitive Coding</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-around;\">\n    <span class=\"flow-step\">1. Fast I/O (sys.stdin)</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step active\">2. Logic / Hash Lookup</span>\n    <span class=\"flow-arrow\">➔</span>\n    <span class=\"flow-step success\">3. Formatted Stdout</span>\n  </div>\n</div>\n\n<h2>Key Problem Patterns Solved in Repository</h2>\n<ul>\n  <li><strong>Runner-Up Score:</strong> Deduplicating with <code>set()</code> and picking <code>sorted()[-2]</code> in $O(n \\log n)$.</li>\n  <li><strong>Nested Lists:</strong> Sorting students with second-lowest grade alphabetically.</li>\n  <li><strong>Company Logo:</strong> <code>collections.Counter</code> sorting by frequency descending, then alphabetically ascending.</li>\n  <li><strong>Hash Tuples:</strong> Leveraging Python's built-in <code>hash()</code> function on immutable tuples.</li>\n</ul>\n"
   },
-
-  // ── LECTURE PDFS ──────────────────────────────────
-  'lecture-pdfs': {
-    title: 'Lecture PDFs (1–8)',
-    subtitle: 'Complete course lecture notes from Python basics to DS',
-    tags: ['pdf', 'lectures', 'notes'],
-    body: `
-<h2>Lecture Overview</h2>
-<ul>
-  <li><a href="../Python_Course/Lecture1_py.pdf" target="_blank">📄 Lecture 1 — Python Basics & Intro</a></li>
-  <li><a href="../Python_Course/Lecture2_py.pdf" target="_blank">📄 Lecture 2 — Strings & Conditional Statements</a></li>
-  <li><a href="../Python_Course/Lecture3_py.pdf" target="_blank">📄 Lecture 3 — Lists & Tuples</a></li>
-  <li><a href="../Python_Course/Lecture4_py.pdf" target="_blank">📄 Lecture 4 — Dictionaries & Sets</a></li>
-  <li><a href="../Python_Course/Lecture5_py.pdf" target="_blank">📄 Lecture 5 — Loops</a></li>
-  <li><a href="../Python_Course/Lecture6_py.pdf" target="_blank">📄 Lecture 6 — Functions & Recursion</a></li>
-  <li><a href="../Python_Course/Lecture7_py.pdf" target="_blank">📄 Lecture 7 — File I/O</a></li>
-  <li><a href="../Python_Course/Lecture8_py.pdf" target="_blank">📄 Lecture 8 — OOP in Python</a></li>
-</ul>
-
-<h2>OOPs Notes PDF</h2>
-<p>
-  <a href="../Python_Course/OOPs_Notes.md.pdf" target="_blank" class="btn primary" style="display:inline-flex;margin-top:.5rem;">
-    📄 Open Complete OOPs Notes
-  </a>
-</p>
-
-<h2>How to use</h2>
-<ul>
-  <li>Click any link above to open the PDF in your browser or PDF viewer</li>
-  <li>PDFs are located in the <code>Python_Course/</code> directory</li>
-  <li>These notes correspond to the YouTube video lectures</li>
-</ul>
-`
+  "lecture-pdfs": {
+    "title": "Course Lecture PDFs & Curated Video Roadmap",
+    "subtitle": "8 Course Lectures · OOP Handwritten Guide · Video Timestamps",
+    "tags": [
+      "pdf",
+      "curriculum",
+      "roadmap"
+    ],
+    "body": "\n<div class=\"card-diagram\">\n  <div class=\"diagram-title\"><span>Comprehensive Curriculum Roadmap: Lecture 1 Through Lecture 8</span><span class=\"tag-badge core\">Study Plan</span></div>\n  <div class=\"workflow-row\" style=\"justify-content: space-around; flex-wrap:wrap; gap:0.4rem;\">\n    <span class=\"flow-step\">L1: Basics</span>\n    <span class=\"flow-step\">L2: Strings</span>\n    <span class=\"flow-step\">L3: Lists/Tuples</span>\n    <span class=\"flow-step\">L4: Dicts/Sets</span>\n    <span class=\"flow-step\">L5: Loops</span>\n    <span class=\"flow-step\">L6: Functions</span>\n    <span class=\"flow-step\">L7: File I/O</span>\n    <span class=\"flow-step active\">L8: OOP Mastery</span>\n  </div>\n</div>\n\n<h2>Curriculum Structure</h2>\n<p>This repository coordinates 8 lecture modules guided by <strong>Mohit Sir</strong>, paired with video lectures and practice scripts.</p>\n"
   }
 };
+
+if (typeof window !== 'undefined') {
+  window.NOTE_CONTENT = NOTE_CONTENT;
+}
+if (typeof module !== 'undefined') {
+  module.exports = NOTE_CONTENT;
+}

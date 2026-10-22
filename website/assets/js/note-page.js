@@ -96,15 +96,54 @@
     }
   }
 
-  // Body
+  // Body — prioritize our comprehensive structured notes with diagrams and workflows
   let bodyHTML = content.body || '';
   if (meta && meta.doc && typeof CONTENT_LIBRARY !== 'undefined') {
     const libEntry = CONTENT_LIBRARY.find(d => d.path === meta.doc);
     if (libEntry && typeof marked !== 'undefined') {
-      bodyHTML = marked.parse(libEntry.content);
+      bodyHTML += `
+        <div class="workflow-diagram" style="margin-top: 3rem;">
+          <details class="full-doc-accordion">
+            <summary style="font-weight: 700; cursor: pointer; color: var(--blue); padding: 0.5rem 0; font-size: 0.95rem;">
+              📖 Expand Full Repository Documentation (${meta.doc.split('/').pop()})
+            </summary>
+            <div style="margin-top: 1.25rem; border-top: 1px solid var(--line); padding-top: 1.25rem;">
+              ${marked.parse(libEntry.content)}
+            </div>
+          </details>
+        </div>
+      `;
     }
   }
   main.innerHTML = bodyHTML;
+
+  // Add 1-click Copy buttons to all code blocks
+  main.querySelectorAll('pre').forEach(pre => {
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.style.position = 'absolute';
+    copyBtn.style.top = '8px';
+    copyBtn.style.right = '8px';
+    copyBtn.textContent = 'Copy';
+    pre.style.position = 'relative';
+
+    copyBtn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const code = pre.querySelector('code') || pre;
+      try {
+        await navigator.clipboard.writeText(code.textContent);
+        copyBtn.textContent = 'Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+          copyBtn.classList.remove('copied');
+        }, 1800);
+      } catch (err) {
+        console.error('Failed to copy', err);
+      }
+    });
+    pre.appendChild(copyBtn);
+  });
 
   // On-page navigation
   const pageNav = document.getElementById('onPageNav');
