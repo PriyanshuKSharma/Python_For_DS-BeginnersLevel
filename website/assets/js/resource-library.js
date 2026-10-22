@@ -65,6 +65,27 @@ function renderFileLibrary(id, countId, files) {
 renderFileLibrary('docLibrary', 'docCount', DOCUMENTATION_FILES);
 renderFileLibrary('pyLibrary', 'pyCount', PYTHON_FILES);
 
+// Robust document finder across CONTENT_LIBRARY
+function findLibraryDoc(rawPath) {
+  if (typeof CONTENT_LIBRARY === 'undefined' || !Array.isArray(CONTENT_LIBRARY)) return null;
+  const cleanPath = rawPath.replace(/^\.\.\//, '').replace(/^\.\//, '').replace(/\\/g, '/');
+  
+  // 1. Direct path match
+  let doc = CONTENT_LIBRARY.find(d => d.path === cleanPath || d.path === rawPath);
+  if (doc) return doc;
+
+  // 2. Case-insensitive path match
+  doc = CONTENT_LIBRARY.find(d => d.path.toLowerCase() === cleanPath.toLowerCase());
+  if (doc) return doc;
+
+  // 3. Basename filename match
+  const basename = cleanPath.split('/').pop().toLowerCase();
+  doc = CONTENT_LIBRARY.find(d => d.path.toLowerCase().endsWith(basename));
+  if (doc) return doc;
+
+  return null;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const terminalOverlay = document.getElementById('codeTerminalModal');
   const terminalContent = document.getElementById('terminalCodeContent');
@@ -74,34 +95,79 @@ document.addEventListener('DOMContentLoaded', () => {
   const docOverlay = document.getElementById('docModalOverlay');
   const docContent = document.getElementById('docModalContent');
   const closeDocBtn = document.getElementById('closeDocBtn');
+  const docTitle = document.getElementById('docModalTitle');
+  const docLibraryLink = document.getElementById('docModalLibraryLink');
+
+  function openMarkdownModal(title, content, docId) {
+    if (!docOverlay || !docContent) return;
+    
+    if (docTitle) docTitle.textContent = title;
+    if (docLibraryLink) {
+      docLibraryLink.href = docId ? `library.html#${docId}` : 'library.html';
+    }
+
+    if (typeof marked !== 'undefined') {
+      docContent.innerHTML = marked.parse(content);
+    } else {
+      docContent.innerHTML = `<pre>${content.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[c])}</pre>`;
+    }
+
+    docOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function openPythonModal(filename, code) {
+    if (!terminalOverlay || !terminalContent) return;
+    if (terminalTitle) terminalTitle.textContent = `bash — python3 ${filename}`;
+    terminalContent.textContent = code;
+    terminalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
 
   document.querySelectorAll('.resource-file-link').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      const path = link.getAttribute('data-path');
-      const isPy = path.endsWith('.py');
-      const isMd = path.endsWith('.md');
-      const libEntry = typeof CONTENT_LIBRARY !== 'undefined' ? CONTENT_LIBRARY.find(d => d.path === path) : null;
-      
+      const path = link.getAttribute('data-path') || link.getAttribute('href') || '';
+      const isPy = path.toLowerCase().endsWith('.py');
+      const isMd = path.toLowerCase().endsWith('.md');
+      const filename = path.split('/').pop();
+
+      const libEntry = findLibraryDoc(path);
+
       if (libEntry) {
-        if (isMd && docOverlay && docContent && typeof marked !== 'undefined') {
-          docContent.innerHTML = marked.parse(libEntry.content);
-          docOverlay.classList.add('active');
-          document.body.style.overflow = 'hidden';
-        } else if (isPy && terminalOverlay && terminalContent) {
-          if (terminalTitle) terminalTitle.textContent = `bash — python3 ${path.split('/').pop()}`;
-          terminalContent.textContent = libEntry.content;
-          terminalOverlay.classList.add('active');
-          document.body.style.overflow = 'hidden';
+        if (isMd) {
+          openMarkdownModal(libEntry.title, libEntry.content, libEntry.id);
+        } else if (isPy) {
+          openPythonModal(filename, libEntry.content);
         } else {
           window.open(link.href, '_blank');
         }
       } else {
-        window.open(link.href, '_blank');
+        // Fallback: If not in pre-baked CONTENT_LIBRARY, dynamically fetch the markdown or python file!
+        if (isMd || isPy) {
+          fetch(link.href)
+            .then(res => {
+              if (!res.ok) throw new Error(`HTTP ${res.status}`);
+              return res.text();
+            })
+            .then(text => {
+              if (isMd) {
+                openMarkdownModal(filename.replace(/\.md$/i, '').replace(/_/g, ' '), text, null);
+              } else {
+                openPythonModal(filename, text);
+              }
+            })
+            .catch(() => {
+              window.open(link.href, '_blank');
+            });
+        } else {
+          window.open(link.href, '_blank');
+        }
       }
     });
   });
 
+  // Close modals handlers
   if (closeTerminalBtn) {
     closeTerminalBtn.onclick = () => {
       terminalOverlay.classList.remove('active');
@@ -133,4 +199,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
   }
+
+  // Keyboard Escape listener
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (docOverlay && docOverlay.classList.contains('active')) {
+        docOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      if (terminalOverlay && terminalOverlay.classList.contains('active')) {
+        terminalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+  });
 });
